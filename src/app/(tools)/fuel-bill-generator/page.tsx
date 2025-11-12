@@ -21,6 +21,8 @@ export default function FuelBillPage() {
   
   // State
   const [formData, setFormData] = useState({
+    mode: 'real' as 'basic' | 'real',           // Default to Real
+    provider: 'iocl' as 'iocl' | 'bpcl' | 'hp' | 'shell' | 'generic', // Default to IOCL
     stationName: 'INDIAN OIL DEALER',
     address: 'S.V. Road, Andheri West, Mumbai - 400058',
     fuelType: 'Petrol',
@@ -61,6 +63,50 @@ export default function FuelBillPage() {
         
         {/* LEFT COLUMN: INPUT FORM */}
         <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm space-y-6">
+          {/* --- NEW: TEMPLATE SELECTOR --- */}
+          <div className="bg-blue-50 p-4 rounded-lg border border-blue-100">
+             <label className="block text-sm font-bold text-blue-900 mb-3">1. Select Receipt Style</label>
+             
+             {/* Mode Toggle */}
+             <div className="flex p-1 bg-white rounded-lg border border-blue-200 mb-4">
+                <button 
+                  onClick={() => setFormData(p => ({...p, mode: 'real'}))}
+                  className={`flex-1 py-2 text-sm font-medium rounded-md transition-all ${formData.mode === 'real' ? 'bg-blue-600 text-white shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}
+                >
+                  Real (Logos)
+                </button>
+                <button 
+                  onClick={() => setFormData(p => ({...p, mode: 'basic'}))}
+                  className={`flex-1 py-2 text-sm font-medium rounded-md transition-all ${formData.mode === 'basic' ? 'bg-blue-600 text-white shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}
+                >
+                  Basic (Simple)
+                </button>
+             </div>
+
+             {/* Provider Logos (Only show if Real mode is on) */}
+             {formData.mode === 'real' && (
+               <div className="grid grid-cols-4 gap-2">
+                  {[
+                    { id: 'iocl', label: 'Indian Oil', color: 'border-orange-500' },
+                    { id: 'bpcl', label: 'Bharat Pet', color: 'border-yellow-500' },
+                    { id: 'hp', label: 'HP', color: 'border-blue-500' },
+                    { id: 'shell', label: 'Shell', color: 'border-red-500' }
+                  ].map((brand) => (
+                    <button
+                      key={brand.id}
+                      onClick={() => setFormData(p => ({...p, provider: brand.id as any}))}
+                      className={`py-2 px-1 border-2 rounded-lg text-xs font-bold transition-all ${
+                        formData.provider === brand.id 
+                          ? `${brand.color} bg-white shadow-md transform scale-105` 
+                          : 'border-transparent bg-blue-100/50 text-gray-600 hover:bg-white'
+                      }`}
+                    >
+                      {brand.label}
+                    </button>
+                  ))}
+               </div>
+             )}
+          </div>
           <h2 className="text-lg font-semibold text-gray-800 border-b pb-2">Bill Details</h2>
           
           {/* Killer Feature: Quick City Selector */}

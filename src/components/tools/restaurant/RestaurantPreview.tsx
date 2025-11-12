@@ -17,115 +17,129 @@ interface RestaurantPreviewProps {
     orderId: string;
     items: OrderItem[];
     gstEnabled: boolean;
-    serviceCharge: number; // in percent
+    serviceCharge: number;
   };
 }
 
 export const RestaurantPreview = forwardRef<HTMLDivElement, RestaurantPreviewProps>(({ data }, ref) => {
-  // Calculations
-  const subtotal = data.items.reduce((sum, item) => sum + (item.price * item.qty), 0);
-  const gstAmount = data.gstEnabled ? subtotal * 0.05 : 0; // 5% GST
-  const serviceAmount = (subtotal * (data.serviceCharge / 100));
+  const subtotal = data.items.reduce((sum, item) => sum + item.price * item.qty, 0);
+  const gstAmount = data.gstEnabled ? subtotal * 0.05 : 0;
+  const serviceAmount = subtotal * (data.serviceCharge / 100);
   const total = subtotal + gstAmount + serviceAmount;
 
   return (
-    <div className="w-full flex justify-center bg-gray-200/50 p-8">
-      <div 
+    <div className="w-full flex justify-center bg-gray-100 p-8">
+      <div
         ref={ref}
-        className="bg-white shadow-xl text-xs text-gray-800"
-        style={{ 
-          width: '360px', // Wider than fuel bill
-          minHeight: 'auto',
-          fontFamily: '"Roboto Mono", monospace' 
+        className="bg-white shadow-md text-gray-800"
+        style={{
+          width: '320px',
+          fontFamily: '"Courier New", monospace',
+          fontSize: '12px',
+          color: '#111',
         }}
       >
-        <div className="p-6">
-          
-          {/* HEADER */}
-          <div className="text-center mb-6">
-            <div className="flex justify-center mb-3">
-               <div className="border-2 border-gray-800 rounded-full p-2">
-                 <UtensilsCrossed className="w-6 h-6 text-gray-800" />
-               </div>
+        <div className="p-5">
+          {/* ===== Header ===== */}
+          <div className="text-center mb-4">
+            <div className="flex justify-center mb-2">
+              <div className="border border-black rounded-full p-2">
+                <UtensilsCrossed className="w-5 h-5 text-black" />
+              </div>
             </div>
-            <h1 className="text-xl font-bold uppercase tracking-wide mb-2">{data.restaurantName || "THE SPICE GARDEN"}</h1>
-            <p className="text-gray-500 px-4 leading-relaxed">{data.address || "12, Park Street, Bangalore - 560001"}</p>
-            {data.gstEnabled && <p className="text-[10px] mt-1">GSTIN: 29AABCU9603R1ZM</p>}
+            <h1 className="font-extrabold uppercase tracking-wide text-[14px]">
+              {data.restaurantName || 'Empire Restaurant'}
+            </h1>
+            <p className="text-[11px] leading-snug mt-1">
+              {data.address || 'Church Street, Bangalore - 560001'}
+            </p>
+            <p className="text-[11px]">Ph: 080-22334455 | FSSAI: 11223344556677</p>
+            {data.gstEnabled && <p className="text-[11px]">GSTIN: 29AABCE9988M1ZB</p>}
           </div>
 
-          {/* METADATA */}
-          <div className="flex justify-between border-b border-dashed border-gray-300 pb-3 mb-3 text-[11px]">
-            <div className="text-left">
-                <p>Date: {data.date}</p>
-                <p>Order #: {data.orderId}</p>
-            </div>
-            <div className="text-right">
-                <p>Time: {data.time}</p>
-                <p>Table: 4</p>
-            </div>
-          </div>
-
-          {/* ITEMS TABLE */}
-          <div className="mb-4">
-            <div className="flex font-bold border-b-2 border-gray-800 pb-2 mb-2">
-                <span className="w-1/2">ITEM</span>
-                <span className="w-1/6 text-center">QTY</span>
-                <span className="w-1/3 text-right">AMT</span>
-            </div>
-            <div className="space-y-2">
-                {data.items.map((item) => (
-                    <div key={item.id} className="flex">
-                        <span className="w-1/2 truncate pr-2">{item.name}</span>
-                        <span className="w-1/6 text-center">{item.qty}</span>
-                        <span className="w-1/3 text-right font-medium">{(item.price * item.qty).toFixed(2)}</span>
-                    </div>
-                ))}
-            </div>
-          </div>
-
-          {/* TOTALS */}
-          <div className="border-t border-dashed border-gray-300 pt-3 space-y-1">
+          {/* ===== Metadata ===== */}
+          <div className="text-[11px] mb-2 border-t border-b border-dashed border-gray-400 py-1">
             <div className="flex justify-between">
-                <span>Subtotal</span>
-                <span>{subtotal.toFixed(2)}</span>
+              <span>BILL NO: {data.orderId || 'BIL23871'}</span>
+              <span>{data.date || '12/11/2025'}</span>
             </div>
-            
+            <div className="flex justify-between">
+              <span>TIME: {data.time || '09:45 PM'}</span>
+              <span>DINE IN</span>
+            </div>
+          </div>
+
+          {/* ===== Items ===== */}
+          <div className="mb-3">
+            <div className="flex justify-between border-b border-gray-400 border-dashed pb-1 font-bold">
+              <span className="w-1/2">ITEM</span>
+              <span className="w-1/6 text-center">QTY</span>
+              <span className="w-1/3 text-right">AMOUNT</span>
+            </div>
+
+            {data.items.map((item) => (
+              <div key={item.id} className="flex justify-between py-[2px]">
+                <span className="w-1/2 truncate">{item.name}</span>
+                <span className="w-1/6 text-center">{item.qty}</span>
+                <span className="w-1/3 text-right">{(item.price * item.qty).toFixed(2)}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* ===== Totals ===== */}
+          <div className="border-t border-dashed border-gray-400 pt-2 space-y-[2px]">
+            <div className="flex justify-between">
+              <span>Subtotal</span>
+              <span>{subtotal.toFixed(2)}</span>
+            </div>
             {data.gstEnabled && (
-                <>
-                  <div className="flex justify-between text-gray-500 text-[10px]">
-                      <span>CGST (2.5%)</span>
-                      <span>{(gstAmount / 2).toFixed(2)}</span>
-                  </div>
-                  <div className="flex justify-between text-gray-500 text-[10px]">
-                      <span>SGST (2.5%)</span>
-                      <span>{(gstAmount / 2).toFixed(2)}</span>
-                  </div>
-                </>
-            )}
-
-            {data.serviceCharge > 0 && (
-                 <div className="flex justify-between text-gray-500 text-[10px]">
-                    <span>Svc Chg ({data.serviceCharge}%)</span>
-                    <span>{serviceAmount.toFixed(2)}</span>
+              <>
+                <div className="flex justify-between">
+                  <span>CGST (2.5%)</span>
+                  <span>{(gstAmount / 2).toFixed(2)}</span>
                 </div>
+                <div className="flex justify-between">
+                  <span>SGST (2.5%)</span>
+                  <span>{(gstAmount / 2).toFixed(2)}</span>
+                </div>
+              </>
             )}
-
-            <div className="flex justify-between font-bold text-lg border-t-2 border-gray-800 pt-2 mt-2">
-                <span>GRAND TOTAL</span>
-                <span>₹ {total.toFixed(2)}</span>
+            {data.serviceCharge > 0 && (
+              <div className="flex justify-between">
+                <span>Service Chg ({data.serviceCharge}%)</span>
+                <span>{serviceAmount.toFixed(2)}</span>
+              </div>
+            )}
+            <div className="flex justify-between font-extrabold border-t border-b border-dashed border-gray-500 py-2 mt-1">
+              <span>GRAND TOTAL</span>
+              <span>₹ {total.toFixed(2)}</span>
             </div>
           </div>
 
-          {/* FOOTER */}
-          <div className="text-center mt-8 space-y-1 text-[10px] text-gray-500">
-            <p>Thank you for dining with us!</p>
-            <p>This is a computer generated receipt.</p>
+          {/* ===== Footer ===== */}
+          <div className="mt-4 space-y-1 text-center text-[11px]">
+            <p>Thank You! Visit Again</p>
           </div>
 
+          {/* ===== Signature Block ===== */}
+          <div className="mt-4 text-[10px] text-gray-500">
+            <div className="flex justify-between">
+              <span>Cashier: Ramesh</span>
+              <span>Server: Ankit</span>
+            </div>
+
+          </div>
         </div>
-        
-        {/* Cut Pattern */}
-        <div className="h-2 w-full bg-[url('https://raw.githubusercontent.com/gijsroge/zigzag/master/zigzag.svg')] opacity-50"></div>
+
+        {/* ===== Zig-Zag Cut Pattern ===== */}
+        <div
+          className="w-full h-[10px]"
+          style={{
+            backgroundImage:
+              'repeating-linear-gradient(135deg, #fff 0 8px, transparent 8px 16px)',
+            backgroundColor: '#9ca3af',
+          }}
+        />
       </div>
     </div>
   );

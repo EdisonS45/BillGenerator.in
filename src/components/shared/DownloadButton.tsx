@@ -6,7 +6,7 @@ import { toPng, toJpeg } from 'html-to-image';
 import jsPDF from 'jspdf';
 
 interface DownloadButtonProps {
-  billRef: RefObject<HTMLDivElement>;
+  billRef: RefObject<HTMLDivElement | null>;
   fileName: string;
 }
 
