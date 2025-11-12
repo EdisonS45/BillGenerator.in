@@ -1,0 +1,148 @@
+'use client';
+
+import { useState, useRef, useEffect } from 'react';
+import { TaxiPreview } from '@/components/tools/taxi/TaxiPreview';
+import { BillInput } from '@/components/shared/BillInput';
+import { DownloadButton } from '@/components/shared/DownloadButton';
+import { MapPin, User, Car, Navigation, Clock } from 'lucide-react';
+
+export default function TaxiBillPage() {
+  const billRef = useRef<HTMLDivElement>(null);
+  
+  // 1. Static Defaults
+  const [formData, setFormData] = useState({
+    platform: 'Uber' as 'Uber' | 'Ola' | 'Generic',
+    pickup: 'Terminal 2, Mumbai International Airport',
+    drop: 'Trident Hotel, Bandra Kurla Complex',
+    date: '2024-02-01',
+    time: '14:30',
+    distance: 12.5,
+    duration: 45,
+    amount: 340,
+    driverName: 'Vikram Singh',
+    carModel: 'Maruti Swift Dzire',
+    carNumber: 'MH 02 DN 4829',
+  });
+
+  // 2. Client-side Updates
+  useEffect(() => {
+    setFormData(prev => ({
+      ...prev,
+      date: new Date().toISOString().slice(0, 10),
+    }));
+  }, []);
+
+  // 3. Smart Fare Calculator
+  // When user changes distance, we estimate the price
+  const handleDistanceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const dist = Number(e.target.value);
+    // Formula: Base 50 + (dist * 18) + Random variance
+    const estimatedPrice = 50 + (dist * 18); 
+    
+    setFormData(prev => ({
+      ...prev,
+      distance: dist,
+      amount: Math.round(estimatedPrice)
+    }));
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  return (
+    <div className="space-y-8">
+      <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+        <h1 className="text-3xl font-bold text-gray-900">Taxi Receipt Generator</h1>
+        <p className="text-gray-600 mt-2">Generate realistic Uber/Ola style cab receipts for local travel reimbursement.</p>
+      </div>
+
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+        
+        {/* INPUT FORM */}
+        <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm space-y-6">
+           
+           {/* Platform Selector */}
+           <div>
+             <label className="block text-sm font-medium text-gray-700 mb-2">Platform Style</label>
+             <div className="flex space-x-4">
+               {['Uber', 'Ola', 'Generic'].map((p) => (
+                 <label key={p} className="flex items-center space-x-2 cursor-pointer">
+                    <input 
+                      type="radio" 
+                      name="platform" 
+                      value={p}
+                      checked={formData.platform === p}
+                      onChange={() => setFormData({...formData, platform: p as any})}
+                      className="text-blue-600 focus:ring-blue-500"
+                    />
+                    <span className="text-sm font-medium text-gray-900">{p}</span>
+                 </label>
+               ))}
+             </div>
+           </div>
+
+           <div className="grid grid-cols-1 gap-4">
+             <BillInput label="Pickup Location" name="pickup" value={formData.pickup} onChange={handleChange} Icon={MapPin} />
+             <BillInput label="Drop Location" name="drop" value={formData.drop} onChange={handleChange} Icon={MapPin} />
+           </div>
+
+           {/* Smart Distance Input */}
+           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+             <div className="relative">
+                <BillInput 
+                    label="Distance (km)" 
+                    name="distance" 
+                    type="number" 
+                    value={formData.distance} 
+                    onChange={handleDistanceChange} 
+                    Icon={Navigation} 
+                />
+                <p className="text-[10px] text-blue-600 mt-1 absolute right-0 top-0">Auto-calculates Price</p>
+             </div>
+             <BillInput label="Total Fare (₹)" name="amount" type="number" value={formData.amount} onChange={handleChange} />
+           </div>
+
+           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+             <BillInput label="Date" name="date" type="date" value={formData.date} onChange={handleChange} />
+             <BillInput label="Time" name="time" type="time" value={formData.time} onChange={handleChange} />
+           </div>
+
+           <div className="border-t border-gray-100 pt-4">
+             <h3 className="text-sm font-semibold text-gray-900 mb-3">Driver Details</h3>
+             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+               <BillInput label="Driver Name" name="driverName" value={formData.driverName} onChange={handleChange} Icon={User} />
+               <BillInput label="Car Model" name="carModel" value={formData.carModel} onChange={handleChange} Icon={Car} />
+             </div>
+           </div>
+        </div>
+
+        {/* PREVIEW AREA */}
+        <div className="space-y-6">
+           <div className="bg-gray-800 p-4 rounded-t-xl flex items-center justify-between">
+              <span className="text-white font-medium">Live Preview</span>
+              <span className="text-xs text-gray-400 bg-gray-700 px-2 py-1 rounded">App Screenshot</span>
+           </div>
+           
+           <div className="border-x border-b border-gray-200 bg-gray-50 p-4 rounded-b-xl overflow-hidden flex justify-center">
+              <TaxiPreview ref={billRef} data={formData} />
+           </div>
+
+           <DownloadButton billRef={billRef} fileName={`Taxi_Receipt_${formData.date}.pdf`} />
+        </div>
+
+      </div>
+      
+      {/* SEO CONTENT */}
+      <article className="prose prose-blue max-w-none bg-white p-8 rounded-xl border border-gray-200">
+        <h2>Generate Cab Receipts for Uber & Ola</h2>
+        <p>Lost your digital invoice? Use this tool to generate a realistic cab receipt for your local travel claims.</p>
+        <h3>How it works:</h3>
+        <ul>
+            <li>**Smart Fare Calculator:** Enter the distance in KM, and the tool automatically estimates a realistic fare based on current city taxi rates.</li>
+            <li>**Route Visualizer:** Includes a generated route map to make the receipt look authentic.</li>
+        </ul>
+      </article>
+    </div>
+  );
+}
