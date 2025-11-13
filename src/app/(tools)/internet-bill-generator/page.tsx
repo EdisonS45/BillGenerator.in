@@ -14,14 +14,42 @@ import {
   ZoomOut,
   RotateCcw,
   ChevronLeft,
-  Menu,
+  Hand,
+  IndianRupee,
 } from "lucide-react";
 import Link from "next/link";
 
 export default function InternetBillPage() {
   const billRef = useRef<HTMLDivElement>(null);
+
   const [zoom, setZoom] = useState(0.65);
 
+  // 🟢 NEW — Hand Tool + Drag Position
+  const [handMode, setHandMode] = useState(true);
+  const [isDragging, setIsDragging] = useState(false);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const dragStart = useRef({ x: 0, y: 0 });
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!handMode) return;
+    setIsDragging(true);
+    dragStart.current = {
+      x: e.clientX - position.x,
+      y: e.clientY - position.y,
+    };
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!handMode || !isDragging) return;
+    setPosition({
+      x: e.clientX - dragStart.current.x,
+      y: e.clientY - dragStart.current.y,
+    });
+  };
+
+  const handleMouseUp = () => setIsDragging(false);
+
+  // 🔵 BILL DATA
   const [formData, setFormData] = useState({
     isp: "jio",
     customerName: "Priya Sharma",
@@ -45,38 +73,26 @@ export default function InternetBillPage() {
   };
 
   return (
-    // responsive-container: flex-col on mobile, flex-row on desktop
     <div className="space-y-8">
-      {/* ✅ HEADER ADDED (same style as Restaurant/Fuel/Medical) */}
+      {/* GLOBAL HEADER */}
       <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
         <h1 className="text-3xl font-bold text-gray-900">
           Internet & Broadband Bill Generator
         </h1>
         <p className="text-gray-600 mt-2">
-          Generate professional monthly internet invoices for reimbursement
-          (Jio, Airtel, ACT, BSNL).
+          Generate professional monthly internet invoices for reimbursement (Jio,
+          Airtel, ACT, BSNL).
         </p>
       </div>
-      <div className="flex flex-col lg:flex-row min-h-[calc(100vh-64px)] bg-[#F3F4F6] font-sans">
-        {/* --- 1. EDITOR PANEL (Top on Mobile, Left on Desktop) --- */}
-        <div className="w-full lg:w-[400px] flex-shrink-0 bg-white border-r border-gray-200 flex flex-col z-20 shadow-sm lg:shadow-[4px_0_24px_rgba(0,0,0,0.02)] lg:h-[calc(100vh-64px)]">
-          {/* Header */}
-          <div className="px-4 py-3 lg:px-6 lg:py-4 border-b border-gray-100 flex items-center justify-between bg-white sticky top-0 z-10">
-            <div className="flex items-center gap-2 text-gray-500 hover:text-blue-600 transition-colors cursor-pointer">
-              <Link href="/" title="Back">
-                <ChevronLeft className="w-5 h-5" />
-              </Link>
-              <h1 className="text-sm font-bold text-gray-900 uppercase tracking-wider">
-                Internet Bill
-              </h1>
-            </div>
-            <div className="text-[10px] font-bold bg-blue-50 text-blue-600 px-2 py-1 rounded">
-              EDITOR
-            </div>
-          </div>
 
-          {/* Scrollable Inputs */}
-          {/* Mobile: Auto height. Desktop: Flex-1 overflow-y-auto */}
+      {/* MAIN LAYOUT */}
+      <div className="flex flex-col lg:flex-row min-h-[calc(100vh-64px)] bg-[#F3F4F6] font-sans">
+        {/* LEFT PANEL — EDITOR */}
+        <div className="w-full lg:w-[400px] flex-shrink-0 bg-white border-r border-gray-200 flex flex-col z-20 shadow-sm lg:shadow-[4px_0_24px_rgba(0,0,0,0.02)] lg:h-[calc(100vh-64px)]">
+          {/* Sidebar Header */}
+         
+
+          {/* Inputs */}
           <div className="lg:flex-1 lg:overflow-y-auto p-4 lg:p-6 space-y-6 custom-scrollbar">
             {/* ISP Selector */}
             <div>
@@ -102,7 +118,7 @@ export default function InternetBillPage() {
 
             <div className="h-px bg-gray-100"></div>
 
-            {/* Inputs */}
+            {/* BILL INPUTS */}
             <div className="space-y-4">
               <BillInput
                 label="Customer Name"
@@ -111,6 +127,7 @@ export default function InternetBillPage() {
                 onChange={handleChange}
                 Icon={User}
               />
+
               <div className="grid grid-cols-2 gap-3">
                 <BillInput
                   label="Customer ID"
@@ -119,6 +136,7 @@ export default function InternetBillPage() {
                   onChange={handleChange}
                   Icon={Hash}
                 />
+
                 <BillInput
                   label="Invoice No"
                   name="billNo"
@@ -126,6 +144,7 @@ export default function InternetBillPage() {
                   onChange={handleChange}
                 />
               </div>
+
               <BillInput
                 label="Plan Name"
                 name="planName"
@@ -133,6 +152,7 @@ export default function InternetBillPage() {
                 onChange={handleChange}
                 Icon={Globe}
               />
+
               <div className="grid grid-cols-2 gap-3">
                 <BillInput
                   label="Amount (₹)"
@@ -140,7 +160,7 @@ export default function InternetBillPage() {
                   type="number"
                   value={formData.amount}
                   onChange={handleChange}
-                  Icon={DollarSign}
+                  Icon={IndianRupee}
                 />
                 <BillInput
                   label="Bill Date"
@@ -151,6 +171,7 @@ export default function InternetBillPage() {
                   Icon={Calendar}
                 />
               </div>
+
               <div>
                 <label className="block text-xs font-bold text-gray-500 mb-1 uppercase">
                   Address
@@ -166,8 +187,8 @@ export default function InternetBillPage() {
             </div>
           </div>
 
-          {/* Action Buttons (Sticky Bottom on Mobile, Fixed Bottom on Desktop Sidebar) */}
-          <div className="p-4 border-t border-gray-200 bg-gray-50 sticky bottom-0 lg:relative z-10">
+          {/* Download Button */}
+          <div className="p-4 border-t border-gray-200 bg-gray-50 sticky bottom-0 ">
             <p className="text-[10px] font-bold text-gray-400 uppercase mb-3 hidden lg:block">
               Export Options
             </p>
@@ -178,9 +199,9 @@ export default function InternetBillPage() {
           </div>
         </div>
 
-        {/* --- 2. PREVIEW PANEL (Bottom on Mobile, Right on Desktop) --- */}
+        {/* RIGHT — PREVIEW */}
         <div className="flex-1 relative bg-[#E5E7EB] flex flex-col lg:h-[calc(100vh-64px)] overflow-hidden border-t lg:border-t-0 border-gray-300">
-          {/* Background Pattern */}
+          {/* Dotted Background */}
           <div
             className="absolute inset-0 opacity-[0.4]"
             style={{
@@ -189,7 +210,7 @@ export default function InternetBillPage() {
             }}
           ></div>
 
-          {/* Badge */}
+          {/* Live Preview Badge */}
           <div className="absolute top-4 lg:top-6 left-1/2 -translate-x-1/2 z-20 bg-white/80 backdrop-blur shadow-sm border border-gray-200 rounded-full px-3 py-1 flex items-center gap-2">
             <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
             <span className="text-[10px] lg:text-xs font-bold text-gray-700">
@@ -197,41 +218,77 @@ export default function InternetBillPage() {
             </span>
           </div>
 
-          {/* Canvas Area */}
-          <div className="flex-1 overflow-auto flex items-start lg:items-center justify-center p-8 lg:p-12 relative z-10 custom-scrollbar">
+          {/* MAIN PREVIEW — DRAG + ZOOM ENABLED */}
+          <div
+            className="flex-1 overflow-auto flex items-start lg:items-center justify-center p-8 lg:p-12 relative z-10 custom-scrollbar"
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseUp}
+            style={{
+              cursor: handMode
+                ? isDragging
+                  ? "grabbing"
+                  : "grab"
+                : "default",
+            }}
+          >
             <div
-              className="transition-transform duration-200 ease-out origin-top lg:origin-center shadow-2xl"
-              style={{ transform: `scale(${zoom})` }}
+              onMouseDown={handleMouseDown}
+              className="transition-transform duration-200 ease-out origin-top lg:origin-center shadow-2xl select-none"
+              style={{
+                transform: `translate(${position.x}px, ${position.y}px) scale(${zoom})`,
+              }}
             >
               <InternetPreview ref={billRef} data={formData} />
             </div>
           </div>
 
-          {/* Zoom Controls (Floating) */}
+          {/* FLOATING ZOOM + HAND TOOL */}
           <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30">
             <div className="flex items-center gap-2 bg-gray-900 text-white px-3 py-2 rounded-full shadow-xl border border-white/10">
+
+              {/* Zoom Out */}
               <button
                 onClick={() => setZoom(Math.max(0.3, zoom - 0.1))}
                 className="p-1.5 hover:bg-white/20 rounded-full"
               >
                 <ZoomOut className="w-4 h-4" />
               </button>
+
               <span className="text-xs font-mono min-w-[3rem] text-center">
                 {Math.round(zoom * 100)}%
               </span>
+
+              {/* Zoom In */}
               <button
                 onClick={() => setZoom(Math.min(1.5, zoom + 0.1))}
                 className="p-1.5 hover:bg-white/20 rounded-full"
               >
                 <ZoomIn className="w-4 h-4" />
               </button>
+
               <div className="w-px h-4 bg-white/20 mx-1"></div>
+
+              {/* RESET */}
               <button
-                onClick={() => setZoom(0.75)}
+                onClick={() => {
+                  setZoom(0.75);
+                  setPosition({ x: 0, y: 0 });
+                }}
                 className="p-1.5 hover:bg-white/20 rounded-full"
-                title="Reset"
               >
                 <RotateCcw className="w-3 h-3" />
+              </button>
+
+              {/* 🟢 HAND TOOL TOGGLE */}
+              <button
+                onClick={() => setHandMode(!handMode)}
+                className={`p-1.5 rounded-full transition ${
+                  handMode ? "bg-white/30" : "opacity-40"
+                }`}
+                title="Toggle Hand Tool"
+              >
+                <Hand className="w-4 h-4" />
               </button>
             </div>
           </div>

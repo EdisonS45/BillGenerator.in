@@ -44,16 +44,37 @@ export const TOOLS_CATEGORIES = [
       },
     ],
   },
-  {
-    title: "Food & Dining",
+    {
+    title: "Tax & Business", // NEW CATEGORY
     tools: [
       {
-        title: "Restaurant Bill Maker",
-        description: "Make authentic food bills with GST and Order IDs.",
-        href: "/restaurant-bill-generator",
-        icon: Utensils,
-        badge: "High Revenue",
+        title: "HRA Rent Receipt", // NEW
+        description: "Monthly or annual rent receipts for HRA tax proof.",
+        href: "/rent-receipt-generator",
+        icon: Home,
+        badge: "Tax Saver",
       },
+      {
+        title: "UPI QR Code", // NEW
+        description:
+          "Create GPay/PhonePe/Paytm style QR standees with amounts.",
+        href: "/upi-qr-generator",
+        icon: QrCode, //
+        badge: "Hot",
+      },
+      {
+        title: "GST Invoice Maker", // NEW
+        description: "Professional GST invoices for freelancers and business.",
+        href: "/gst-invoice-generator",
+        icon: FileText,
+      },
+      {
+        title: "Medical / Pharmacy", // NEW
+        description: "Chemist bills and pharmacy receipts for medical claims.",
+        href: "/medical-bill-generator",
+        icon: Stethoscope,
+      }
+      
     ],
   },
   {
@@ -74,35 +95,17 @@ export const TOOLS_CATEGORIES = [
     ],
   },
   {
-    title: "Tax & Business", // NEW CATEGORY
+    title: "Food & Dining",
     tools: [
       {
-        title: "HRA Rent Receipt", // NEW
-        description: "Monthly or annual rent receipts for HRA tax proof.",
-        href: "/rent-receipt-generator",
-        icon: Home,
-        badge: "Tax Saver",
-      },
-      {
-        title: "GST Invoice Maker", // NEW
-        description: "Professional GST invoices for freelancers and business.",
-        href: "/gst-invoice-generator",
-        icon: FileText,
-      },
-      {
-        title: "Medical / Pharmacy", // NEW
-        description: "Chemist bills and pharmacy receipts for medical claims.",
-        href: "/medical-bill-generator",
-        icon: Stethoscope,
-      },
-      {
-        title: "UPI QR Code", // NEW
-        description:
-          "Create GPay/PhonePe/Paytm style QR standees with amounts.",
-        href: "/upi-qr-generator",
-        icon: QrCode, //
-        badge: "Hot",
+        title: "Restaurant Bill Maker",
+        description: "Make authentic food bills with GST and Order IDs.",
+        href: "/restaurant-bill-generator",
+        icon: Utensils,
+        badge: "High Revenue",
       },
     ],
   },
+  
+
 ];

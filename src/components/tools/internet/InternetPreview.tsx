@@ -234,5 +234,4 @@ export const InternetPreview = forwardRef<HTMLDivElement, InternetPreviewProps>(
     </div>
   );
 });
-
 InternetPreview.displayName = 'InternetPreview';
