@@ -340,18 +340,18 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <FeatureCard
               icon={Zap}
-              title="Smart Auto-Fill"
-              description="Don't know the petrol price in Mumbai last week? Our tools auto-fetch historical rates and calculate taxes for you."
+              title="Auto-Fill Prices"
+              description="We automatically find the correct fuel rates and calculate taxes for you. No math required."
             />
             <FeatureCard
               icon={FileCheck}
-              title="Authentic Templates"
-              description="We replicate thermal printer fonts, jagged paper edges, and POS layouts so your bills look 100% original."
+              title="Real Receipt Looks"
+              description="Our templates use the exact same fonts and layouts as real shops, so they look 100% original."
             />
             <FeatureCard
               icon={Download}
-              title="Instant Export"
-              description="Download high-resolution PDFs or JPEGs optimized for WhatsApp sharing and HR portal uploads."
+              title="Download & Share"
+              description="Get a high-quality PDF or Image instantly. Ready to share on WhatsApp or upload to HR portals."
             />
           </div>
         </div>
@@ -359,77 +359,66 @@ export default function Home() {
 
       {/* --- SEO FOOTER CONTENT --- */}
       {/* --- HOW IT WORKS / SEO CONTENT --- */}
-      <section className="py-13 bg-white">
+{/* --- HOW IT WORKS --- */}
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
           {/* Section Header */}
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">
-              How to generate reimbursement bills
-            </h2>
+            <h2 className="text-3xl font-bold text-slate-900 mb-4">How it works</h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              Managing expenses for corporate reimbursement can be tricky. Our
-              tools simplify the process into 3 easy steps.
+              Generate a valid receipt in 3 simple steps.
             </p>
           </div>
 
           {/* The 3-Step Visual Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
+            
             {/* Connecting Line (Desktop Only) */}
             <div className="hidden md:block absolute top-8 left-1/6 right-1/6 h-0.5 bg-gradient-to-r from-blue-100 via-blue-500 to-blue-100 z-0"></div>
 
             {/* Step 1 */}
             <div className="relative z-10 text-center bg-white p-6 rounded-xl">
-              <div className="w-16 h-16 mx-auto bg-blue-600 text-white rounded-2xl flex items-center justify-center text-2xl font-bold mb-6 shadow-lg shadow-blue-200">
-                1
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">
-                Select a Tool
-              </h3>
-              <p className="text-slate-600 leading-relaxed">
-                Choose from Petrol, Restaurant, Internet, or LTA templates. We
-                cover all major Indian reimbursement categories.
-              </p>
+               <div className="w-16 h-16 mx-auto bg-blue-600 text-white rounded-2xl flex items-center justify-center text-2xl font-bold mb-6 shadow-lg shadow-blue-200">
+                 1
+               </div>
+               <h3 className="text-xl font-bold text-slate-900 mb-3">Pick a Template</h3>
+               <p className="text-slate-600 leading-relaxed">
+                 Choose the type of bill you need—Fuel, Food, Taxi, Internet, or LTA.
+               </p>
             </div>
 
             {/* Step 2 */}
             <div className="relative z-10 text-center bg-white p-6 rounded-xl">
-              <div className="w-16 h-16 mx-auto bg-blue-600 text-white rounded-2xl flex items-center justify-center text-2xl font-bold mb-6 shadow-lg shadow-blue-200">
-                2
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">
-                Enter Details
-              </h3>
-              <p className="text-slate-600 leading-relaxed">
-                Fill in your transaction info. Use our{" "}
-                <strong>Smart Auto-Fill</strong> to instantly fetch fuel rates
-                or calculate GST/VAT.
-              </p>
+               <div className="w-16 h-16 mx-auto bg-blue-600 text-white rounded-2xl flex items-center justify-center text-2xl font-bold mb-6 shadow-lg shadow-blue-200">
+                 2
+               </div>
+               <h3 className="text-xl font-bold text-slate-900 mb-3">Enter Details</h3>
+               <p className="text-slate-600 leading-relaxed">
+                 Type in the amount and date. Our tool automatically handles the tax and math for you.
+               </p>
             </div>
 
             {/* Step 3 */}
             <div className="relative z-10 text-center bg-white p-6 rounded-xl">
-              <div className="w-16 h-16 mx-auto bg-blue-600 text-white rounded-2xl flex items-center justify-center text-2xl font-bold mb-6 shadow-lg shadow-blue-200">
-                3
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">
-                Download & Claim
-              </h3>
-              <p className="text-slate-600 leading-relaxed">
-                Export as a high-quality PDF or JPEG image. Submit it to your HR
-                portal (Zoho, Keka, GreytHR) with confidence.
-              </p>
+               <div className="w-16 h-16 mx-auto bg-blue-600 text-white rounded-2xl flex items-center justify-center text-2xl font-bold mb-6 shadow-lg shadow-blue-200">
+                 3
+               </div>
+               <h3 className="text-xl font-bold text-slate-900 mb-3">Download PDF</h3>
+               <p className="text-slate-600 leading-relaxed">
+                 Get your bill instantly. Print it or upload it directly to your company portal.
+               </p>
             </div>
+
           </div>
 
-          {/* SEO Keywords Block (Subtle Background) */}
-          <div className="mt-16 bg-slate-50 rounded-2xl p-6 border border-slate-100 text-center">
-            <p className="text-sm text-slate-500 leading-relaxed">
-              <span className="font-bold text-slate-700">Popular Uses:</span>{" "}
-              Lost Petrol Bill Generator • Restaurant Bill with GST • Fake Uber
-              Receipt for Claims • LTA Exemption Proof • Internet Bill Generator
-              India • Fuel Reimbursement Slip
-            </p>
+          {/* SEO Keywords Block (Simplified) */}
+          <div className="mt-16 bg-slate-50 rounded-2xl p-8 border border-slate-100 text-center">
+             <p className="text-sm text-slate-500 leading-relaxed">
+               <span className="font-bold text-slate-700">Popular Tools:</span> Petrol Bill Generator • Restaurant Bill Maker • Cab Receipt Generator • LTA Proof • Internet Bill • Rent Receipt
+             </p>
           </div>
+
         </div>
       </section>
     </main>

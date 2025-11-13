@@ -52,19 +52,19 @@ export default function LTAPage() {
   // ----------------------------
   const [formData, setFormData] = useState({
     agencyName: "Global Travels Pvt Ltd",
-    customerName: "Amit Verma",
+    customerName: "Sahayam S",
     bookingId: "BKG-882910",
     bookingDate: "2024-01-10",
     travelMode: "Flight" as "Flight" | "Train",
-    origin: "Delhi",
+    origin: "Chennai",
     destination: "Port Blair",
     travelDate: "2024-01-25",
     blockYear: "2022-2025",
     baseFare: 8500,
     taxes: 1200,
     passengers: [
-      { name: "Amit Verma", age: 34, relation: "Self" },
-      { name: "Priya Verma", age: 32, relation: "Spouse" },
+      { name: "Durai singam", age: 44, relation: "Self" },
+      { name: "Danny SA", age: 42, relation: "Friend" },
     ],
   });
 

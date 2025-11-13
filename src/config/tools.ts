@@ -18,63 +18,60 @@ export const TOOLS_CATEGORIES = [
     tools: [
       {
         title: "Fuel Bill Generator",
-        description:
-          "Generate Petrol, Diesel & CNG receipts for reimbursement.",
+        description: "Generate petrol, diesel, and CNG bills for reimbursement.",
         href: "/fuel-bill-generator",
         icon: Car,
         badge: "Popular",
       },
       {
         title: "Taxi/Cab Receipt",
-        description: "Create Ola/Uber style invoices with route maps.",
+        description: "Create Ola and Uber style cab receipts with maps.",
         href: "/taxi-receipt-generator",
         icon: MapPin,
       },
       {
-        title: "Hotel Stay Invoice", // NEW
-        description: "Generate hotel & lodge bills with check-in/out dates.",
+        title: "Hotel Stay Invoice",
+        description: "Make hotel stay invoices with GST and dates.",
         href: "/hotel-bill-generator",
         icon: Hotel,
       },
       {
         title: "LTA Assistant",
-        description: "Calculate Leave Travel Allowance exemptions.",
+        description: "Create flight or train invoices for LTA claims.",
         href: "/lta-assistant",
         icon: Briefcase,
       },
     ],
   },
-    {
-    title: "Tax & Business", // NEW CATEGORY
+  {
+    title: "Tax & Business",
     tools: [
       {
-        title: "HRA Rent Receipt", // NEW
-        description: "Monthly or annual rent receipts for HRA tax proof.",
+        title: "HRA Rent Receipt",
+        description: "Generate rent receipts with revenue stamps for HRA.",
         href: "/rent-receipt-generator",
         icon: Home,
         badge: "Tax Saver",
       },
       {
-        title: "UPI QR Code", // NEW
-        description:
-          "Create GPay/PhonePe/Paytm style QR standees with amounts.",
+        title: "UPI QR Code",
+        description: "Create PhonePe, GPay, or Paytm QR codes with fixed amounts.",
         href: "/upi-qr-generator",
-        icon: QrCode, //
+        icon: QrCode,
         badge: "Hot",
       },
       {
-        title: "GST Invoice Maker", // NEW
-        description: "Professional GST invoices for freelancers and business.",
+        title: "GST Invoice Maker",
+        description: "Make professional GST invoices for your business.",
         href: "/gst-invoice-generator",
         icon: FileText,
       },
       {
-        title: "Medical / Pharmacy", // NEW
-        description: "Chemist bills and pharmacy receipts for medical claims.",
+        title: "Medical / Pharmacy",
+        description: "Create pharmacy bills for medical allowance claims.",
         href: "/medical-bill-generator",
         icon: Stethoscope,
-      }
-      
+      },
     ],
   },
   {
@@ -82,13 +79,13 @@ export const TOOLS_CATEGORIES = [
     tools: [
       {
         title: "Internet Bill Generator",
-        description: "Broadband & Wi-Fi receipts for remote work claims.",
+        description: "Get broadband bills for Jio, Airtel, and ACT.",
         href: "/internet-bill-generator",
         icon: Wifi,
       },
       {
-        title: "Mobile Postpaid Bill", // NEW
-        description: "Generate monthly mobile bills for Vi, Airtel, and Jio.",
+        title: "Mobile Postpaid Bill",
+        description: "Generate postpaid mobile bills for reimbursement.",
         href: "/mobile-bill-generator",
         icon: Smartphone,
       },
@@ -99,13 +96,11 @@ export const TOOLS_CATEGORIES = [
     tools: [
       {
         title: "Restaurant Bill Maker",
-        description: "Make authentic food bills with GST and Order IDs.",
+        description: "Create food bills with GST for food allowances.",
         href: "/restaurant-bill-generator",
         icon: Utensils,
         badge: "High Revenue",
       },
     ],
   },
-  
-
 ];

@@ -52,7 +52,7 @@ export default function InternetBillPage() {
   // 🔵 BILL DATA
   const [formData, setFormData] = useState({
     isp: "jio",
-    customerName: "Priya Sharma",
+    customerName: "Edison S",
     customerId: "ACC-87654321",
     billNo: "INV-2024-5678",
     billDate: new Date().toISOString().slice(0, 10),

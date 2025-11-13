@@ -11,9 +11,9 @@ export default function RestaurantBillPage() {
   
 // 1. Use STATIC data first (No Math.random here)
   const [formData, setFormData] = useState({
-    restaurantName: 'The Spice Garden',
-    address: 'Indiranagar, Bangalore - 560038',
-    date: '2024-02-20', // Static Date
+    restaurantName: 'Muthupillai Canteen',
+    address: 'Brindavan, Pudukkottai - 622001',
+    date: '2025-02-20', // Static Date
     time: '20:15',
     orderId: 'ORD-9988', // Static ID
     gstEnabled: true,
@@ -29,9 +29,9 @@ export default function RestaurantBillPage() {
   }, []);
 
   const [items, setItems] = useState([
-    { id: '1', name: 'Butter Chicken', price: 320, qty: 1 },
+    { id: '1', name: 'Mutton Briyani', price: 320, qty: 1 },
     { id: '2', name: 'Butter Naan', price: 60, qty: 3 },
-    { id: '3', name: 'Jeera Rice', price: 180, qty: 1 },
+    { id: '3', name: 'Mutta mass', price: 50, qty: 5 },
   ]);
 
   // Handlers

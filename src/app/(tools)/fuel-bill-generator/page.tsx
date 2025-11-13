@@ -23,8 +23,8 @@ export default function FuelBillPage() {
   const [formData, setFormData] = useState({
     mode: 'real' as 'basic' | 'real',           // Default to Real
     provider: 'iocl' as 'iocl' | 'bpcl' | 'hp' | 'shell' | 'generic', // Default to IOCL
-    stationName: 'INDIAN OIL DEALER',
-    address: 'S.V. Road, Andheri West, Mumbai - 400058',
+    stationName: 'Kannan Agencies',
+    address: 'Railway gate west Pudukkottai - 622001',
     fuelType: 'Petrol',
     amount: 2000,
     rate: 106.31,

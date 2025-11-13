@@ -16,8 +16,8 @@ export default function GSTInvoicePage() {
 
   const [formData, setFormData] = useState({
     logoUrl: null as string | null,
-    companyName: 'Alpha Designs',
-    companyAddress: 'HSR Layout, Bangalore - 560102',
+    companyName: 'WebWonderWorks',
+    companyAddress: 'Kalapatti, Coimbatore - 641048',
     companyGstin: '29AAACH1234K1Z5',
     clientName: 'Beta Retail Pvt Ltd',
     clientAddress: 'Connaught Place, New Delhi',
