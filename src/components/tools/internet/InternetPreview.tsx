@@ -49,7 +49,7 @@ export const InternetPreview = forwardRef<HTMLDivElement, InternetPreviewProps>(
   };
 
   return (
-    <div className="w-full flex justify-center bg-gray-200/50 p-8">
+    <div className="w-full flex justify-center bg-gray-200/50 ">
       {/* A4 Paper Container */}
       <div 
         ref={ref}

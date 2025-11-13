@@ -9,17 +9,28 @@ import { Stethoscope, User, Calendar, Plus, Trash2 } from 'lucide-react';
 export default function MedicalBillPage() {
   const billRef = useRef<HTMLDivElement>(null);
 
-  const [formData, setFormData] = useState({
-    mode: 'basic', // NEW — basic or real
-    pharmacyName: 'Apollo Pharmacy',
-    address: '247 Central Hub, Bengaluru - 560103',
-    dlNo: 'DL/AP123456',
-    gstin: '29AACCP4599L1Z8',
-    patientName: 'Rahul Singh',
-    doctorName: 'S.K. Gupta',
-    billNo: 'INV-8821',
-    date: '2024-03-15',
-  });
+const [formData, setFormData] = useState<{
+  mode: 'basic' | 'real';
+  pharmacyName: string;
+  address: string;
+  dlNo: string;
+  gstin: string;
+  patientName: string;
+  doctorName: string;
+  billNo: string;
+  date: string;
+}>({
+  mode: 'basic',
+  pharmacyName: 'Apollo Pharmacy',
+  address: '247 Central Hub, Bengaluru - 560103',
+  dlNo: 'DL/AP123456',
+  gstin: '29AACCP4599L1Z8',
+  patientName: 'Rahul Singh',
+  doctorName: 'S.K. Gupta',
+  billNo: 'INV-8821',
+  date: '2024-03-15',
+});
+
 
   const [medicines, setMedicines] = useState([
     { id: '1', name: 'Dolo 650mg Strip', batch: 'B8291', exp: '12/25', qty: 2, rate: 30 },

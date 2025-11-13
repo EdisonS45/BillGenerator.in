@@ -15,7 +15,8 @@ export default function UPIPage() {
     amount: 0, // 0 means dynamic (user enters amount)
     note: '',
     theme: 'phonepe',
-    
+    showLogo: false,         
+  logoUrl: null, 
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
