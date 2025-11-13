@@ -8,7 +8,7 @@ export function Footer() {
   const allTools = TOOLS_CATEGORIES.flatMap((category) => category.tools);
 
   return (
-    <footer className="bg-slate-900 text-gray-300 border-t border-blue-900 mt-16">
+    <footer className="bg-[#1B1F3B] text-gray-300 border-t border-blue-900 mt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* TOP SECTION: LOGO AND MISSION */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12 border-b border-slate-700 pb-10">

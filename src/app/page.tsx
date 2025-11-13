@@ -147,29 +147,122 @@ export default function Home() {
       </section>
 
       {/* --- VALUE PROPOSITION (Compact) --- */}
-      <section className="py-16 bg-gray-50 border-t border-gray-200">
+      {/* --- FEATURES BENTO GRID (Redesigned) --- */}
+{/* --- FEATURES BENTO GRID (Redesigned Copy) --- */}
+      <section className="py-24 bg-white relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Why professionals use BillGenerator</h2>
-            <p className="text-gray-600 text-sm">We mimic real-world systems to ensure your receipts pass the eye test.</p>
+          
+          {/* Header */}
+          <div className="mb-16 md:text-center max-w-3xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 tracking-tight">
+              Why use BillGenerator?
+            </h2>
+            <p className="text-lg text-slate-500 leading-relaxed">
+              Create valid, accurate bills in seconds. No design skills needed.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <FeatureCard
-              icon={Zap}
-              title="Smart Auto-Fill"
-              description="We automatically find correct fuel rates and calculate taxes. No manual math required."
-            />
-            <FeatureCard
-              icon={FileCheck}
-              title="Authentic Templates"
-              description="Thermal printer fonts, jagged edges, and POS layouts make your bills look 100% original."
-            />
-            <FeatureCard
-              icon={ShieldCheck}
-              title="Client-Side Privacy"
-              description="Your data never leaves your browser. We don't store any transaction details."
-            />
+          {/* BENTO GRID */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+            
+            {/* Card 1: AUTHENTICITY (Wide Card) - FOCUS: HR APPROVAL */}
+            <div className="md:col-span-2 relative overflow-hidden rounded-3xl bg-slate-50 border border-slate-100 p-8 md:p-10 group">
+               <div className="relative z-10 max-w-md">
+                  <div className="inline-flex items-center gap-2 rounded-full bg-white border border-slate-200 px-3 py-1 text-xs font-bold text-blue-600 mb-4 shadow-sm">
+                     <FileCheck className="w-3 h-3" /> 100% Original Look
+                  </div>
+                  <h3 className="text-2xl font-bold text-slate-900 mb-3">Passes the "Eye Test"</h3>
+                  <p className="text-slate-500 leading-relaxed">
+                     We don't generate generic PDFs. Our tools replicate <strong>thermal paper fonts, dot-matrix printing, and authentic POS layouts</strong> used by real Indian shops. Your bills look exactly like the originals.
+                  </p>
+               </div>
+               
+               {/* Visual: Fake Receipt Sliding Up */}
+<div className="absolute right-8 -bottom-12 w-48 h-64 bg-white shadow-2xl border border-gray-200 rounded-t-xl transform rotate-6 translate-y-8 translate-x-8 group-hover:translate-x-4 group-hover:translate-y-4 group-hover:rotate-3 transition-all duration-700 ease-out">
+                  {/* Thermal Top */}
+                  <div className="h-1.5 w-full bg-gray-800 rounded-t-xl opacity-80"></div>
+                  <div className="p-5 space-y-3 opacity-60">
+                     <div className="flex justify-center mb-2">
+                        <div className="w-8 h-8 rounded-full border-2 border-gray-300"></div>
+                     </div>
+                     <div className="h-2 bg-gray-200 rounded w-3/4 mx-auto"></div>
+                     <div className="h-2 bg-gray-100 rounded w-1/2 mx-auto"></div>
+                     
+                     <div className="border-t-2 border-dashed border-gray-300 my-3"></div>
+                     
+                     <div className="flex justify-between">
+                        <div className="h-2 bg-gray-200 rounded w-1/3"></div>
+                        <div className="h-2 bg-gray-300 rounded w-1/4"></div>
+                     </div>
+                     <div className="flex justify-between">
+                        <div className="h-2 bg-gray-100 rounded w-1/2"></div>
+                        <div className="h-2 bg-gray-200 rounded w-1/4"></div>
+                     </div>
+                     
+                     {/* Total Box */}
+                     <div className="mt-4 p-2 bg-slate-50 border border-slate-100 rounded flex justify-between items-center">
+                        <div className="h-2 w-8 bg-gray-300 rounded"></div>
+                        <div className="h-3 w-12 bg-gray-800 rounded"></div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+
+            {/* Card 2: PRIVACY (Tall/Square) - FOCUS: SAFETY */}
+            <div className="md:col-span-1 relative overflow-hidden rounded-3xl bg-[#1B1F3B] p-8 text-white flex flex-col justify-between group">
+               <div className="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-blue-500 rounded-full blur-3xl opacity-20"></div>
+               
+               <div>
+                  <div className="mb-4 inline-flex p-3 bg-white/10 rounded-2xl text-green-400 backdrop-blur-sm">
+                     <ShieldCheck className="w-6 h-6" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-2">Safe & Private</h3>
+                  <p className="text-blue-200 text-sm leading-relaxed">
+                     Everything happens in your browser. We <strong>never see or store</strong> your data. It's completely anonymous.
+                  </p>
+               </div>
+
+               {/* Visual: Shield/Lock Graphic */}
+               <div className="mt-8 flex justify-center">
+                  <div className="relative">
+                     <div className="absolute inset-0 bg-green-500 blur-xl opacity-20"></div>
+                     <ShieldCheck className="w-24 h-24 text-green-500 opacity-80 group-hover:scale-110 transition-transform duration-500" strokeWidth={1} />
+                  </div>
+               </div>
+            </div>
+
+            {/* Card 3: INSTANT (Wide) - FOCUS: SPEED & FORMATS */}
+            <div className="md:col-span-3 relative overflow-hidden rounded-3xl bg-blue-600 p-8 md:p-10 text-white shadow-xl shadow-blue-900/10 group">
+               <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
+               <div className="absolute right-0 top-0 h-full w-1/2 bg-gradient-to-l from-blue-500 to-transparent opacity-50"></div>
+
+               <div className="relative z-10 flex flex-col md:flex-row items-center gap-8">
+                  <div className="flex-1">
+                     <div className="inline-flex items-center gap-2 rounded-full bg-blue-500 border border-blue-400 px-3 py-1 text-xs font-bold text-white mb-4">
+                        <Download className="w-3 h-3 fill-current" /> Instant Export
+                     </div>
+                     <h3 className="text-2xl font-bold mb-3">Download in Any Format</h3>
+                     <p className="text-blue-100 leading-relaxed max-w-xl">
+                        Need a PDF for email? Or a JPEG image to send via WhatsApp? We give you both options in high resolution. <strong>Print-ready and pixel-perfect.</strong>
+                     </p>
+                  </div>
+
+                  {/* Visual: Floating File Badges */}
+                  <div className="flex gap-4 transform group-hover:scale-105 transition-transform duration-500">
+                     <div className="w-24 h-32 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl flex flex-col items-center justify-center">
+                        <div className="bg-red-500/20 p-3 rounded-lg mb-2 text-red-200 font-bold text-xs">PDF</div>
+                        <div className="w-12 h-1 bg-white/20 rounded mb-1"></div>
+                        <div className="w-8 h-1 bg-white/20 rounded"></div>
+                     </div>
+                     <div className="w-24 h-32 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl flex flex-col items-center justify-center translate-y-4">
+                        <div className="bg-blue-500/20 p-3 rounded-lg mb-2 text-blue-200 font-bold text-xs">JPG</div>
+                        <div className="w-12 h-1 bg-white/20 rounded mb-1"></div>
+                        <div className="w-8 h-1 bg-white/20 rounded"></div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+
           </div>
         </div>
       </section>
