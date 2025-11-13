@@ -1,70 +1,86 @@
-import Link from 'next/link';
-import { FileText, MapPin, Utensils, Wifi, Car } from 'lucide-react';
-import { TOOLS_CATEGORIES } from '@/config/tools';
+import Link from "next/link";
+import { FileText, MapPin, Utensils, Wifi, Car } from "lucide-react";
+import { TOOLS_CATEGORIES } from "@/config/tools";
+import { LogoFooter } from "../shared/LogoFooter";
 
 export function Footer() {
   // Flatten the TOOLS_CATEGORIES config for the Quick Links column
-  const allTools = TOOLS_CATEGORIES.flatMap(category => category.tools);
+  const allTools = TOOLS_CATEGORIES.flatMap((category) => category.tools);
 
   return (
     <footer className="bg-slate-900 text-gray-300 border-t border-blue-900 mt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        
         {/* TOP SECTION: LOGO AND MISSION */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12 border-b border-slate-700 pb-10">
-          
           {/* Column 1: Company Info */}
           <div className="md:col-span-2 space-y-4">
-            <Link href="/" className="flex items-center space-x-3">
-              <div className="bg-blue-600 p-2 rounded-lg">
-                <FileText className="h-6 w-6 text-white" />
-              </div>
-              <span className="text-2xl font-bold text-white">BillGenerator<span className="text-blue-400">.in</span></span>
+            <Link href="/" className="flex items-center">
+              <LogoFooter className="w-12 h-12" textSize="text-2xl" />
             </Link>
             <p className="text-sm text-gray-400 max-w-md">
-              The #1 suite of free, client-side tools for Indian professionals. Generate compliant, high-quality bills and receipts for reimbursement and tax purposes instantly.
+              The #1 suite of free, client-side tools for Indian professionals.
+              Generate compliant, high-quality bills and receipts for
+              reimbursement and tax purposes instantly.
             </p>
             <div className="text-xs text-gray-500 pt-4">
-                © {new Date().getFullYear()} BillGenerator.in. All rights reserved.
+              © {new Date().getFullYear()} BillGenerator.in. All rights
+              reserved.
             </div>
           </div>
 
           {/* Column 2: Quick Tools (SEO Links) */}
           <div>
-            <h3 className="text-lg font-semibold text-white mb-4">Quick Tools</h3>
+            <h3 className="text-lg font-semibold text-white mb-4">
+              Quick Tools
+            </h3>
             <ul className="space-y-3">
               {/* Select the 4 most important tools for quick linking */}
               {allTools.slice(0, 4).map((tool) => (
                 <li key={tool.href}>
-                  <Link href={tool.href} className="text-sm text-gray-400 hover:text-blue-400 transition-colors">
+                  <Link
+                    href={tool.href}
+                    className="text-sm text-gray-400 hover:text-blue-400 transition-colors"
+                  >
                     {tool.title}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
-          
+
           {/* Column 3: Resources & Legal */}
           <div>
             <h3 className="text-lg font-semibold text-white mb-4">Support</h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/about" className="text-sm text-gray-400 hover:text-blue-400 transition-colors">
+                <Link
+                  href="/about"
+                  className="text-sm text-gray-400 hover:text-blue-400 transition-colors"
+                >
                   About Us
                 </Link>
               </li>
               <li>
-                <Link href="/privacy" className="text-sm text-gray-400 hover:text-blue-400 transition-colors">
+                <Link
+                  href="/privacy"
+                  className="text-sm text-gray-400 hover:text-blue-400 transition-colors"
+                >
                   Privacy Policy (No Data Stored)
                 </Link>
               </li>
               <li>
-                <Link href="/disclaimer" className="text-sm text-gray-400 hover:text-blue-400 transition-colors">
+                <Link
+                  href="/disclaimer"
+                  className="text-sm text-gray-400 hover:text-blue-400 transition-colors"
+                >
                   Terms & Disclaimer
                 </Link>
               </li>
               <li>
-                <Link href="/faq" className="text-sm text-gray-400 hover:text-blue-400 transition-colors">
+                <Link
+                  href="/faq"
+                  className="text-sm text-gray-400 hover:text-blue-400 transition-colors"
+                >
                   FAQ & Help
                 </Link>
               </li>
@@ -76,13 +92,16 @@ export function Footer() {
         <div className="pt-8 text-center text-xs text-gray-500">
           <p className="font-semibold mb-2">Important Disclaimer:</p>
           <p className="max-w-4xl mx-auto leading-relaxed">
-            All documents generated by BillGenerator.in are based on user input and are for **proforma, replacement, and mock-up purposes only**. They should be used responsibly to replace lost originals or generate templates for expense claims. We are not a bank, accounting firm, or government agency.
+            All documents generated by BillGenerator.in are based on user input
+            and are for **proforma, replacement, and mock-up purposes only**.
+            They should be used responsibly to replace lost originals or
+            generate templates for expense claims. We are not a bank, accounting
+            firm, or government agency.
           </p>
           <p className="mt-2 text-blue-400">
-             Current LTA Block Year: 2022-2025.
+            Current LTA Block Year: 2022-2025.
           </p>
         </div>
-
       </div>
     </footer>
   );
