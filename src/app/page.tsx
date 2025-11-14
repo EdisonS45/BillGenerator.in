@@ -95,10 +95,10 @@ export default function Home() {
     <main className="min-h-screen bg-white font-sans">
       {/* --- HERO: COMPACT & DENSE (iLovePDF Style) --- */}
       <section
-        className="
+className="
     text-white pt-7 pb-7 relative overflow-hidden
-    bg-[linear-gradient(180deg,#020B29,#03103D,#03103D)]
-    sm:bg-[linear-gradient(135deg,#020B29,#03103D 40%,#05154F 70%,#0A1F6C 100%)]
+    bg-[linear-gradient(180deg,#020B29_0%,#020B29_35%,#05154F_70%,#0A1F6C_100%)]
+    md:bg-[linear-gradient(135deg,#020B29,#03103D_40%,#05154F_70%,#0A1F6C_100%)]
   "
         style={{
           background:
@@ -117,12 +117,19 @@ export default function Home() {
             instantly.
             {/* The "Inline" Badge for Mobile/Flow - Doesn't take extra vertical space */}
           </p>
-          <div className="inline-flex items-center gap-2 rounded-full bg-green-500/10 border border-green-500/20 px-4 py-1.5 text-xs font-bold text-green-300 mt-3 shadow-[0_0_15px_rgba(34,197,94,0.2)] backdrop-blur-md cursor-default transition-transform hover:scale-105">
-            <ShieldCheck className="w-4 h-4 fill-current" />
-            <span className="tracking-wide">
-              100% FREE • NO SIGNUP • SECURE
-            </span>
-          </div>
+<div className="mt-4 flex justify-center">
+  <div className="
+    inline-flex items-center gap-2 
+    bg-white/10 border border-white/20 
+    text-white px-3 py-1.5 rounded-full
+    text-xs font-semibold tracking-wide
+    backdrop-blur-sm
+  ">
+    <ShieldCheck className="w-4 h-4 text-green-400" strokeWidth={2} />
+    SECURE • FREE • NO SIGNUP
+  </div>
+</div>
+
         </div>
       </section>
 
