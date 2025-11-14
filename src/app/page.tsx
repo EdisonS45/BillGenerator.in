@@ -77,10 +77,16 @@ export default function Home() {
 
       {/* --- HERO: COMPACT & DENSE (iLovePDF Style) --- */}
 <section 
-  className="text-white pt-12 pb-10 relative overflow-hidden"
+  className="
+    text-white pt-12 pb-10 relative overflow-hidden
+    bg-[linear-gradient(135deg,#020B29,#03103D)]
+    sm:bg-none
+  "
   style={{
-background:" linear-gradient(135deg, #020B29 0%, #03103D 40%, #05154F 70%, #0A1F6C 100%)"  }}
+    background: "linear-gradient(135deg, #020B29 0%, #03103D 40%, #05154F 70%, #0A1F6C 100%)"
+  }}
 >
+
         {/* Abstract Background Pattern (Same as before) */}
         <div className="absolute inset-0 opacity-10 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
         <div className="absolute top-0 right-0 -mt-20 -mr-20 w-96 h-96 bg-blue-500 rounded-full blur-3xl opacity-20"></div>
