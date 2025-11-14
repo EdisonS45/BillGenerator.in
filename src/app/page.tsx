@@ -76,14 +76,15 @@ export default function Home() {
     <main className="min-h-screen bg-white font-sans">
 
       {/* --- HERO: COMPACT & DENSE (iLovePDF Style) --- */}
-<section 
+<section
   className="
     text-white pt-12 pb-10 relative overflow-hidden
-    bg-[linear-gradient(135deg,#020B29,#03103D)]
+    bg-[linear-gradient(180deg,#020B29,#03103D,#05154F)]
     sm:bg-none
   "
   style={{
-    background: "linear-gradient(135deg, #020B29 0%, #03103D 40%, #05154F 70%, #0A1F6C 100%)"
+    background:
+      "linear-gradient(135deg, #020B29 0%, #03103D 40%, #05154F 70%, #0A1F6C 100%)"
   }}
 >
 
