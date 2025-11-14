@@ -5,7 +5,7 @@ import Link from "next/link";
 import { TOOLS_CATEGORIES } from "@/config/tools";
 import { 
   ShieldCheck, Zap, Download, FileCheck, 
-  Briefcase, Plane, Receipt, Smartphone, UtensilsCrossed, LayoutGrid
+  CheckCircle2, ArrowRight, Sparkles 
 } from "lucide-react";
 import clsx from 'clsx';
 
@@ -64,69 +64,63 @@ export default function Home() {
     return true;
   });
 
-const tabs = [
-    { id: "All", label: "All Tools", icon: LayoutGrid },
-    { id: "Travel", label: "Travel", icon: Plane },
-    { id: "Tax", label: "Tax & Biz", icon: Receipt },
-    { id: "Office", label: "Office", icon: Smartphone },
-    { id: "Food", label: "Food", icon: UtensilsCrossed },
+  const tabs = [
+    { id: "All", label: "All Tools" },
+    { id: "Travel", label: "Travel" },
+    { id: "Tax", label: "Tax & Business" },
+    { id: "Office", label: "Office" },
+    { id: "Food", label: "Food" },
   ];
 
   return (
     <main className="min-h-screen bg-white font-sans">
 
       {/* --- HERO: COMPACT & DENSE (iLovePDF Style) --- */}
-<section className="bg-[#020617] text-white pt-12 pb-24 relative overflow-hidden">
-        
-        {/* Updated Gradients: Deeper and more Electric to pop against black */}
-        <div className="absolute inset-0 opacity-20 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
-        <div className="absolute top-0 right-0 -mt-20 -mr-20 w-96 h-96 bg-indigo-600 rounded-full blur-[100px] opacity-30 animate-pulse"></div>
-        <div className="absolute bottom-0 left-0 -mb-20 -ml-20 w-96 h-96 bg-blue-600 rounded-full blur-[100px] opacity-20"></div>
+<section 
+  className="text-white pt-12 pb-10 relative overflow-hidden"
+  style={{
+background:" linear-gradient(135deg, #020B29 0%, #03103D 40%, #05154F 70%, #0A1F6C 100%)"  }}
+>
+        {/* Abstract Background Pattern (Same as before) */}
+        <div className="absolute inset-0 opacity-10 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+        <div className="absolute top-0 right-0 -mt-20 -mr-20 w-96 h-96 bg-blue-500 rounded-full blur-3xl opacity-20"></div>
+        <div className="absolute bottom-0 left-0 -mb-20 -ml-20 w-96 h-96 bg-purple-500 rounded-full blur-3xl opacity-20"></div>
 
         <div className="relative z-10 max-w-5xl mx-auto px-4 text-center">
-          <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4 leading-tight">
-            Every tool you need to <br/>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">
-              manage expenses
-            </span>
+          <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-3">
+            Every tool you need to <span className="text-blue-400">manage expenses</span>
           </h1>
-          <p className="text-lg text-slate-400 max-w-2xl mx-auto font-light leading-relaxed">
-            Generate compliant fuel, taxi, restaurant, and office receipts instantly. <br className="hidden md:block"/> Free & Secure.
+          <p className="text-lg text-gray-300 max-w-2xl mx-auto font-light leading-relaxed">
+            Generate compliant fuel, taxi, restaurant, and office receipts instantly. Free & Secure.
           </p>
         </div>
       </section>
-      <div className="sticky top-4 z-40 flex justify-center px-4 -mt-12 mb-12">
-         <div className="bg-white/90 backdrop-blur-xl p-2 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-200/50 max-w-full md:max-w-fit">
-            {/* FIX: Removed 'overflow-x-auto' and 'no-scrollbar'
-                Added 'flex-wrap' and 'justify-center'
-                This makes buttons stack neatly on mobile instead of hiding
-            */}
-            <div className="flex flex-wrap justify-center gap-2">
-              {tabs.map((tab) => (
-                 <button 
-                   key={tab.id}
-                   onClick={() => setActiveFilter(tab.id)}
-                   className={clsx(
-                     "flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wide transition-all duration-200",
-                     activeFilter === tab.id 
-                       ? 'bg-[#020617] text-white shadow-md transform scale-105' // Active state matches hero black
-                       : 'text-gray-500 hover:bg-gray-100 hover:text-gray-900'
-                   )}
-                 >
-                    <tab.icon className={clsx("w-3.5 h-3.5", activeFilter === tab.id ? "text-blue-400" : "text-gray-400")} />
-                    {tab.label}
-                 </button>
-              ))}
-            </div>
-         </div>
-      </div>
 
       {/* --- TOOL GRID SECTION --- */}
-      <section id="tools" className="bg-white relative z-20 -mt-8">
+      <section id="tools" className="bg-white relative z-20 mt-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* --- FLOATING FILTER BAR (Functional) --- */}
-          
+{/* --- ILOVEPDF STYLE FILTER TABS --- */}
+<div className="max-w-4xl mx-auto px-4 mt-8 mb-8">
+  <div className="flex flex-wrap gap-3 justify-center ">
+    {tabs.map((tab) => (
+      <button
+        key={tab.id}
+        onClick={() => setActiveFilter(tab.id)}
+        className={clsx(
+          "px-4 py-2 rounded-full text-sm font-medium transition-all border",
+          activeFilter === tab.id
+            ? "bg-gray-900 text-white border-gray-900 shadow"
+            : "bg-white text-gray-600 border-gray-200 hover:border-gray-300 hover:text-gray-900"
+        )}
+      >
+        {tab.label}
+      </button>
+    ))}
+  </div>
+</div>
+
 
           {/* --- DENSE GRID --- */}
           <div className="space-y-12 pb-20">
@@ -140,7 +134,7 @@ const tabs = [
                   </div>
                 )}
                 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+<div className="grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                   {category.tools.map((tool) => (
                     <ToolCard key={tool.href} {...tool} />
                   ))}
@@ -190,7 +184,8 @@ const tabs = [
                </div>
                
                {/* Visual: Fake Receipt Sliding Up */}
-<div className="absolute right-8 -bottom-12 w-48 h-64 bg-white shadow-2xl border border-gray-200 rounded-t-xl transform rotate-6 translate-y-8 translate-x-8 group-hover:translate-x-4 group-hover:translate-y-4 group-hover:rotate-3 transition-all duration-700 ease-out">
+<div className="absolute right-8 -bottom-12 w-48 h-64 bg-white backdrop-blur-[2px] sm:backdrop-blur-0
+ shadow-2xl border border-gray-200 rounded-t-xl transform rotate-6 translate-y-8 translate-x-8 group-hover:translate-x-4 group-hover:translate-y-4 group-hover:rotate-3 transition-all duration-700 ease-out">
                   {/* Thermal Top */}
                   <div className="h-1.5 w-full bg-gray-800 rounded-t-xl opacity-80"></div>
                   <div className="p-5 space-y-3 opacity-60">
@@ -221,27 +216,35 @@ const tabs = [
             </div>
 
             {/* Card 2: PRIVACY (Tall/Square) - FOCUS: SAFETY */}
-            <div className="md:col-span-1 relative overflow-hidden rounded-3xl bg-[#1B1F3B] p-8 text-white flex flex-col justify-between group">
-               <div className="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-blue-500 rounded-full blur-3xl opacity-20"></div>
-               
-               <div>
-                  <div className="mb-4 inline-flex p-3 bg-white/10 rounded-2xl text-green-400 backdrop-blur-sm">
-                     <ShieldCheck className="w-6 h-6" />
-                  </div>
-                  <h3 className="text-xl font-bold mb-2">Safe & Private</h3>
-                  <p className="text-blue-200 text-sm leading-relaxed">
-                     Everything happens in your browser. We <strong>never see or store</strong> your data. It's completely anonymous.
-                  </p>
-               </div>
+<div
+  className="md:col-span-1 relative overflow-hidden rounded-3xl p-8 text-white flex flex-col justify-between group"
+  style={{
+    background: "linear-gradient(135deg, #020B29 0%, #03103D 40%, #05154F 70%, #0A1F6C 100%)"
+  }}
+>
+  <div className="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-blue-500 rounded-full blur-3xl opacity-20"></div>
 
-               {/* Visual: Shield/Lock Graphic */}
-               <div className="mt-8 flex justify-center">
-                  <div className="relative">
-                     <div className="absolute inset-0 bg-green-500 blur-xl opacity-20"></div>
-                     <ShieldCheck className="w-24 h-24 text-green-500 opacity-80 group-hover:scale-110 transition-transform duration-500" strokeWidth={1} />
-                  </div>
-               </div>
-            </div>
+  <div>
+    <div className="mb-4 inline-flex p-3 bg-white/10 rounded-2xl text-green-400 backdrop-blur-sm">
+      <ShieldCheck className="w-6 h-6" />
+    </div>
+    <h3 className="text-xl font-bold mb-2">Safe & Private</h3>
+    <p className="text-blue-200 text-sm leading-relaxed">
+      Everything happens in your browser. We <strong>never see or store</strong> your data. It's completely anonymous.
+    </p>
+  </div>
+
+  <div className="mt-8 flex justify-center">
+    <div className="relative">
+      <div className="absolute inset-0 bg-green-500 blur-xl opacity-20"></div>
+      <ShieldCheck
+        className="w-24 h-24 text-green-500 opacity-80 group-hover:scale-110 transition-transform duration-500"
+        strokeWidth={1}
+      />
+    </div>
+  </div>
+</div>
+
 
             {/* Card 3: INSTANT (Wide) - FOCUS: SPEED & FORMATS */}
             <div className="md:col-span-3 relative overflow-hidden rounded-3xl bg-blue-600 p-8 md:p-10 text-white shadow-xl shadow-blue-900/10 group">
