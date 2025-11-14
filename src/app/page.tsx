@@ -95,10 +95,10 @@ export default function Home() {
     <main className="min-h-screen bg-white font-sans">
       {/* --- HERO: COMPACT & DENSE (iLovePDF Style) --- */}
       <section
-className="
+        className="
     text-white pt-7 pb-7 relative overflow-hidden
-    bg-[linear-gradient(180deg,#020B29_0%,#020B29_35%,#05154F_70%,#0A1F6C_100%)]
-    md:bg-[linear-gradient(135deg,#020B29,#03103D_40%,#05154F_70%,#0A1F6C_100%)]
+    bg-[linear-gradient(180deg,#020B29,#03103D,#03103D)]
+    sm:bg-[linear-gradient(135deg,#020B29,#03103D 40%,#05154F 70%,#0A1F6C 100%)]
   "
         style={{
           background:
@@ -117,19 +117,30 @@ className="
             instantly.
             {/* The "Inline" Badge for Mobile/Flow - Doesn't take extra vertical space */}
           </p>
-<div className="mt-4 flex justify-center">
-  <div className="
-    inline-flex items-center gap-2 
-    bg-white/10 border border-white/20 
-    text-white px-3 py-1.5 rounded-full
-    text-xs font-semibold tracking-wide
-    backdrop-blur-sm
-  ">
-    <ShieldCheck className="w-4 h-4 text-green-400" strokeWidth={2} />
-    SECURE • FREE • NO SIGNUP
-  </div>
-</div>
+{/* --- PROFESSIONAL TRUST BADGE (Sharp & Structured) --- */}
+          <div className="inline-flex items-center justify-center mt-4">
+            <div className="flex items-center gap-x-4 rounded-full border border-white/15 bg-white/5 px-5 py-2 backdrop-blur-md transition-all hover:bg-white/10">
+              
+              {/* Part 1: Privacy */}
+              <div className="flex items-center gap-2">
+                <ShieldCheck className="h-4 w-4 text-emerald-400" strokeWidth={2.5} />
+                <span className="text-xs font-bold tracking-wide text-white">SECURE & PRIVATE</span>
+              </div>
 
+              {/* Vertical Divider (The "Structure") */}
+              <div className="h-4 w-px bg-white/20"></div>
+
+              {/* Part 2: Cost */}
+              <div className="flex items-center gap-2">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                </span>
+                <span className="text-xs font-bold tracking-wide text-white">100% FREE</span>
+              </div>
+
+            </div>
+          </div>
         </div>
       </section>
 
