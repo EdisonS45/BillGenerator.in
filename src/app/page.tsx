@@ -105,24 +105,23 @@ export default function Home() {
             "linear-gradient(135deg, #020B29 0%, #03103D 40%, #05154F 70%, #0A1F6C 100%)",
         }}
       >
-
-
         <div className="relative z-10 max-w-5xl mx-auto px-4 text-center ">
-{/* 1. STATIC HEADING + ANIMATED PART */}
+          {/* 1. STATIC HEADING + ANIMATED PART */}
           <div className="mb-6">
             <HeroHeading />
           </div>
 
           {/* 2. SUB-TEXT + INLINE TRUST BADGE (Mobile Friendly) */}
           <p className="text-lg text-blue-200/80 max-w-2xl mx-auto font-light leading-relaxed">
-            Generate compliant fuel, taxi, restaurant, and office receipts instantly.
-            
+            Generate compliant fuel, taxi, restaurant, and office receipts
+            instantly.
             {/* The "Inline" Badge for Mobile/Flow - Doesn't take extra vertical space */}
-
           </p>
           <div className="inline-flex items-center gap-2 rounded-full bg-green-500/10 border border-green-500/20 px-4 py-1.5 text-xs font-bold text-green-300 mt-3 shadow-[0_0_15px_rgba(34,197,94,0.2)] backdrop-blur-md cursor-default transition-transform hover:scale-105">
-             <ShieldCheck className="w-4 h-4 fill-current" /> 
-             <span className="tracking-wide">100% FREE • NO SIGNUP • SECURE</span>
+            <ShieldCheck className="w-4 h-4 fill-current" />
+            <span className="tracking-wide">
+              100% FREE • NO SIGNUP • SECURE
+            </span>
           </div>
         </div>
       </section>
@@ -132,48 +131,52 @@ export default function Home() {
         id="tools"
         className="relative bg-[#F9FAFD] overflow-hidden pt-2"
       >
-        <div className="pointer-events-none absolute inset-0 opacity-[0.55]
-    bg-[linear-gradient(115deg,rgba(232,238,255,0.75)_0%,rgba(245,248,255,0.55)_35%,rgba(255,255,255,0)_75%)]">
-  </div>
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.55]
+    bg-[linear-gradient(115deg,rgba(232,238,255,0.75)_0%,rgba(245,248,255,0.55)_35%,rgba(255,255,255,0)_75%)]"
+        ></div>
 
-  {/* Layer 2 — Big circle right */}
-  <div className="pointer-events-none absolute top-[-120px] right-[-180px] w-[520px] h-[520px]
-      bg-[radial-gradient(circle,rgba(185,205,255,0.45),rgba(185,205,255,0))] rounded-full blur-[60px]">
-  </div>
+        {/* Layer 2 — Big circle right */}
+        <div
+          className="pointer-events-none absolute top-[-120px] right-[-180px] w-[520px] h-[520px]
+      bg-[radial-gradient(circle,rgba(185,205,255,0.45),rgba(185,205,255,0))] rounded-full blur-[60px]"
+        ></div>
 
-  {/* Layer 3 — Rounded blob left */}
-  <div className="pointer-events-none absolute bottom-[-200px] left-[-160px] w-[660px] h-[460px]
-      bg-[radial-gradient(circle,rgba(205,220,255,0.38),rgba(205,220,255,0))] rounded-[65px] blur-[55px]">
-  </div>
+        {/* Layer 3 — Rounded blob left */}
+        <div
+          className="pointer-events-none absolute bottom-[-200px] left-[-160px] w-[660px] h-[460px]
+      bg-[radial-gradient(circle,rgba(205,220,255,0.38),rgba(205,220,255,0))] rounded-[65px] blur-[55px]"
+        ></div>
 
-  {/* Layer 4 — Polygon highlight */}
-  <div className="pointer-events-none absolute top-[320px] right-[18%] w-[620px] h-[420px]
+        {/* Layer 4 — Polygon highlight */}
+        <div
+          className="pointer-events-none absolute top-[320px] right-[18%] w-[620px] h-[420px]
       bg-[radial-gradient(circle,rgba(225,235,255,0.45),rgba(225,235,255,0))]
-      clip-path-[polygon(0_0,100%_20%,82%_100%,12%_85%)] blur-[48px]">
-  </div>
+      clip-path-[polygon(0_0,100%_20%,82%_100%,12%_85%)] blur-[48px]"
+        ></div>
 
-  {/* Slight grain overlay — premium feel */}
-  <div className="pointer-events-none absolute inset-0 opacity-[0.07] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div><div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Slight grain overlay — premium feel */}
+        <div className="pointer-events-none absolute inset-0 opacity-[0.07] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* --- FLOATING FILTER BAR (Functional) --- */}
-          {/* --- ILOVEPDF STYLE FILTER TABS --- */}
-<div className="max-w-4xl mx-auto px-4 mt-6 mb-8">
-  <div className="flex flex-wrap gap-3 justify-center ">
-    {tabs.map((tab) => (
-      <button
-        key={tab.id}
-        onClick={() => setActiveFilter(tab.id)}
-        className={clsx(
-          "px-4 py-2 rounded-full text-sm font-bold transition-all border shadow-sm", // Changed font-medium to font-bold for sharper text
-          activeFilter === tab.id
-            ? "bg-black text-white border-black" // Active: Pure Black BG, Pure White Text
-            : "bg-white text-black border-gray-200 hover:border-gray-400 hover:bg-gray-50" // Inactive: White BG, Pure Black Text
-        )}
-      >
-        {tab.label}
-      </button>
-    ))}
-  </div>
-</div>
+          <div className="max-w-4xl mx-auto px-4 mt-6 mb-8 relative z-[10]">
+            <div className="flex flex-wrap gap-3 justify-center ">
+              {tabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveFilter(tab.id)}
+                  className={clsx(
+                    "px-4 py-2 rounded-full text-sm font-bold transition-all border shadow-sm", // Changed font-medium to font-bold for sharper text
+                    activeFilter === tab.id
+                      ? "bg-black text-white border-black" // Active: Pure Black BG, Pure White Text
+                      : "bg-white text-black border-gray-200 hover:border-gray-400 hover:bg-gray-50" // Inactive: White BG, Pure Black Text
+                  )}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+          </div>
 
           {/* --- DENSE GRID --- */}
           <div className="space-y-12 pb-20">
@@ -209,9 +212,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* --- VALUE PROPOSITION (Compact) --- */}
-      {/* --- FEATURES BENTO GRID (Redesigned) --- */}
-      {/* --- FEATURES BENTO GRID (Redesigned Copy) --- */}
+
       <section className="py-24 bg-white relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
