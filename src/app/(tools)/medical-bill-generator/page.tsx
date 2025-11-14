@@ -76,7 +76,11 @@ const [formData, setFormData] = useState<{
     <div className="space-y-8">
       {/* Header */}
       <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-        <h1 className="text-3xl font-bold text-gray-900">Medical Bill Generator</h1>
+        <h1 className="text-3xl font-bold text-gray-900 flex flex-wrap items-center gap-3">Medical Bill Generator
+          <span className="hidden md:inline-flex items-center rounded-md bg-green-50 px-2.5 py-1 text-xs font-bold text-green-700 ring-1 ring-inset ring-green-600/20 uppercase tracking-wide">
+            Free
+          </span>
+        </h1>
         <p className="text-gray-600 mt-2">Create pharmacy bills for reimbursement.</p>
       </div>
 

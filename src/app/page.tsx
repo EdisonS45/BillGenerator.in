@@ -96,7 +96,7 @@ export default function Home() {
       {/* --- HERO: COMPACT & DENSE (iLovePDF Style) --- */}
       <section
         className="
-    text-white pt-8 pb-8 relative overflow-hidden
+    text-white pt-7 pb-7 relative overflow-hidden
     bg-[linear-gradient(180deg,#020B29,#03103D,#03103D)]
     sm:bg-[linear-gradient(135deg,#020B29,#03103D 40%,#05154F 70%,#0A1F6C 100%)]
   "
@@ -121,10 +121,12 @@ export default function Home() {
             Generate compliant fuel, taxi, restaurant, and office receipts instantly.
             
             {/* The "Inline" Badge for Mobile/Flow - Doesn't take extra vertical space */}
-            <span className="inline-block md:hidden ml-2 font-medium text-green-400">
-               — 100% Free & Secure.
-            </span>
+
           </p>
+          <div className="inline-flex items-center gap-2 rounded-full bg-green-500/10 border border-green-500/20 px-4 py-1.5 text-xs font-bold text-green-300 mt-3 shadow-[0_0_15px_rgba(34,197,94,0.2)] backdrop-blur-md cursor-default transition-transform hover:scale-105">
+             <ShieldCheck className="w-4 h-4 fill-current" /> 
+             <span className="tracking-wide">100% FREE • NO SIGNUP • SECURE</span>
+          </div>
         </div>
       </section>
 

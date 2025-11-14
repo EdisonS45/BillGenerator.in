@@ -75,13 +75,17 @@ export default function InternetBillPage() {
   return (
     <div className="space-y-8">
       {/* GLOBAL HEADER */}
-      <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-        <h1 className="text-3xl font-bold text-gray-900">
+<div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+        <h1 className="text-3xl font-bold text-gray-900 flex flex-wrap items-center gap-3 ">
           Internet & Broadband Bill Generator
+          <span className="hidden md:inline-flex items-center rounded-md bg-green-50 px-2.5 py-1 text-xs font-bold text-green-700 ring-1 ring-inset ring-green-600/20 uppercase tracking-wide">
+            Free
+          </span>
         </h1>
+
         <p className="text-gray-600 mt-2">
-          Generate professional monthly internet invoices for reimbursement (Jio,
-          Airtel, ACT, BSNL).
+          Generate professional monthly internet invoices for reimbursement
+          (Jio, Airtel, ACT, BSNL).
         </p>
       </div>
 
@@ -90,7 +94,6 @@ export default function InternetBillPage() {
         {/* LEFT PANEL — EDITOR */}
         <div className="w-full lg:w-[400px] flex-shrink-0 bg-white border-r border-gray-200 flex flex-col z-20 shadow-sm lg:shadow-[4px_0_24px_rgba(0,0,0,0.02)] lg:h-[calc(100vh-64px)]">
           {/* Sidebar Header */}
-         
 
           {/* Inputs */}
           <div className="lg:flex-1 lg:overflow-y-auto p-4 lg:p-6 space-y-6 custom-scrollbar">
@@ -225,11 +228,7 @@ export default function InternetBillPage() {
             onMouseUp={handleMouseUp}
             onMouseLeave={handleMouseUp}
             style={{
-              cursor: handMode
-                ? isDragging
-                  ? "grabbing"
-                  : "grab"
-                : "default",
+              cursor: handMode ? (isDragging ? "grabbing" : "grab") : "default",
             }}
           >
             <div
@@ -246,7 +245,6 @@ export default function InternetBillPage() {
           {/* FLOATING ZOOM + HAND TOOL */}
           <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30">
             <div className="flex items-center gap-2 bg-gray-900 text-white px-3 py-2 rounded-full shadow-xl border border-white/10">
-
               {/* Zoom Out */}
               <button
                 onClick={() => setZoom(Math.max(0.3, zoom - 0.1))}
