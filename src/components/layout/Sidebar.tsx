@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { TOOLS_CATEGORIES } from '@/config/tools';
-import { ChevronRight, Sparkles, ArrowRight } from 'lucide-react';
+import { ChevronRight, Sparkles, ArrowRight, MessageSquarePlus, Lightbulb } from 'lucide-react';
 import clsx from 'clsx';
 
 export function Sidebar() {
@@ -69,6 +69,31 @@ export function Sidebar() {
           </ul>
         </div>
       ))}
+      <div className="relative overflow-hidden rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 to-orange-50 p-5 mx-1 shadow-sm">
+         
+         {/* Decorative Icon Background */}
+         <div className="absolute -right-2 -bottom-2 opacity-10">
+            <Lightbulb className="w-24 h-24 text-amber-500" />
+         </div>
+
+         <div className="relative z-10">
+            <h3 className="text-sm font-bold text-gray-900 flex items-center gap-2 mb-2">
+               <MessageSquarePlus className="w-4 h-4 text-amber-600" />
+               <span>Have an idea?</span>
+            </h3>
+            <p className="text-xs text-gray-600 leading-relaxed mb-4">
+               We are building new tools every week. Tell us what you need next!
+            </p>
+            
+            {/* Action: Mailto Link (Simplest Way) */}
+            <a 
+               href="mailto:support@billgenerator.in?subject=Feature Request for BillGenerator"
+               className="inline-flex items-center justify-center w-full px-4 py-2 bg-white border border-amber-200 rounded-lg text-xs font-bold text-amber-700 shadow-sm hover:bg-amber-50 transition-colors"
+            >
+               Send Suggestion
+            </a>
+         </div>
+      </div>
     </aside>
   );
 }

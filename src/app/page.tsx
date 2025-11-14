@@ -105,10 +105,7 @@ export default function Home() {
             "linear-gradient(135deg, #020B29 0%, #03103D 40%, #05154F 70%, #0A1F6C 100%)",
         }}
       >
-        {/* Abstract Background Pattern (Same as before) */}
-        {/* <div className="absolute inset-0 opacity-10 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
-        <div className="absolute top-0 right-0 -mt-20 -mr-20 w-96 h-96 bg-blue-500 rounded-full blur-3xl opacity-20"></div>
-        <div className="absolute bottom-0 left-0 -mb-20 -ml-20 w-96 h-96 bg-purple-500 rounded-full blur-3xl opacity-20"></div> */}
+
 
         <div className="relative z-10 max-w-5xl mx-auto px-4 text-center ">
 {/* 1. STATIC HEADING + ANIMATED PART */}

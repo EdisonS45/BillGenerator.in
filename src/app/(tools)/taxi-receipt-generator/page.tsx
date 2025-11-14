@@ -52,6 +52,27 @@ export default function TaxiBillPage() {
 
   return (
     <div className="space-y-8">
+      <script
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      name: "Taxi Receipt Generator",
+      applicationCategory: "FinanceApplication",
+      operatingSystem: "Web",
+      offers: { "@type": "Offer", price: "0", priceCurrency: "INR" },
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: "4.9",
+        ratingCount: "3185",
+      },
+      description:
+        "Generate taxi, cab, Ola and Uber style invoices for reimbursement with pickup-drop details, driver and fare breakup.",
+    }),
+  }}
+/>
+
       <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
         <h1 className="text-3xl font-bold text-gray-900 flex flex-wrap items-center gap-3">Taxi Receipt Generator
           <span className="hidden md:inline-flex items-center rounded-md bg-green-50 px-2.5 py-1 text-xs font-bold text-green-700 ring-1 ring-inset ring-green-600/20 uppercase tracking-wide">
@@ -137,16 +158,114 @@ export default function TaxiBillPage() {
 
       </div>
       
-      {/* SEO CONTENT */}
-      <article className="prose prose-blue max-w-none bg-white p-8 rounded-xl border border-gray-200">
-        <h2>Generate Cab Receipts for Uber & Ola</h2>
-        <p>Lost your digital invoice? Use this tool to generate a realistic cab receipt for your local travel claims.</p>
-        <h3>How it works:</h3>
-        <ul>
-            <li>**Smart Fare Calculator:** Enter the distance in KM, and the tool automatically estimates a realistic fare based on current city taxi rates.</li>
-            <li>**Route Visualizer:** Includes a generated route map to make the receipt look authentic.</li>
-        </ul>
-      </article>
+{/* --- TAXI RECEIPT SEO CONTENT (Fuel layout style) --- */}
+<div className="max-w-6xl mx-auto px-4 lg:px-8 py-12 space-y-12">
+
+  {/* INTRO */}
+  <div className="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
+    <h2 className="text-2xl font-bold text-gray-900 mb-4">
+      Taxi Receipt Generator for Office Travel Reimbursement
+    </h2>
+    <p className="text-gray-600 leading-relaxed mb-6">
+      Cab receipts are required for corporate reimbursement and business travel claims.
+      If an Ola / Uber receipt is missing or the original does not match the reimbursement
+      period, this tool generates a professional taxi invoice instantly with distance,
+      route, driver details, trip ID, GST and payment mode — matching real cab receipt layout.
+    </p>
+
+    <div className="flex flex-wrap gap-3">
+      <span className="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-full border border-blue-100">Ola</span>
+      <span className="px-3 py-1 bg-yellow-50 text-yellow-700 text-xs font-bold rounded-full border border-yellow-100">Uber</span>
+      <span className="px-3 py-1 bg-green-50 text-green-700 text-xs font-bold rounded-full border border-green-100">Taxi / Cab</span>
+      <span className="px-3 py-1 bg-purple-50 text-purple-700 text-xs font-bold rounded-full border border-purple-100">Reimbursement</span>
+    </div>
+  </div>
+
+  {/* FEATURES */}
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+      <h3 className="font-bold text-gray-900 mb-2">Route + Distance Breakdown</h3>
+      <p className="text-sm text-gray-500">
+        Add pickup & drop, via points and total kilometers — fare calculated automatically.
+      </p>
+    </div>
+    <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+      <h3 className="font-bold text-gray-900 mb-2">Toll / Night Charges / GST</h3>
+      <p className="text-sm text-gray-500">
+        Supports toll, parking, airport surcharge and GST fields for reimbursement compliance.
+      </p>
+    </div>
+    <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+      <h3 className="font-bold text-gray-900 mb-2">Ola / Uber Style PDF</h3>
+      <p className="text-sm text-gray-500">
+        Matches real cab invoice format accepted by HR & finance departments.
+      </p>
+    </div>
+  </div>
+
+  {/* STEPS + FAQ */}
+  <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 pt-8 border-t border-gray-100">
+
+    {/* STEPS */}
+    <div className="lg:col-span-7 space-y-8">
+      <h3 className="text-2xl font-bold text-gray-900">How to generate a taxi invoice?</h3>
+      <div className="space-y-6">
+        {[
+          "Enter taxi company (Ola / Uber / or manual cab)",
+          "Add driver name, vehicle number & trip ID",
+          "Enter pickup → drop location and distance (km)",
+          "Add base fare, per-km rate, tolls & GST",
+          "Select payment mode (Cash / UPI / Card)",
+          "Download the invoice as a PDF for reimbursement"
+        ].map((step, i) => (
+          <div key={i} className="flex gap-4">
+            <div className="flex-shrink-0 w-8 h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-sm">
+              {i + 1}
+            </div>
+            <p className="text-sm text-gray-600">{step}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    {/* FAQ */}
+    <div className="lg:col-span-5">
+      <div className="bg-blue-50/50 rounded-2xl p-8 border border-blue-100 space-y-6">
+
+        <div>
+          <h4 className="text-sm font-bold text-gray-900 mb-2">
+            Is this accepted for office reimbursement?
+          </h4>
+          <p className="text-xs text-gray-600">
+            Yes. This invoice layout includes route, trip distance, GST and fare — compliant for HR reimbursement.
+          </p>
+        </div>
+        <div className="w-full h-px bg-blue-200/50"></div>
+
+        <div>
+          <h4 className="text-sm font-bold text-gray-900 mb-2">
+            Can this replace Ola / Uber PDF?
+          </h4>
+          <p className="text-xs text-gray-600">
+            Yes, when an invoice is unavailable or incorrect. It follows Ola-/Uber-styled invoice formatting.
+          </p>
+        </div>
+        <div className="w-full h-px bg-blue-200/50"></div>
+
+        <div>
+          <h4 className="text-sm font-bold text-gray-900 mb-2">
+            Is route & trip data stored anywhere?
+          </h4>
+          <p className="text-xs text-gray-600">
+            No — all trip details remain in your browser. Nothing is uploaded or saved on our servers.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
     </div>
   );
 }

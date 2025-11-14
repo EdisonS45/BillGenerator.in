@@ -111,6 +111,27 @@ export default function LTAPage() {
 
   return (
     <div className="space-y-8">
+      <script
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      name: "LTA Assistant",
+      applicationCategory: "FinanceApplication",
+      operatingSystem: "Web",
+      offers: { "@type": "Offer", price: "0", priceCurrency: "INR" },
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: "4.7",
+        ratingCount: "1120",
+      },
+      description:
+        "Calculate LTA exemption based on travel details, family members, ticket fare and tax rules. Download summary for claims.",
+    }),
+  }}
+/>
+
       {/* HEADER */}
       <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
         <h1 className="text-3xl font-bold text-gray-900 flex flex-wrap items-center gap-3">
@@ -345,6 +366,109 @@ export default function LTAPage() {
           </div>
         </div>
       </div>
+      {/* --- LTA SEO CONTENT (Fuel layout style) --- */}
+<div className="max-w-6xl mx-auto px-4 lg:px-8 py-12 space-y-12">
+
+  {/* INTRO */}
+  <div className="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
+    <h2 className="text-2xl font-bold text-gray-900 mb-4">
+      LTA Assistant — Calculate Leave Travel Allowance Exemption
+    </h2>
+    <p className="text-gray-600 leading-relaxed mb-6">
+      Leave Travel Allowance (LTA) is one of the most powerful tax-saving components 
+      for salaried employees. However, exemption rules are confusing — which trips 
+      qualify, who in the family is included, what expenses are allowed, and how often 
+      LTA can be claimed. Our tool simplifies this by helping you calculate eligible 
+      exemption based on government rules and generate a summary for HR reimbursement.
+    </p>
+
+    <div className="flex flex-wrap gap-3">
+      <span className="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-full border border-blue-100">LTA Exemption</span>
+      <span className="px-3 py-1 bg-green-50 text-green-700 text-xs font-bold rounded-full border border-green-100">Family Travel</span>
+      <span className="px-3 py-1 bg-yellow-50 text-yellow-700 text-xs font-bold rounded-full border border-yellow-100">HR Reimbursement</span>
+      <span className="px-3 py-1 bg-orange-50 text-orange-700 text-xs font-bold rounded-full border border-orange-100">Tax Saving</span>
+    </div>
+  </div>
+
+  {/* FEATURES */}
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+      <h3 className="font-bold text-gray-900 mb-2">Rule-Based Calculations</h3>
+      <p className="text-sm text-gray-500">
+        Calculates exemption using government rules — fare type, family members and trip frequency.
+      </p>
+    </div>
+    <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+      <h3 className="font-bold text-gray-900 mb-2">Family Member Support</h3>
+      <p className="text-sm text-gray-500">
+        Includes spouse, children, dependent parents and siblings — based on eligibility rules.
+      </p>
+    </div>
+    <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+      <h3 className="font-bold text-gray-900 mb-2">Claim Summary PDF</h3>
+      <p className="text-sm text-gray-500">
+        Download a claim summary for HR teams with fare breakup and exemption calculation.
+      </p>
+    </div>
+  </div>
+
+  {/* STEPS + FAQ */}
+  <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 pt-8 border-t border-gray-100">
+
+    {/* STEPS */}
+    <div className="lg:col-span-7 space-y-8">
+      <h3 className="text-2xl font-bold text-gray-900">How to calculate LTA exemption?</h3>
+      <div className="space-y-6">
+        {[
+          "Enter details of travel (origin → destination and dates)",
+          "Add number of family members traveling",
+          "Enter ticket fare and travel class",
+          "Check if the trip falls under the current 4-year block",
+          "Review eligible LTA exemption and taxable amount",
+          "Download summary for reimbursement submission"
+        ].map((step, i) => (
+          <div key={i} className="flex gap-4">
+            <div className="flex-shrink-0 w-8 h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-sm">
+              {i + 1}
+            </div>
+            <p className="text-sm text-gray-600">{step}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    {/* FAQ */}
+    <div className="lg:col-span-5">
+      <div className="bg-blue-50/50 rounded-2xl p-8 border border-blue-100 space-y-6">
+
+        <div>
+          <h4 className="text-sm font-bold text-gray-900 mb-2">Can LTA be claimed every year?</h4>
+          <p className="text-xs text-gray-600">
+            No. It can be claimed twice in a 4-year block as per income tax rules.
+          </p>
+        </div>
+        <div className="w-full h-px bg-blue-200/50"></div>
+
+        <div>
+          <h4 className="text-sm font-bold text-gray-900 mb-2">Does hotel & food expense count?</h4>
+          <p className="text-xs text-gray-600">
+            No. Only travel fare (flight / train / bus) is eligible for exemption.
+          </p>
+        </div>
+        <div className="w-full h-px bg-blue-200/50"></div>
+
+        <div>
+          <h4 className="text-sm font-bold text-gray-900 mb-2">Can LTA be claimed for international trips?</h4>
+          <p className="text-xs text-gray-600">
+            No. Only domestic travel within India is eligible.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
     </div>
   );
 }

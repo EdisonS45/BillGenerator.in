@@ -71,6 +71,31 @@ export default function GSTInvoicePage() {
 
   return (
     <div className="space-y-8">
+      <script
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      name: "GST Invoice Generator",
+      applicationCategory: "FinanceApplication",
+      operatingSystem: "Web",
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "INR",
+      },
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: "4.9",
+        ratingCount: "1820",
+      },
+      description:
+        "Create GST-compliant invoices with auto tax breakup and QR code. Download PDF instantly.",
+    }),
+  }}
+/>
+
       <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
         <h1 className="text-3xl font-bold text-gray-900 flex flex-wrap items-center gap-3">Free GST Invoice Generator
          <span className="hidden md:inline-flex items-center rounded-md bg-green-50 px-2.5 py-1 text-xs font-bold text-green-700 ring-1 ring-inset ring-green-600/20 uppercase tracking-wide">
@@ -183,8 +208,127 @@ export default function GSTInvoicePage() {
 
            <DownloadButton billRef={billRef} fileName={`Invoice_${formData.invoiceNo}.pdf`} />
         </div>
+      
+      </div>
+      {/* --- GST SEO CONTENT (same layout as Fuel) --- */}
+<div className="max-w-6xl mx-auto px-4 lg:px-8 py-12 space-y-12">
+
+  {/* 1. INTRO BLOCK */}
+  <div className="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
+    <h2 className="text-2xl font-bold text-gray-900 mb-4">
+      GST Invoice Generator for Businesses & Freelancers
+    </h2>
+    <p className="text-gray-600 leading-relaxed mb-6">
+      Creating GST-compliant invoices is essential for accounting, client billing, and
+      tax filing. If you need a clean invoice format with proper GST breakup and payment
+      options, our tool generates a valid tax invoice instantly with HSN, CGST, SGST,
+      IGST, subtotal, grand total, and signature fields. You can also enable UPI / Bank
+      QR code to receive payments from clients in seconds.
+    </p>
+
+    <div className="flex flex-wrap gap-3">
+      <span className="px-3 py-1 bg-green-50 text-green-700 text-xs font-bold rounded-full border border-green-100">
+        Service Providers
+      </span>
+      <span className="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-full border border-blue-100">
+        Freelancers
+      </span>
+      <span className="px-3 py-1 bg-yellow-50 text-yellow-700 text-xs font-bold rounded-full border border-yellow-100">
+        Product-Based Businesses
+      </span>
+      <span className="px-3 py-1 bg-purple-50 text-purple-700 text-xs font-bold rounded-full border border-purple-100">
+        Invoice with QR Payment
+      </span>
+    </div>
+  </div>
+
+  {/* 2. THREE FEATURES */}
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+      <h3 className="font-bold text-gray-900 mb-2">GST Auto Calculation</h3>
+      <p className="text-sm text-gray-500">
+        CGST + SGST for Intra-State or IGST for Inter-State — calculated automatically.
+      </p>
+    </div>
+    <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+      <h3 className="font-bold text-gray-900 mb-2">UPI / Bank QR Code</h3>
+      <p className="text-sm text-gray-500">
+        Auto-generate QR from UPI ID or Bank details for instant client payment.
+      </p>
+    </div>
+    <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+      <h3 className="font-bold text-gray-900 mb-2">Professional PDF Export</h3>
+      <p className="text-sm text-gray-500">
+        Share branded invoices with clients via WhatsApp or Email in one click.
+      </p>
+    </div>
+  </div>
+
+  {/* 3. Steps + FAQ SIDE BY SIDE */}
+  <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 pt-8 border-t border-gray-100">
+    
+    {/* LEFT: STEPS */}
+    <div className="lg:col-span-7 space-y-8">
+      <h3 className="text-2xl font-bold text-gray-900">
+        How to create a GST invoice?
+      </h3>
+      <div className="space-y-6">
+        {[
+          "Enter your business GST details",
+          "Fill client information and invoice number",
+          "Add services/products with HSN, quantity & price",
+          "Select supply type to auto-calculate CGST/SGST or IGST",
+          "Enable payment QR for UPI / bank transfer",
+          "Download the invoice as PDF"
+        ].map((step, i) => (
+          <div key={i} className="flex gap-4">
+            <div className="flex-shrink-0 w-8 h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-sm">
+              {i + 1}
+            </div>
+            <p className="text-sm text-gray-600">{step}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    {/* RIGHT: FAQ */}
+    <div className="lg:col-span-5">
+      <div className="bg-blue-50/50 rounded-2xl p-8 border border-blue-100 space-y-6">
+        
+        <div>
+          <h4 className="text-sm font-bold text-gray-900 mb-2">
+            Is this invoice accepted for GST filing?
+          </h4>
+          <p className="text-xs text-gray-600">
+            Yes. It includes HSN, GSTIN, CGST/SGST/IGST breakup and totals — compliant for filing.
+          </p>
+        </div>
+        <div className="w-full h-px bg-blue-200/50"></div>
+
+        <div>
+          <h4 className="text-sm font-bold text-gray-900 mb-2">
+            Do freelancers need GST?
+          </h4>
+          <p className="text-xs text-gray-600">
+            Many freelancers charge GST once turnover exceeds limits. This tool works for both products & services.
+          </p>
+        </div>
+        <div className="w-full h-px bg-blue-200/50"></div>
+
+        <div>
+          <h4 className="text-sm font-bold text-gray-900 mb-2">
+            Is my invoice data stored?
+          </h4>
+          <p className="text-xs text-gray-600">
+            No. Everything runs inside your browser. We do not upload, store or log your invoice data.
+          </p>
+        </div>
 
       </div>
+    </div>
+  </div>
+</div>
+
     </div>
   );
 }

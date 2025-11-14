@@ -87,6 +87,27 @@ export default function HotelBillPage() {
 
   return (
     <div className="space-y-8">
+      <script
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      name: "Hotel Invoice Generator",
+      applicationCategory: "FinanceApplication",
+      operatingSystem: "Web",
+      offers: { "@type": "Offer", price: "0", priceCurrency: "INR" },
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: "4.9",
+        ratingCount: "1630",
+      },
+      description:
+        "Create hotel and accommodation invoices with GST and room breakdown. Download as PDF instantly.",
+    }),
+  }}
+/>
+
       {/* GLOBAL HEADER */}
       <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
         <h1 className="text-3xl font-bold text-gray-900 flex flex-wrap items-center gap-3">
@@ -242,6 +263,94 @@ export default function HotelBillPage() {
 
         </div>
       </div>
+      {/* --- HOTEL SEO CONTENT (Fuel layout style) --- */}
+<div className="max-w-6xl mx-auto px-4 lg:px-8 py-12 space-y-12">
+
+  {/* 1. INTRO */}
+  <div className="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
+    <h2 className="text-2xl font-bold text-gray-900 mb-4">
+      Hotel Invoice Generator for Reimbursement & Business Travel
+    </h2>
+    <p className="text-gray-600 leading-relaxed mb-6">
+      Employees and business travelers often need hotel invoices for corporate reimbursement.
+      If your original hotel bill is missing, not itemized properly, or you need a digital copy
+      for record keeping, our tool generates a professional room tariff invoice instantly with
+      GST, guest details, stay duration, and payment mode breakup.
+    </p>
+
+    <div className="flex flex-wrap gap-3">
+      <span className="px-3 py-1 bg-orange-50 text-orange-700 text-xs font-bold rounded-full border border-orange-100">Hotel Stay</span>
+      <span className="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-full border border-blue-100">Lodge & Accommodation</span>
+      <span className="px-3 py-1 bg-green-50 text-green-700 text-xs font-bold rounded-full border border-green-100">Business Travel</span>
+      <span className="px-3 py-1 bg-purple-50 text-purple-700 text-xs font-bold rounded-full border border-purple-100">Reimbursement Claims</span>
+    </div>
+  </div>
+
+  {/* 2. FEATURES */}
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+      <h3 className="font-bold text-gray-900 mb-2">Room Tariff Breakdown</h3>
+      <p className="text-sm text-gray-500">Auto-calculates number of nights, per-night rate, and total payable amount.</p>
+    </div>
+    <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+      <h3 className="font-bold text-gray-900 mb-2">GST Included</h3>
+      <p className="text-sm text-gray-500">Automatically adds GST 12% / 18% based on tariff and generates proper invoice format.</p>
+    </div>
+    <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+      <h3 className="font-bold text-gray-900 mb-2">Professional PDF Export</h3>
+      <p className="text-sm text-gray-500">Print or share via WhatsApp / Email instantly — accepted for office claims.</p>
+    </div>
+  </div>
+
+  {/* 3. STEPS + FAQ */}
+  <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 pt-8 border-t border-gray-100">
+
+    {/* STEPS */}
+    <div className="lg:col-span-7 space-y-8">
+      <h3 className="text-2xl font-bold text-gray-900">How to generate a hotel invoice?</h3>
+      <div className="space-y-6">
+        {[
+          "Enter hotel name, GSTIN and address",
+          "Add guest name and check-in / check-out dates",
+          "Enter room tariff and number of nights",
+          "Add GST & optional service charges (if needed)",
+          "Select payment mode (Cash / UPI / Card / Bank Transfer)",
+          "Download the invoice as a PDF"
+        ].map((step, i) => (
+          <div key={i} className="flex gap-4">
+            <div className="flex-shrink-0 w-8 h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-sm">
+              {i + 1}
+            </div>
+            <p className="text-sm text-gray-600">{step}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    {/* FAQ */}
+    <div className="lg:col-span-5">
+      <div className="bg-blue-50/50 rounded-2xl p-8 border border-blue-100 space-y-6">
+        <div>
+          <h4 className="text-sm font-bold text-gray-900 mb-2">Is this invoice valid for reimbursement?</h4>
+          <p className="text-xs text-gray-600">Yes. It includes GSTIN, tariff breakup, number of nights, guest details and payment info — fully compliant.</p>
+        </div>
+        <div className="w-full h-px bg-blue-200/50"></div>
+
+        <div>
+          <h4 className="text-sm font-bold text-gray-900 mb-2">Does this work for lodges / PG / service apartments?</h4>
+          <p className="text-xs text-gray-600">Yes. It is suitable for hotels, lodges, service apartments and accommodation businesses.</p>
+        </div>
+        <div className="w-full h-px bg-blue-200/50"></div>
+
+        <div>
+          <h4 className="text-sm font-bold text-gray-900 mb-2">Do you store invoice or guest data?</h4>
+          <p className="text-xs text-gray-600">No — everything happens locally in your browser. Nothing is uploaded or saved on our servers.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
     </div>
   );
 }

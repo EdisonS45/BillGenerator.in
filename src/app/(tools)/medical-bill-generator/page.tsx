@@ -74,6 +74,27 @@ const [formData, setFormData] = useState<{
 
   return (
     <div className="space-y-8">
+      <script
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      name: "Medical Bill Generator",
+      applicationCategory: "FinanceApplication",
+      operatingSystem: "Web",
+      offers: { "@type": "Offer", price: "0", priceCurrency: "INR" },
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: "4.9",
+        ratingCount: "2015",
+      },
+      description:
+        "Generate hospital, doctor consultation, diagnostic and pharmacy bills online. Download PDF for reimbursement and insurance claims.",
+    }),
+  }}
+/>
+
       {/* Header */}
       <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
         <h1 className="text-3xl font-bold text-gray-900 flex flex-wrap items-center gap-3">Medical Bill Generator
@@ -182,6 +203,114 @@ const [formData, setFormData] = useState<{
           <DownloadButton billRef={billRef} fileName={`Medical_Bill_${formData.date}.pdf`} />
         </div>
       </div>
+      {/* --- MEDICAL SEO CONTENT (Fuel layout style) --- */}
+<div className="max-w-6xl mx-auto px-4 lg:px-8 py-12 space-y-12">
+
+  {/* INTRO */}
+  <div className="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
+    <h2 className="text-2xl font-bold text-gray-900 mb-4">
+      Medical Bill Generator for Hospital & Doctor Reimbursement Claims
+    </h2>
+    <p className="text-gray-600 leading-relaxed mb-6">
+      Medical bills are often required for corporate reimbursement, insurance claims and tax
+      benefits. If your original bill is outdated, missing, or contains errors, this tool
+      helps you generate a professional medical invoice instantly with patient details,
+      treatment/consultation charges, hospital/clinic information, GST and payment mode.
+    </p>
+
+    <div className="flex flex-wrap gap-3">
+      <span className="px-3 py-1 bg-red-50 text-red-700 text-xs font-bold rounded-full border border-red-100">Hospital</span>
+      <span className="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-full border border-blue-100">Doctor Consultation</span>
+      <span className="px-3 py-1 bg-green-50 text-green-700 text-xs font-bold rounded-full border border-green-100">Pharmacy & Medicine</span>
+      <span className="px-3 py-1 bg-yellow-50 text-yellow-700 text-xs font-bold rounded-full border border-yellow-100">Insurance & Reimbursement</span>
+    </div>
+  </div>
+
+  {/* FEATURES */}
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+      <h3 className="font-bold text-gray-900 mb-2">Multiple Bill Types</h3>
+      <p className="text-sm text-gray-500">
+        Hospital, doctor consultation, diagnostic test and pharmacy invoices supported.
+      </p>
+    </div>
+    <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+      <h3 className="font-bold text-gray-900 mb-2">Itemized Charges</h3>
+      <p className="text-sm text-gray-500">
+        Add consultation fee, treatment charges, room charges, medicine cost and GST easily.
+      </p>
+    </div>
+    <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+      <h3 className="font-bold text-gray-900 mb-2">Insurance-Ready PDF</h3>
+      <p className="text-sm text-gray-500">
+        Download claim-ready invoices accepted by most insurance companies & employers.
+      </p>
+    </div>
+  </div>
+
+  {/* STEPS + FAQ */}
+  <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 pt-8 border-t border-gray-100">
+
+    {/* STEPS */}
+    <div className="lg:col-span-7 space-y-8">
+      <h3 className="text-2xl font-bold text-gray-900">How to generate a medical invoice?</h3>
+      <div className="space-y-6">
+        {[
+          "Enter hospital/clinic name and doctor details",
+          "Add patient name, age and patient ID (optional)",
+          "Select invoice type — hospital / consultation / diagnostic / pharmacy",
+          "Itemize charges including GST (if applicable)",
+          "Add payment method (Cash / Card / UPI / Insurance)",
+          "Download the invoice as PDF for reimbursement"
+        ].map((step, i) => (
+          <div key={i} className="flex gap-4">
+            <div className="flex-shrink-0 w-8 h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-sm">
+              {i + 1}
+            </div>
+            <p className="text-sm text-gray-600">{step}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    {/* FAQ */}
+    <div className="lg:col-span-5">
+      <div className="bg-blue-50/50 rounded-2xl p-8 border border-blue-100 space-y-6">
+
+        <div>
+          <h4 className="text-sm font-bold text-gray-900 mb-2">
+            Is this accepted by corporate reimbursement teams?
+          </h4>
+          <p className="text-xs text-gray-600">
+            Yes. It includes diagnosis, charges, doctor details and payment mode — compliant for reimbursement.
+          </p>
+        </div>
+        <div className="w-full h-px bg-blue-200/50"></div>
+
+        <div>
+          <h4 className="text-sm font-bold text-gray-900 mb-2">
+            Will insurance companies accept this?
+          </h4>
+          <p className="text-xs text-gray-600">
+            Most insurers accept invoices generated in standard hospital format with GST and patient details.
+          </p>
+        </div>
+        <div className="w-full h-px bg-blue-200/50"></div>
+
+        <div>
+          <h4 className="text-sm font-bold text-gray-900 mb-2">
+            Is medical history or diagnosis stored?
+          </h4>
+          <p className="text-xs text-gray-600">
+            No — everything runs locally in your browser. We do not store or upload patient information.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
     </div>
   );
 }

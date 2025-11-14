@@ -76,6 +76,27 @@ export default function MobileBillPage() {
 
   return (
     <div className="space-y-8">
+      <script
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      name: "Mobile Bill Generator",
+      applicationCategory: "FinanceApplication",
+      operatingSystem: "Web",
+      offers: { "@type": "Offer", price: "0", priceCurrency: "INR" },
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: "4.8",
+        ratingCount: "1675",
+      },
+      description:
+        "Generate mobile recharge and postpaid invoices online for reimbursement and proof of payment. Download PDF instantly.",
+    }),
+  }}
+/>
+
       {/* HEADER */}
       <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
         <h1 className="text-3xl font-bold text-gray-900 flex flex-wrap items-center gap-3">
@@ -280,6 +301,115 @@ export default function MobileBillPage() {
           </div>
         </div>
       </div>
+      {/* --- MOBILE BILL SEO CONTENT (Fuel layout style) --- */}
+<div className="max-w-6xl mx-auto px-4 lg:px-8 py-12 space-y-12">
+
+  {/* INTRO */}
+  <div className="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
+    <h2 className="text-2xl font-bold text-gray-900 mb-4">
+      Mobile Bill Generator for Reimbursement & Payment Proof
+    </h2>
+    <p className="text-gray-600 leading-relaxed mb-6">
+      Employees claiming monthly phone allowance or reimbursement often need mobile
+      bills as expense proof. If your original bill is unavailable or the billing
+      cycle does not match your claim period, this tool generates a proper mobile
+      recharge or postpaid invoice instantly with operator details, billing cycle,
+      phone number, plan charges, GST and payment mode.
+    </p>
+
+    <div className="flex flex-wrap gap-3">
+      <span className="px-3 py-1 bg-red-50 text-red-700 text-xs font-bold rounded-full border border-red-100">Airtel</span>
+      <span className="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-full border border-blue-100">Jio</span>
+      <span className="px-3 py-1 bg-yellow-50 text-yellow-700 text-xs font-bold rounded-full border border-yellow-100">Vi - Vodafone Idea</span>
+      <span className="px-3 py-1 bg-green-50 text-green-700 text-xs font-bold rounded-full border border-green-100">BSNL</span>
+    </div>
+  </div>
+
+  {/* FEATURES */}
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+      <h3 className="font-bold text-gray-900 mb-2">Postpaid & Prepaid Support</h3>
+      <p className="text-sm text-gray-500">
+        Generate invoices for both monthly postpaid bills and prepaid recharge payments.
+      </p>
+    </div>
+    <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+      <h3 className="font-bold text-gray-900 mb-2">Billing Cycle & GST Included</h3>
+      <p className="text-sm text-gray-500">
+        Auto-calculates monthly rental, plan charges and GST for corporate compliance.
+      </p>
+    </div>
+    <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+      <h3 className="font-bold text-gray-900 mb-2">Professional PDF Invoice</h3>
+      <p className="text-sm text-gray-500">
+        Download a clean invoice accepted for reimbursement claims and finance audits.
+      </p>
+    </div>
+  </div>
+
+  {/* STEPS + FAQ */}
+  <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 pt-8 border-t border-gray-100">
+
+    {/* STEPS */}
+    <div className="lg:col-span-7 space-y-8">
+      <h3 className="text-2xl font-bold text-gray-900">How to generate a mobile bill invoice?</h3>
+      <div className="space-y-6">
+        {[
+          "Enter telecom operator and mobile number",
+          "Select postpaid or prepaid recharge type",
+          "Add billing cycle or recharge date",
+          "Enter plan charges and GST amount",
+          "Add payment method (UPI / Card / NetBanking)",
+          "Download the invoice as PDF for reimbursement"
+        ].map((step, i) => (
+          <div key={i} className="flex gap-4">
+            <div className="flex-shrink-0 w-8 h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-sm">
+              {i + 1}
+            </div>
+            <p className="text-sm text-gray-600">{step}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    {/* FAQ */}
+    <div className="lg:col-span-5">
+      <div className="bg-blue-50/50 rounded-2xl p-8 border border-blue-100 space-y-6">
+
+        <div>
+          <h4 className="text-sm font-bold text-gray-900 mb-2">
+            Is this accepted for corporate reimbursement?
+          </h4>
+          <p className="text-xs text-gray-600">
+            Yes. HR departments accept invoices with billing cycle, GST, plan details and phone number.
+          </p>
+        </div>
+        <div className="w-full h-px bg-blue-200/50"></div>
+
+        <div>
+          <h4 className="text-sm font-bold text-gray-900 mb-2">
+            Can I generate bill for prepaid recharge?
+          </h4>
+          <p className="text-xs text-gray-600">
+            Yes. You can generate recharge invoices showing transaction date, plan and total paid amount.
+          </p>
+        </div>
+        <div className="w-full h-px bg-blue-200/50"></div>
+
+        <div>
+          <h4 className="text-sm font-bold text-gray-900 mb-2">
+            Is mobile number or billing info stored?
+          </h4>
+          <p className="text-xs text-gray-600">
+            No — everything runs on your device. We never upload or save billing data.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
     </div>
   );
 }

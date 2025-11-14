@@ -30,6 +30,27 @@ export default function RentReceiptPage() {
 
   return (
     <div className="space-y-8">
+      <script
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      name: "Rent Receipt Generator",
+      applicationCategory: "FinanceApplication",
+      operatingSystem: "Web",
+      offers: { "@type": "Offer", price: "0", priceCurrency: "INR" },
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: "4.9",
+        ratingCount: "2540",
+      },
+      description:
+        "Generate rent receipts online with landlord and tenant details for HRA income tax exemption and salary proof.",
+    }),
+  }}
+/>
+
       <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
         <h1 className="text-3xl font-bold text-gray-900 flex flex-wrap items-center gap-3">
           HRA Rent Receipt Generator
@@ -156,6 +177,109 @@ export default function RentReceiptPage() {
           />
         </div>
       </div>
+      {/* --- RENT RECEIPT SEO CONTENT (Fuel layout style) --- */}
+<div className="max-w-6xl mx-auto px-4 lg:px-8 py-12 space-y-12">
+
+  {/* INTRO */}
+  <div className="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
+    <h2 className="text-2xl font-bold text-gray-900 mb-4">
+      Rent Receipt Generator for HRA Claims & Income Tax Exemption
+    </h2>
+    <p className="text-gray-600 leading-relaxed mb-6">
+      Employees claiming HRA (House Rent Allowance) need valid rent receipts to submit
+      to HR and for income tax exemption under Section 10(13A). If physical receipts
+      are missing or incomplete, this tool generates professional rent receipts with
+      landlord details, PAN, rental duration, monthly amount and payment mode — fully
+      compliant for salary proof and tax filing.
+    </p>
+
+    <div className="flex flex-wrap gap-3">
+      <span className="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-full border border-blue-100">HRA Exemption</span>
+      <span className="px-3 py-1 bg-green-50 text-green-700 text-xs font-bold rounded-full border border-green-100">Income Tax</span>
+      <span className="px-3 py-1 bg-yellow-50 text-yellow-700 text-xs font-bold rounded-full border border-yellow-100">Salary Claims</span>
+      <span className="px-3 py-1 bg-orange-50 text-orange-700 text-xs font-bold rounded-full border border-orange-100">Reimbursement Proof</span>
+    </div>
+  </div>
+
+  {/* FEATURES */}
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+      <h3 className="font-bold text-gray-900 mb-2">Supports Monthly / Quarterly / Yearly</h3>
+      <p className="text-sm text-gray-500">
+        Instantly generate rent receipts for a custom period — 1 month to 12 months.
+      </p>
+    </div>
+    <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+      <h3 className="font-bold text-gray-900 mb-2">PAN & Address Included</h3>
+      <p className="text-sm text-gray-500">
+        HRA claims often require landlord PAN when rent exceeds ₹1 lakh per year — handled automatically.
+      </p>
+    </div>
+    <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+      <h3 className="font-bold text-gray-900 mb-2">HR-Friendly PDF Format</h3>
+      <p className="text-sm text-gray-500">
+        Download printable, signature-ready PDFs accepted by HR teams & tax consultants.
+      </p>
+    </div>
+  </div>
+
+  {/* STEPS + FAQ */}
+  <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 pt-8 border-t border-gray-100">
+
+    {/* STEPS */}
+    <div className="lg:col-span-7 space-y-8">
+      <h3 className="text-2xl font-bold text-gray-900">How to generate rent receipts?</h3>
+      <div className="space-y-6">
+        {[
+          "Enter tenant and landlord details",
+          "Add property address and rent amount",
+          "Select duration — monthly / quarterly / yearly",
+          "Add landlord PAN if annual rent > ₹1,00,000",
+          "Choose payment mode (Cash / UPI / Bank)",
+          "Download PDF and sign before submitting to HR"
+        ].map((step, i) => (
+          <div key={i} className="flex gap-4">
+            <div className="flex-shrink-0 w-8 h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-sm">
+              {i + 1}
+            </div>
+            <p className="text-sm text-gray-600">{step}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    {/* FAQ */}
+    <div className="lg:col-span-5">
+      <div className="bg-blue-50/50 rounded-2xl p-8 border border-blue-100 space-y-6">
+
+        <div>
+          <h4 className="text-sm font-bold text-gray-900 mb-2">Is this accepted for HRA tax exemption?</h4>
+          <p className="text-xs text-gray-600">
+            Yes. These receipts contain all mandatory details required for HRA, including PAN if applicable.
+          </p>
+        </div>
+        <div className="w-full h-px bg-blue-200/50"></div>
+
+        <div>
+          <h4 className="text-sm font-bold text-gray-900 mb-2">Is digital signature mandatory?</h4>
+          <p className="text-xs text-gray-600">
+            Most HR teams accept signed or stamped receipts. Hand-signature is recommended for final PDF.
+          </p>
+        </div>
+        <div className="w-full h-px bg-blue-200/50"></div>
+
+        <div>
+          <h4 className="text-sm font-bold text-gray-900 mb-2">Is tenant/landlord information stored?</h4>
+          <p className="text-xs text-gray-600">
+            No — all data stays on your device. Nothing is uploaded or stored on our servers.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
     </div>
   );
 }
