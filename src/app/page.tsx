@@ -13,7 +13,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import clsx from "clsx";
-
+import { HeroHeading } from "@/components/shared/HeroHeading"; // Import the new component
 // --- COMPONENTS (Unchanged Style) ---
 
 const ToolCard = ({
@@ -31,7 +31,7 @@ const ToolCard = ({
 }) => (
   <Link
     href={href}
-    className="group relative flex flex-col h-full rounded-xl bg-white p-5 shadow-sm ring-1 ring-gray-200 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:ring-blue-500/20"
+    className="group relative flex flex-col h-full rounded-xl bg-white p-5 shadow-md ring-1 ring-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:ring-blue-500/20"
   >
     {badge && (
       <span className="absolute top-3 right-3 inline-flex items-center rounded-full bg-red-50 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide text-red-600 ring-1 ring-inset ring-red-600/10">
@@ -96,7 +96,7 @@ export default function Home() {
       {/* --- HERO: COMPACT & DENSE (iLovePDF Style) --- */}
       <section
         className="
-    text-white pt-12 pb-10 relative overflow-hidden
+    text-white pt-8 pb-8 relative overflow-hidden
     bg-[linear-gradient(180deg,#020B29,#03103D,#03103D)]
     sm:bg-[linear-gradient(135deg,#020B29,#03103D 40%,#05154F 70%,#0A1F6C 100%)]
   "
@@ -110,44 +110,71 @@ export default function Home() {
         <div className="absolute top-0 right-0 -mt-20 -mr-20 w-96 h-96 bg-blue-500 rounded-full blur-3xl opacity-20"></div>
         <div className="absolute bottom-0 left-0 -mb-20 -ml-20 w-96 h-96 bg-purple-500 rounded-full blur-3xl opacity-20"></div> */}
 
-        <div className="relative z-10 max-w-5xl mx-auto px-4 text-center">
-          <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-3">
-            Every tool you need to{" "}
-            <span className="text-blue-400">manage expenses</span>
-          </h1>
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto font-light leading-relaxed">
-            Generate compliant fuel, taxi, restaurant, and office receipts
-            instantly. Free & Secure.
+        <div className="relative z-10 max-w-5xl mx-auto px-4 text-center ">
+{/* 1. STATIC HEADING + ANIMATED PART */}
+          <div className="mb-6">
+            <HeroHeading />
+          </div>
+
+          {/* 2. SUB-TEXT + INLINE TRUST BADGE (Mobile Friendly) */}
+          <p className="text-lg text-blue-200/80 max-w-2xl mx-auto font-light leading-relaxed">
+            Generate compliant fuel, taxi, restaurant, and office receipts instantly.
+            
+            {/* The "Inline" Badge for Mobile/Flow - Doesn't take extra vertical space */}
+            <span className="inline-block md:hidden ml-2 font-medium text-green-400">
+               — 100% Free & Secure.
+            </span>
           </p>
         </div>
       </section>
 
       {/* --- TOOL GRID SECTION --- */}
-      <section id="tools" className="tools-bg relative z-20 ">
-  <div className="shape-1"></div>
-  <div className="shape-2"></div>
-  <div className="shape-3"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section
+        id="tools"
+        className="relative bg-[#F9FAFD] overflow-hidden pt-2"
+      >
+        <div className="pointer-events-none absolute inset-0 opacity-[0.55]
+    bg-[linear-gradient(115deg,rgba(232,238,255,0.75)_0%,rgba(245,248,255,0.55)_35%,rgba(255,255,255,0)_75%)]">
+  </div>
+
+  {/* Layer 2 — Big circle right */}
+  <div className="pointer-events-none absolute top-[-120px] right-[-180px] w-[520px] h-[520px]
+      bg-[radial-gradient(circle,rgba(185,205,255,0.45),rgba(185,205,255,0))] rounded-full blur-[60px]">
+  </div>
+
+  {/* Layer 3 — Rounded blob left */}
+  <div className="pointer-events-none absolute bottom-[-200px] left-[-160px] w-[660px] h-[460px]
+      bg-[radial-gradient(circle,rgba(205,220,255,0.38),rgba(205,220,255,0))] rounded-[65px] blur-[55px]">
+  </div>
+
+  {/* Layer 4 — Polygon highlight */}
+  <div className="pointer-events-none absolute top-[320px] right-[18%] w-[620px] h-[420px]
+      bg-[radial-gradient(circle,rgba(225,235,255,0.45),rgba(225,235,255,0))]
+      clip-path-[polygon(0_0,100%_20%,82%_100%,12%_85%)] blur-[48px]">
+  </div>
+
+  {/* Slight grain overlay — premium feel */}
+  <div className="pointer-events-none absolute inset-0 opacity-[0.07] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div><div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* --- FLOATING FILTER BAR (Functional) --- */}
           {/* --- ILOVEPDF STYLE FILTER TABS --- */}
-          <div className="max-w-4xl mx-auto px-4 mt-6 mb-8">
-            <div className="flex flex-wrap gap-3 justify-center ">
-              {tabs.map((tab) => (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveFilter(tab.id)}
-                  className={clsx(
-                    "px-4 py-2 rounded-full text-sm font-medium transition-all border",
-                    activeFilter === tab.id
-                      ? "bg-gray-900 text-white border-gray-900 shadow"
-                      : "bg-white text-gray-600 border-gray-200 hover:border-gray-300 hover:text-gray-900"
-                  )}
-                >
-                  {tab.label}
-                </button>
-              ))}
-            </div>
-          </div>
+<div className="max-w-4xl mx-auto px-4 mt-6 mb-8">
+  <div className="flex flex-wrap gap-3 justify-center ">
+    {tabs.map((tab) => (
+      <button
+        key={tab.id}
+        onClick={() => setActiveFilter(tab.id)}
+        className={clsx(
+          "px-4 py-2 rounded-full text-sm font-bold transition-all border shadow-sm", // Changed font-medium to font-bold for sharper text
+          activeFilter === tab.id
+            ? "bg-black text-white border-black" // Active: Pure Black BG, Pure White Text
+            : "bg-white text-black border-gray-200 hover:border-gray-400 hover:bg-gray-50" // Inactive: White BG, Pure Black Text
+        )}
+      >
+        {tab.label}
+      </button>
+    ))}
+  </div>
+</div>
 
           {/* --- DENSE GRID --- */}
           <div className="space-y-12 pb-20">

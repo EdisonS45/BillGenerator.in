@@ -101,3 +101,16 @@ body {
     z-index: 2;
   }
 }
+span.rotating {
+  position: absolute;
+  left: 0;
+  right: 0;
+  animation: slideFade 2s ease-in-out infinite;
+}
+
+@keyframes slideFade {
+  0%   { opacity: 0; transform: translateY(12px); }
+  15%  { opacity: 1; transform: translateY(0); }
+  85%  { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-12px); }
+}
