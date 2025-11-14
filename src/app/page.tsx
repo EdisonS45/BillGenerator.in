@@ -1,25 +1,36 @@
-'use client'; // Required for the Filter Toggle to work
+"use client"; // Required for the Filter Toggle to work
 
-import { useState } from 'react';
+import { useState } from "react";
 import Link from "next/link";
 import { TOOLS_CATEGORIES } from "@/config/tools";
-import { 
-  ShieldCheck, Zap, Download, FileCheck, 
-  CheckCircle2, ArrowRight, Sparkles 
+import {
+  ShieldCheck,
+  Zap,
+  Download,
+  FileCheck,
+  CheckCircle2,
+  ArrowRight,
+  Sparkles,
 } from "lucide-react";
-import clsx from 'clsx';
+import clsx from "clsx";
 
 // --- COMPONENTS (Unchanged Style) ---
 
-const ToolCard = ({ icon: Icon, title, description, href, badge }: {
+const ToolCard = ({
+  icon: Icon,
+  title,
+  description,
+  href,
+  badge,
+}: {
   icon: any;
   title: string;
   description: string;
   href: string;
   badge?: string;
 }) => (
-  <Link 
-    href={href} 
+  <Link
+    href={href}
     className="group relative flex flex-col h-full rounded-xl bg-white p-5 shadow-sm ring-1 ring-gray-200 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:ring-blue-500/20"
   >
     {badge && (
@@ -39,7 +50,15 @@ const ToolCard = ({ icon: Icon, title, description, href, badge }: {
   </Link>
 );
 
-const FeatureCard = ({ icon: Icon, title, description }: { icon: any, title: string, description: string }) => (
+const FeatureCard = ({
+  icon: Icon,
+  title,
+  description,
+}: {
+  icon: any;
+  title: string;
+  description: string;
+}) => (
   <div className="flex flex-col items-center text-center p-6 rounded-2xl bg-gray-50">
     <div className="mb-4 p-3 bg-white rounded-full shadow-sm text-blue-600 ring-1 ring-gray-100">
       <Icon className="h-6 w-6" />
@@ -74,20 +93,18 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-white font-sans">
-
       {/* --- HERO: COMPACT & DENSE (iLovePDF Style) --- */}
-<section
-className="
+      <section
+        className="
     text-white pt-12 pb-10 relative overflow-hidden
     bg-[linear-gradient(180deg,#020B29,#03103D,#03103D)]
     sm:bg-[linear-gradient(135deg,#020B29,#03103D 40%,#05154F 70%,#0A1F6C 100%)]
   "
-  style={{
-    background:
-      "linear-gradient(135deg, #020B29 0%, #03103D 40%, #05154F 70%, #0A1F6C 100%)"
-  }}
->
-
+        style={{
+          background:
+            "linear-gradient(135deg, #020B29 0%, #03103D 40%, #05154F 70%, #0A1F6C 100%)",
+        }}
+      >
         {/* Abstract Background Pattern (Same as before) */}
         {/* <div className="absolute inset-0 opacity-10 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
         <div className="absolute top-0 right-0 -mt-20 -mr-20 w-96 h-96 bg-blue-500 rounded-full blur-3xl opacity-20"></div>
@@ -95,76 +112,82 @@ className="
 
         <div className="relative z-10 max-w-5xl mx-auto px-4 text-center">
           <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-3">
-            Every tool you need to <span className="text-blue-400">manage expenses</span>
+            Every tool you need to{" "}
+            <span className="text-blue-400">manage expenses</span>
           </h1>
           <p className="text-lg text-gray-300 max-w-2xl mx-auto font-light leading-relaxed">
-            Generate compliant fuel, taxi, restaurant, and office receipts instantly. Free & Secure.
+            Generate compliant fuel, taxi, restaurant, and office receipts
+            instantly. Free & Secure.
           </p>
         </div>
       </section>
 
       {/* --- TOOL GRID SECTION --- */}
-      <section id="tools" className="bg-white relative z-20 mt-8">
+      <section id="tools" className="tools-bg relative z-20 ">
+  <div className="shape-1"></div>
+  <div className="shape-2"></div>
+  <div className="shape-3"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
           {/* --- FLOATING FILTER BAR (Functional) --- */}
-{/* --- ILOVEPDF STYLE FILTER TABS --- */}
-<div className="max-w-4xl mx-auto px-4 mt-8 mb-8">
-  <div className="flex flex-wrap gap-3 justify-center ">
-    {tabs.map((tab) => (
-      <button
-        key={tab.id}
-        onClick={() => setActiveFilter(tab.id)}
-        className={clsx(
-          "px-4 py-2 rounded-full text-sm font-medium transition-all border",
-          activeFilter === tab.id
-            ? "bg-gray-900 text-white border-gray-900 shadow"
-            : "bg-white text-gray-600 border-gray-200 hover:border-gray-300 hover:text-gray-900"
-        )}
-      >
-        {tab.label}
-      </button>
-    ))}
-  </div>
-</div>
-
+          {/* --- ILOVEPDF STYLE FILTER TABS --- */}
+          <div className="max-w-4xl mx-auto px-4 mt-6 mb-8">
+            <div className="flex flex-wrap gap-3 justify-center ">
+              {tabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveFilter(tab.id)}
+                  className={clsx(
+                    "px-4 py-2 rounded-full text-sm font-medium transition-all border",
+                    activeFilter === tab.id
+                      ? "bg-gray-900 text-white border-gray-900 shadow"
+                      : "bg-white text-gray-600 border-gray-200 hover:border-gray-300 hover:text-gray-900"
+                  )}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+          </div>
 
           {/* --- DENSE GRID --- */}
           <div className="space-y-12 pb-20">
             {filteredCategories.map((category) => (
-              <div key={category.title} className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <div
+                key={category.title}
+                className="animate-in fade-in slide-in-from-bottom-4 duration-500"
+              >
                 {/* Minimal Category Header */}
                 {activeFilter === "All" && (
                   <div className="flex items-center gap-4 mb-6">
-                     <h2 className="text-lg font-bold text-gray-900 uppercase tracking-wider">{category.title}</h2>
-                     <div className="h-px bg-gray-100 flex-grow"></div>
+                    <h2 className="text-lg font-bold text-gray-900 uppercase tracking-wider">
+                      {category.title}
+                    </h2>
+                    <div className="h-px bg-gray-100 flex-grow"></div>
                   </div>
                 )}
-                
-<div className="grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+
+                <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                   {category.tools.map((tool) => (
                     <ToolCard key={tool.href} {...tool} />
                   ))}
                 </div>
               </div>
             ))}
-            
+
             {filteredCategories.length === 0 && (
-               <div className="text-center py-20 text-gray-400">
-                  No tools found for this category.
-               </div>
+              <div className="text-center py-20 text-gray-400">
+                No tools found for this category.
+              </div>
             )}
           </div>
-
         </div>
       </section>
 
       {/* --- VALUE PROPOSITION (Compact) --- */}
       {/* --- FEATURES BENTO GRID (Redesigned) --- */}
-{/* --- FEATURES BENTO GRID (Redesigned Copy) --- */}
+      {/* --- FEATURES BENTO GRID (Redesigned Copy) --- */}
       <section className="py-24 bg-white relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
           {/* Header */}
           <div className="mb-16 md:text-center max-w-3xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 tracking-tight">
@@ -177,119 +200,135 @@ className="
 
           {/* BENTO GRID */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-            
             {/* Card 1: AUTHENTICITY (Wide Card) - FOCUS: HR APPROVAL */}
             <div className="md:col-span-2 relative overflow-hidden rounded-3xl bg-slate-50 border border-slate-100 p-8 md:p-10 group">
-               <div className="relative z-10 max-w-md">
-                  <div className="inline-flex items-center gap-2 rounded-full bg-white border border-slate-200 px-3 py-1 text-xs font-bold text-blue-600 mb-4 shadow-sm">
-                     <FileCheck className="w-3 h-3" /> 100% Original Look
+              <div className="relative z-10 max-w-md">
+                <div className="inline-flex items-center gap-2 rounded-full bg-white border border-slate-200 px-3 py-1 text-xs font-bold text-blue-600 mb-4 shadow-sm">
+                  <FileCheck className="w-3 h-3" /> 100% Original Look
+                </div>
+                <h3 className="text-2xl font-bold text-slate-900 mb-3">
+                  Passes the "Eye Test"
+                </h3>
+                <p className="text-slate-500 leading-relaxed">
+                  We don't generate generic PDFs. Our tools replicate{" "}
+                  <strong>
+                    thermal paper fonts, dot-matrix printing, and authentic POS
+                    layouts
+                  </strong>{" "}
+                  used by real Indian shops. Your bills look exactly like the
+                  originals.
+                </p>
+              </div>
+
+              {/* Visual: Fake Receipt Sliding Up */}
+              <div
+                className="absolute right-8 -bottom-12 w-48 h-64 bg-white backdrop-blur-[2px] sm:backdrop-blur-0
+ shadow-2xl border border-gray-200 rounded-t-xl transform rotate-6 translate-y-8 translate-x-8 group-hover:translate-x-4 group-hover:translate-y-4 group-hover:rotate-3 transition-all duration-700 ease-out"
+              >
+                {/* Thermal Top */}
+                <div className="h-1.5 w-full bg-gray-800 rounded-t-xl opacity-80"></div>
+                <div className="p-5 space-y-3 opacity-60">
+                  <div className="flex justify-center mb-2">
+                    <div className="w-8 h-8 rounded-full border-2 border-gray-300"></div>
                   </div>
-                  <h3 className="text-2xl font-bold text-slate-900 mb-3">Passes the "Eye Test"</h3>
-                  <p className="text-slate-500 leading-relaxed">
-                     We don't generate generic PDFs. Our tools replicate <strong>thermal paper fonts, dot-matrix printing, and authentic POS layouts</strong> used by real Indian shops. Your bills look exactly like the originals.
-                  </p>
-               </div>
-               
-               {/* Visual: Fake Receipt Sliding Up */}
-<div className="absolute right-8 -bottom-12 w-48 h-64 bg-white backdrop-blur-[2px] sm:backdrop-blur-0
- shadow-2xl border border-gray-200 rounded-t-xl transform rotate-6 translate-y-8 translate-x-8 group-hover:translate-x-4 group-hover:translate-y-4 group-hover:rotate-3 transition-all duration-700 ease-out">
-                  {/* Thermal Top */}
-                  <div className="h-1.5 w-full bg-gray-800 rounded-t-xl opacity-80"></div>
-                  <div className="p-5 space-y-3 opacity-60">
-                     <div className="flex justify-center mb-2">
-                        <div className="w-8 h-8 rounded-full border-2 border-gray-300"></div>
-                     </div>
-                     <div className="h-2 bg-gray-200 rounded w-3/4 mx-auto"></div>
-                     <div className="h-2 bg-gray-100 rounded w-1/2 mx-auto"></div>
-                     
-                     <div className="border-t-2 border-dashed border-gray-300 my-3"></div>
-                     
-                     <div className="flex justify-between">
-                        <div className="h-2 bg-gray-200 rounded w-1/3"></div>
-                        <div className="h-2 bg-gray-300 rounded w-1/4"></div>
-                     </div>
-                     <div className="flex justify-between">
-                        <div className="h-2 bg-gray-100 rounded w-1/2"></div>
-                        <div className="h-2 bg-gray-200 rounded w-1/4"></div>
-                     </div>
-                     
-                     {/* Total Box */}
-                     <div className="mt-4 p-2 bg-slate-50 border border-slate-100 rounded flex justify-between items-center">
-                        <div className="h-2 w-8 bg-gray-300 rounded"></div>
-                        <div className="h-3 w-12 bg-gray-800 rounded"></div>
-                     </div>
+                  <div className="h-2 bg-gray-200 rounded w-3/4 mx-auto"></div>
+                  <div className="h-2 bg-gray-100 rounded w-1/2 mx-auto"></div>
+
+                  <div className="border-t-2 border-dashed border-gray-300 my-3"></div>
+
+                  <div className="flex justify-between">
+                    <div className="h-2 bg-gray-200 rounded w-1/3"></div>
+                    <div className="h-2 bg-gray-300 rounded w-1/4"></div>
                   </div>
-               </div>
+                  <div className="flex justify-between">
+                    <div className="h-2 bg-gray-100 rounded w-1/2"></div>
+                    <div className="h-2 bg-gray-200 rounded w-1/4"></div>
+                  </div>
+
+                  {/* Total Box */}
+                  <div className="mt-4 p-2 bg-slate-50 border border-slate-100 rounded flex justify-between items-center">
+                    <div className="h-2 w-8 bg-gray-300 rounded"></div>
+                    <div className="h-3 w-12 bg-gray-800 rounded"></div>
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* Card 2: PRIVACY (Tall/Square) - FOCUS: SAFETY */}
-<div
-  className="md:col-span-1 relative overflow-hidden rounded-3xl p-8 text-white flex flex-col justify-between group"
-  style={{
-    background: "linear-gradient(135deg, #020B29 0%, #03103D 40%, #05154F 70%, #0A1F6C 100%)"
-  }}
->
-  <div className="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-blue-500 rounded-full blur-3xl opacity-20"></div>
+            <div
+              className="md:col-span-1 relative overflow-hidden rounded-3xl p-8 text-white flex flex-col justify-between group"
+              style={{
+                background:
+                  "linear-gradient(135deg, #020B29 0%, #03103D 40%, #05154F 70%, #0A1F6C 100%)",
+              }}
+            >
+              <div className="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-blue-500 rounded-full blur-3xl opacity-20"></div>
 
-  <div>
-    <div className="mb-4 inline-flex p-3 bg-white/10 rounded-2xl text-green-400 backdrop-blur-sm">
-      <ShieldCheck className="w-6 h-6" />
-    </div>
-    <h3 className="text-xl font-bold mb-2">Safe & Private</h3>
-    <p className="text-blue-200 text-sm leading-relaxed">
-      Everything happens in your browser. We <strong>never see or store</strong> your data. It's completely anonymous.
-    </p>
-  </div>
+              <div>
+                <div className="mb-4 inline-flex p-3 bg-white/10 rounded-2xl text-green-400 backdrop-blur-sm">
+                  <ShieldCheck className="w-6 h-6" />
+                </div>
+                <h3 className="text-xl font-bold mb-2">Safe & Private</h3>
+                <p className="text-blue-200 text-sm leading-relaxed">
+                  Everything happens in your browser. We{" "}
+                  <strong>never see or store</strong> your data. It's completely
+                  anonymous.
+                </p>
+              </div>
 
-  <div className="mt-8 flex justify-center">
-    <div className="relative">
-      <div className="absolute inset-0 bg-green-500 blur-xl opacity-20"></div>
-      <ShieldCheck
-        className="w-24 h-24 text-green-500 opacity-80 group-hover:scale-110 transition-transform duration-500"
-        strokeWidth={1}
-      />
-    </div>
-  </div>
-</div>
-
+              <div className="mt-8 flex justify-center">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-green-500 blur-xl opacity-20"></div>
+                  <ShieldCheck
+                    className="w-24 h-24 text-green-500 opacity-80 group-hover:scale-110 transition-transform duration-500"
+                    strokeWidth={1}
+                  />
+                </div>
+              </div>
+            </div>
 
             {/* Card 3: INSTANT (Wide) - FOCUS: SPEED & FORMATS */}
             <div className="md:col-span-3 relative overflow-hidden rounded-3xl bg-blue-600 p-8 md:p-10 text-white shadow-xl shadow-blue-900/10 group">
-               <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
-               <div className="absolute right-0 top-0 h-full w-1/2 bg-gradient-to-l from-blue-500 to-transparent opacity-50"></div>
+              <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
+              <div className="absolute right-0 top-0 h-full w-1/2 bg-gradient-to-l from-blue-500 to-transparent opacity-50"></div>
 
-               <div className="relative z-10 flex flex-col md:flex-row items-center gap-8">
-                  <div className="flex-1">
-                     <div className="inline-flex items-center gap-2 rounded-full bg-blue-500 border border-blue-400 px-3 py-1 text-xs font-bold text-white mb-4">
-                        <Download className="w-3 h-3 fill-current" /> Instant Export
-                     </div>
-                     <h3 className="text-2xl font-bold mb-3">Download in Any Format</h3>
-                     <p className="text-blue-100 leading-relaxed max-w-xl">
-                        Need a PDF for email? Or a JPEG image to send via WhatsApp? We give you both options in high resolution. <strong>Print-ready and pixel-perfect.</strong>
-                     </p>
+              <div className="relative z-10 flex flex-col md:flex-row items-center gap-8">
+                <div className="flex-1">
+                  <div className="inline-flex items-center gap-2 rounded-full bg-blue-500 border border-blue-400 px-3 py-1 text-xs font-bold text-white mb-4">
+                    <Download className="w-3 h-3 fill-current" /> Instant Export
                   </div>
+                  <h3 className="text-2xl font-bold mb-3">
+                    Download in Any Format
+                  </h3>
+                  <p className="text-blue-100 leading-relaxed max-w-xl">
+                    Need a PDF for email? Or a JPEG image to send via WhatsApp?
+                    We give you both options in high resolution.{" "}
+                    <strong>Print-ready and pixel-perfect.</strong>
+                  </p>
+                </div>
 
-                  {/* Visual: Floating File Badges */}
-                  <div className="flex gap-4 transform group-hover:scale-105 transition-transform duration-500">
-                     <div className="w-24 h-32 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl flex flex-col items-center justify-center">
-                        <div className="bg-red-500/20 p-3 rounded-lg mb-2 text-red-200 font-bold text-xs">PDF</div>
-                        <div className="w-12 h-1 bg-white/20 rounded mb-1"></div>
-                        <div className="w-8 h-1 bg-white/20 rounded"></div>
-                     </div>
-                     <div className="w-24 h-32 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl flex flex-col items-center justify-center translate-y-4">
-                        <div className="bg-blue-500/20 p-3 rounded-lg mb-2 text-blue-200 font-bold text-xs">JPG</div>
-                        <div className="w-12 h-1 bg-white/20 rounded mb-1"></div>
-                        <div className="w-8 h-1 bg-white/20 rounded"></div>
-                     </div>
+                {/* Visual: Floating File Badges */}
+                <div className="flex gap-4 transform group-hover:scale-105 transition-transform duration-500">
+                  <div className="w-24 h-32 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl flex flex-col items-center justify-center">
+                    <div className="bg-red-500/20 p-3 rounded-lg mb-2 text-red-200 font-bold text-xs">
+                      PDF
+                    </div>
+                    <div className="w-12 h-1 bg-white/20 rounded mb-1"></div>
+                    <div className="w-8 h-1 bg-white/20 rounded"></div>
                   </div>
-               </div>
+                  <div className="w-24 h-32 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl flex flex-col items-center justify-center translate-y-4">
+                    <div className="bg-blue-500/20 p-3 rounded-lg mb-2 text-blue-200 font-bold text-xs">
+                      JPG
+                    </div>
+                    <div className="w-12 h-1 bg-white/20 rounded mb-1"></div>
+                    <div className="w-8 h-1 bg-white/20 rounded"></div>
+                  </div>
+                </div>
+              </div>
             </div>
-
           </div>
         </div>
       </section>
-
-    
     </main>
   );
 }
