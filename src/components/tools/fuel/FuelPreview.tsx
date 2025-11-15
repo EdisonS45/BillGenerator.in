@@ -1,5 +1,6 @@
 import React, { forwardRef } from "react";
-import { Droplets } from 'lucide-react';
+import { Droplets } from "lucide-react";
+import Barcode from "react-barcode";
 
 interface FuelPreviewProps {
   data: {
@@ -13,7 +14,7 @@ interface FuelPreviewProps {
     vehicleNumber?: string;
     invoiceNo?: string;
     provider?: "iocl" | "bpcl" | "hp" | "shell" | "generic";
-    mode: 'basic' | 'real';
+    mode: "basic" | "real";
     // Additional fields for Real Mode
     trnsId?: string;
     atndId?: string;
@@ -21,6 +22,8 @@ interface FuelPreviewProps {
     fpId?: string;
     nozzleNo?: string;
     mobNo?: string;
+    wrinkle?: "none" | "light" | "medium";
+
   };
 }
 
@@ -83,14 +86,18 @@ export const FuelPreview = forwardRef<HTMLDivElement, FuelPreviewProps>(
         <div style={{ flex: 1 }}>{value}</div>
       </div>
     );
-
+const getWrinkleTexture = () => {
+  if (data?.wrinkle === "light") return "url('/logos/wrinkled.png')";
+  if (data?.wrinkle === "medium") return "url('/logos/too-wrinkled.png')";
+  return "none";
+};
     return (
       <div className="w-full flex justify-center bg-gray-200/50 p-8">
-        
+
         {/* ============================================================
             MODE: REAL (YOUR CUSTOM CODE)
            ============================================================ */}
-        {data.mode === 'real' ? (
+        {data.mode === "real" ? (
           <div
             ref={ref}
             style={{
@@ -101,21 +108,90 @@ export const FuelPreview = forwardRef<HTMLDivElement, FuelPreviewProps>(
               fontSize: 12,
               color: "#000",
               lineHeight: 1.1,
+              backgroundImage: getWrinkleTexture(),
+              backgroundSize: "cover",
+              backgroundBlendMode: "multiply",
+              opacity: 0.96,
               boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
+              position: "relative",
+              transform: "rotate(-0.2deg)",
+              borderRadius: "2px",
             }}
           >
+            {/* --- Right Side HDFC Strip LOOP (Full correct pattern) --- */}
+            <div
+              style={{
+                position: "absolute",
+                top: 0,
+                right: -3, // stays inside the receipt
+                width: 24, // reserved area inside the receipt
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-around",
+                gap: "150px",
+                padding: "6px 0",
+                alignItems: "center",
+                overflow: "hidden",
+              }}
+            >
+              {[...Array(3)].map((_, i) => (
+                <div
+                  key={i}
+                  style={{
+                    transform: "rotate(270deg)",
+                    transformOrigin: "center",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 28,
+                    fontSize: 8,
+                    fontWeight: 600,
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  <span
+                    style={{
+                      fontWeight: 500,
+                      opacity: 0.55,
+                      color: "black",
+                      letterSpacing: "0.4px",
+                    }}
+                  >
+                    G-5001
+                  </span>
+                  <img
+                    src="/logos/hdfc-logo1.svg"
+                    alt="HDFC Bank"
+                    style={{ height: 11 }}
+                  />
+                  <span
+                    style={{
+                      fontWeight: 500,
+                      opacity: 0.55,
+                      color: "black",
+                      letterSpacing: "0.4px",
+                    }}
+                  >
+                    A0312020
+                  </span>
+                </div>
+              ))}
+            </div>
+
             {/* --- Logo --- */}
-            <div style={{ textAlign: "center", marginBottom: 6, marginTop: 20 }}>
+            <div
+              style={{ textAlign: "center", marginBottom: 6, marginTop: 20 }}
+            >
               {getLogo()}
             </div>
-  
+
             {/* --- Station Info --- */}
             <div
               style={{
                 textAlign: "left",
                 fontWeight: 700,
                 marginBottom: 8,
-                paddingLeft: 15,
+                paddingLeft: 13,
                 marginTop: 28,
               }}
             >
@@ -125,14 +201,14 @@ export const FuelPreview = forwardRef<HTMLDivElement, FuelPreviewProps>(
               <br />
               PH. 9212529333
             </div>
-  
+
             {/* --- Data rows --- */}
             <div
               style={{
                 textAlign: "left",
                 fontWeight: 700,
                 marginBottom: 8,
-                paddingLeft: 15,
+                paddingLeft: 13,
               }}
             >
               <Row label="Bill No" value={data?.invoiceNo || "TXN939520"} />
@@ -156,7 +232,7 @@ export const FuelPreview = forwardRef<HTMLDivElement, FuelPreviewProps>(
               <Row label="Sale" value={`Rs ${amountStr}`} />
               <Row label="Volume" value={`${quantity} Ltr`} />
             </div>
-  
+
             {/* --- Footer --- */}
             <div
               style={{
@@ -167,47 +243,38 @@ export const FuelPreview = forwardRef<HTMLDivElement, FuelPreviewProps>(
             >
               Thank You! Visit Again
             </div>
-  
+
             {/* --- Barcode --- */}
-            <div style={{ marginTop: 6, textAlign: "center", marginLeft: 35 }}>
-              <svg
-                width="90%"
-                height="36"
-                viewBox="0 0 400 36"
-                xmlns="http://www.w3.org/2000/svg"
-                preserveAspectRatio="none"
-              >
-                {[
-                  2, 4, 2, 3, 4, 2, 4, 7, 2, 3, 4, 2, 2, 3, 2, 5, 3, 5, 3, 3, 2,
-                  2, 3, 5, 3, 2, 3, 4, 6, 3, 4, 3, 2, 3, 4, 3, 3, 6, 2, 3, 4, 5,
-                  4, 2,
-                ].map((w, i) => {
-                  const x = i * 8;
-                  return (
-                    <rect key={i} x={x} y={4} width={w} height={38} fill="#000" />
-                  );
-                })}
-              </svg>
+            <div className="pt-1 pb-2">
+              <Barcode
+                value={data?.invoiceNo || "TXN939520"}
+                height={30}
+                width={1.5}
+                displayValue={false}
+                background="#ffffff"
+                lineColor="#000000"
+                margin={0}
+                className="mx-auto"
+              />
             </div>
           </div>
         ) : (
-
-        /* ============================================================
+          /* ============================================================
             MODE: BASIC (GENERIC THERMAL STYLE)
            ============================================================ */
-<div 
+          <div
             ref={ref}
             className="bg-white text-black font-mono text-xs relative shadow-xl"
-            style={{ 
-              width: '320px', 
-              minHeight: 'auto',
+            style={{
+              width: "320px",
+              minHeight: "auto",
               fontFamily: '"Courier Prime", "Courier New", monospace',
-              fontWeight: 600
+              fontWeight: 600,
             }}
           >
             {/* Top Padding */}
+
             <div className="p-5 pb-2">
-              
               {/* HEADER SECTION */}
               <div className="text-center border-b-2 border-dotted border-black pb-3 mb-3">
                 <div className="flex justify-center mb-2">
@@ -223,7 +290,7 @@ export const FuelPreview = forwardRef<HTMLDivElement, FuelPreviewProps>(
                 </p>
                 <p className="text-[10px]">GSTIN: 27AABCU9603R1ZM</p>
               </div>
-    
+
               {/* METADATA GRID */}
               <div className="space-y-1.5 mb-3 pb-3 border-b-2 border-dotted border-black">
                 <div className="flex justify-between">
@@ -236,7 +303,9 @@ export const FuelPreview = forwardRef<HTMLDivElement, FuelPreviewProps>(
                 </div>
                 <div className="flex justify-between">
                   <span>Vh.No:</span>
-                  <span className="font-bold text-sm">{data?.vehicleNumber?.toUpperCase()}</span>
+                  <span className="font-bold text-sm">
+                    {data?.vehicleNumber?.toUpperCase()}
+                  </span>
                 </div>
 
                 <div className="flex justify-between">
@@ -244,7 +313,7 @@ export const FuelPreview = forwardRef<HTMLDivElement, FuelPreviewProps>(
                   <span>{data?.fuelType?.toUpperCase()}</span>
                 </div>
               </div>
-    
+
               {/* PRODUCT TABLE */}
               <div className="mb-3 pb-3 border-b-2 border-black">
                 <div className="flex justify-between font-bold mb-1">
@@ -255,10 +324,12 @@ export const FuelPreview = forwardRef<HTMLDivElement, FuelPreviewProps>(
                 <div className="flex justify-between text-sm">
                   <span className="w-1/3">₹ {rateStr}</span>
                   <span className="w-1/3 text-center">{quantity} L</span>
-                  <span className="w-1/3 text-right font-bold">₹ {amountStr}</span>
+                  <span className="w-1/3 text-right font-bold">
+                    ₹ {amountStr}
+                  </span>
                 </div>
               </div>
-    
+
               {/* TOTALS SECTION */}
               <div className="mb-6">
                 <div className="flex justify-between items-end mb-1">
@@ -271,43 +342,45 @@ export const FuelPreview = forwardRef<HTMLDivElement, FuelPreviewProps>(
                   (Rate inclusive of all taxes)
                 </p>
               </div>
-    
+
               {/* FOOTER & BARCODE */}
               <div className="text-center space-y-2">
-                 <p className="italic">*** SAVE FUEL, SAVE EARTH ***</p>
-                 <p className="text-[10px]">Thank you for visiting!</p>
-                 
-                 {/* CSS GENERATED BARCODE */}
-                 <div className="h-10 w-3/4 mx-auto mt-2" style={{
-                   backgroundImage: `repeating-linear-gradient(
-                     90deg,
-                     #000 0px,
-                     #000 2px,
-                     transparent 2px,
-                     transparent 4px,
-                     #000 4px,
-                     #000 5px,
-                     transparent 5px,
-                     transparent 7px
-                   )`
-                 }}></div>
-                 <p className="text-[8px] tracking-[0.3em]">{data?.invoiceNo}</p>
+                <p className="italic">*** SAVE FUEL, SAVE EARTH ***</p>
+                <p className="text-[10px]">Thank you for visiting!</p>
+
+                {/* CSS GENERATED BARCODE */}
+                <div className="pt-1 pb-2">
+                  <Barcode
+                    value={data?.invoiceNo || "TXN939520"}
+                    height={30}
+                    width={1.5}
+                    displayValue={true} // Show the number
+                    fontSize={10} // Make it small
+                    background="#ffffff"
+                    lineColor="#000000"
+                    margin={0}
+                    className="mx-auto"
+                  />
+                </div>
+                <p className="text-[8px] tracking-[0.3em]">{data?.invoiceNo}</p>
               </div>
             </div>
-            
+
             {/* JAGGED PAPER EDGE EFFECT */}
-            <div 
-                className="w-full h-2 mt-4"
-                style={{
-                    background: 'linear-gradient(45deg, transparent 50%, #fff 50%), linear-gradient(-45deg, transparent 50%, #fff 50%)',
-                    backgroundSize: '10px 10px',
-                    backgroundRepeat: 'repeat-x',
-                    backgroundColor: '#e5e7eb', // Gray background
-                    height: '10px'
-                }}
+            <div
+              className="w-full h-2 mt-4"
+              style={{
+                background:
+                  "linear-gradient(45deg, transparent 50%, #fff 50%), linear-gradient(-45deg, transparent 50%, #fff 50%)",
+                backgroundSize: "10px 10px",
+                backgroundRepeat: "repeat-x",
+                backgroundColor: "#e5e7eb", // Gray background
+                height: "10px",
+              }}
             ></div>
           </div>
         )}
+        
       </div>
     );
   }

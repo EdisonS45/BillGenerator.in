@@ -1,12 +1,15 @@
 "use client";
 
 import { useState, useRef } from "react";
+import FuelBillSEOSection from "@/components/seo/FuelBillSEOSection";
+
 import { FuelPreview } from "@/components/tools/fuel/FuelPreview";
 import { BillInput } from "@/components/shared/BillInput";
 import { DownloadButton } from "@/components/shared/DownloadButton";
+// MODIFIED: Removed FileText/Image icons as they are no longer needed here
 import { Car, Calendar, MapPin, IndianRupee } from "lucide-react";
 
-// Hardcoded City Rates (The Killer Feature)
+// Hardcoded City Rates
 const FUEL_RATES: Record<string, { petrol: number; diesel: number }> = {
   Mumbai: { petrol: 106.31, diesel: 94.27 },
   Delhi: { petrol: 96.72, diesel: 89.62 },
@@ -21,8 +24,8 @@ export default function FuelBillPage() {
 
   // State
   const [formData, setFormData] = useState({
-    mode: "real" as "basic" | "real", // Default to Real
-    provider: "iocl" as "iocl" | "bpcl" | "hp" | "shell" | "generic", // Default to IOCL
+    mode: "real" as "basic" | "real",
+    provider: "iocl" as "iocl" | "bpcl" | "hp" | "shell" | "generic",
     stationName: "Kannan Agencies",
     address: "Railway gate west Pudukkottai - 622001",
     fuelType: "Petrol",
@@ -32,7 +35,10 @@ export default function FuelBillPage() {
     time: "10:30",
     vehicleNumber: "MH 02 AB 1234",
     invoiceNo: "TXN" + Math.floor(100000 + Math.random() * 900000),
+    wrinkle: "light" as "none" | "light" | "medium",
   });
+
+  // --- REMOVED: Download Type State ---
 
   // Handle Input Change
   const handleChange = (
@@ -47,15 +53,15 @@ export default function FuelBillPage() {
     const city = e.target.value;
     if (city && FUEL_RATES[city]) {
       const type = formData.fuelType.toLowerCase() as "petrol" | "diesel";
-      // Default to petrol price if type mismatch, simple fallback
       const newRate = FUEL_RATES[city][type] || FUEL_RATES[city].petrol;
       setFormData((prev) => ({ ...prev, rate: newRate }));
     }
   };
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "Internet Bill Generator",
+    name: "Fuel Bill Generator",
     applicationCategory: "FinanceApplication",
     operatingSystem: "Web",
     offers: {
@@ -69,7 +75,7 @@ export default function FuelBillPage() {
       ratingCount: "1250",
     },
     description:
-      "Generate compliant internet and broadband bills for reimbursement claims.",
+      "Generate realistic petrol and diesel fuel receipts for reimbursement claims.",
   };
 
   return (
@@ -79,52 +85,55 @@ export default function FuelBillPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="space-y-8">
-        {/* SEO Header */}
         <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
           <h1 className="text-3xl font-bold text-gray-900 flex flex-wrap items-center gap-3">
             Fuel Bill Generator
             <span className="hidden md:inline-flex items-center rounded-md bg-green-50 px-2.5 py-1 text-xs font-bold text-green-700 ring-1 ring-inset ring-green-600/20 uppercase tracking-wide">
-            Free
-          </span>
+              Free
+            </span>
           </h1>
           <p className="text-gray-600 mt-2">
-            Create realistic petrol and diesel receipts for reimbursement
-            claims.
+            The Online Fuel Bill Generator helps you create petrol and diesel receipts for reimbursement instantly. Whether you’re looking for a petrol bill generator online, a diesel bill generator for office claims, or a fuel receipt generator for DA and travel allowance, this tool produces highly realistic thermal bill formats similar to petrol pump receipts.
           </p>
         </div>
 
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
           {/* LEFT COLUMN: INPUT FORM */}
           <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm space-y-6">
-            {/* --- NEW: TEMPLATE SELECTOR --- */}
+            {/* --- TEMPLATE SELECTOR --- */}
             <div className="bg-blue-50 p-4 rounded-lg border border-blue-100">
               <label className="block text-sm font-bold text-blue-900 mb-3">
                 1. Select Receipt Style
               </label>
+              {formData.mode === "real" && (
+                <div className="mt-4 mb-4 bg-blue-50 p-3 rounded-lg border border-blue-100">
+                  <label className="block text-xs font-bold text-blue-900 mb-2">
+                    Paper Condition (Texture)
+                  </label>
 
-              {/* Mode Toggle */}
-              <div className="flex p-1 bg-white rounded-lg border border-blue-200 mb-4">
-                <button
-                  onClick={() => setFormData((p) => ({ ...p, mode: "real" }))}
-                  className={`flex-1 py-2 text-sm font-medium rounded-md transition-all ${
-                    formData.mode === "real"
-                      ? "bg-blue-600 text-white shadow-sm"
-                      : "text-gray-500 hover:text-gray-700"
-                  }`}
-                >
-                  Real (Logos)
-                </button>
-                <button
-                  onClick={() => setFormData((p) => ({ ...p, mode: "basic" }))}
-                  className={`flex-1 py-2 text-sm font-medium rounded-md transition-all ${
-                    formData.mode === "basic"
-                      ? "bg-blue-600 text-white shadow-sm"
-                      : "text-gray-500 hover:text-gray-700"
-                  }`}
-                >
-                  Basic (Simple)
-                </button>
-              </div>
+                  <div className="grid grid-cols-3 gap-2">
+                    {[
+                      { id: "light", label: "Light" },
+                      { id: "medium", label: "Medium" },
+                      { id: "none", label: "Clean" },
+                    ].map((opt) => (
+                      <button
+                        key={opt.id}
+                        onClick={() =>
+                          setFormData((p) => ({ ...p, wrinkle: opt.id as any }))
+                        }
+                        className={`py-2 px-1 rounded-md text-xs font-bold border transition-all ${
+                          formData.wrinkle === opt.id
+                            ? "bg-blue-600 text-white border-blue-700 shadow-sm"
+                            : "bg-white text-gray-600 border border-blue-200 hover:bg-blue-100"
+                        }`}
+                      >
+                        {opt.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               {/* Provider Logos (Only show if Real mode is on) */}
               {formData.mode === "real" && (
@@ -167,7 +176,7 @@ export default function FuelBillPage() {
               Bill Details
             </h2>
 
-            {/* Killer Feature: Quick City Selector */}
+            {/* Quick City Selector */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Auto-fill Rates by City
@@ -256,168 +265,40 @@ export default function FuelBillPage() {
               onChange={handleChange}
             />
           </div>
-              
+
           {/* RIGHT COLUMN: PREVIEW & DOWNLOAD */}
           <div className="space-y-6">
             <div className="bg-gray-800 p-4 rounded-t-xl flex items-center justify-between">
               <span className="text-white font-medium">Live Preview</span>
+              {/* --- MODIFIED: Updated width in label --- */}
               <span className="text-xs text-gray-400 bg-gray-700 px-2 py-1 rounded">
-                A4 / Thermal
+                Thermal Preview
               </span>
             </div>
 
             {/* The Wrapper that gets screenshotted */}
-            <div className="border-x border-b border-gray-200 bg-gray-50 p-6 rounded-b-xl flex justify-center">
-              <FuelPreview ref={billRef} data={formData} />
+            <div className="border-x border-b border-gray-200 bg-gray-50 p-4 rounded-b-xl flex justify-center overflow-x-auto">
+              {/* --- MODIFIED: Adjusted width from 224px to 256px --- */}
+              <div className="max-w-xs sm:max-w-[286px] w-full">
+                <FuelPreview ref={billRef} data={formData} />
+              </div>
             </div>
 
+ 
             <DownloadButton
               billRef={billRef}
               fileName={`Fuel_Bill_${formData.date}.pdf`}
             />
           </div>
         </div>
-                
-        {/* --- MODERN SEO GUIDE SECTION --- */}
-        <div className="max-w-6xl mx-auto px-4 lg:px-8 py-12 space-y-12">
-          {/* 1. Intro & Supported Brands */}
-          <div className="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
-              Fuel Bill Generator for Reimbursement
-            </h2>
-            <p className="text-gray-600 leading-relaxed mb-6">
-              Managing corporate travel expenses often involves submitting
-              physical receipts. If you have lost your original receipt or need
-              a digital copy for your records, our tool helps you create a
-              compliant proof of expense for Petrol, Diesel, and CNG purchases.
-            </p>
 
-            <div className="flex flex-wrap gap-3">
-              <span className="px-3 py-1 bg-orange-50 text-orange-700 text-xs font-bold rounded-full border border-orange-100">
-                Indian Oil (IOCL)
-              </span>
-              <span className="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-full border border-blue-100">
-                Bharat Petroleum (BPCL)
-              </span>
-              <span className="px-3 py-1 bg-red-50 text-red-700 text-xs font-bold rounded-full border border-red-100">
-                Hindustan Petroleum (HPCL)
-              </span>
-              <span className="px-3 py-1 bg-yellow-50 text-yellow-700 text-xs font-bold rounded-full border border-yellow-100">
-                Shell India
-              </span>
-            </div>
-          </div>
+        {/* --- SEO GUIDE SECTION (No changes) --- */}
+        
 
-          {/* 2. Key Features Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-              <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center mb-4">
-                <IndianRupee className="w-5 h-5 text-blue-600" />
-              </div>
-              <h3 className="font-bold text-gray-900 mb-2">
-                Auto-Updated Rates
-              </h3>
-              <p className="text-sm text-gray-500">
-                We fetch standard fuel rates for major cities like Mumbai,
-                Delhi, and Bangalore automatically.
-              </p>
-            </div>
-            <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-              <div className="w-10 h-10 bg-purple-50 rounded-lg flex items-center justify-center mb-4">
-                <Calendar className="w-5 h-5 text-purple-600" />
-              </div>
-              <h3 className="font-bold text-gray-900 mb-2">Thermal Format</h3>
-              <p className="text-sm text-gray-500">
-                Mimics the dot-matrix font and layout of real petrol pump
-                machines to pass the eye test.
-              </p>
-            </div>
-            <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-              <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center mb-4">
-                <Car className="w-5 h-5 text-green-600" />
-              </div>
-              <h3 className="font-bold text-gray-900 mb-2">Vehicle Metadata</h3>
-              <p className="text-sm text-gray-500">
-                Includes detailed fields like Vehicle Number, Nozzle ID, and
-                Density readings for authenticity.
-              </p>
-            </div>
-          </div>
+    <FuelBillSEOSection />
 
-          {/* 3. HOW-TO & FAQ (Split) */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 pt-8 border-t border-gray-100">
-            {/* Left: How To */}
-            <div className="lg:col-span-7 space-y-8">
-              <h3 className="text-2xl font-bold text-gray-900">
-                How to generate a valid receipt?
-              </h3>
-              <div className="space-y-6">
-                {[
-                  {
-                    title: "Select Fuel Type",
-                    desc: "Choose between Petrol, Diesel, or CNG variants.",
-                  },
-                  {
-                    title: "Enter Amount",
-                    desc: "Input the total value. We auto-calculate the Liters.",
-                  },
-                  {
-                    title: "Add Vehicle Details",
-                    desc: "Enter your car number to link the bill to your claim.",
-                  },
-                  {
-                    title: "Download",
-                    desc: "Export as a high-quality PDF or JPEG instantly.",
-                  },
-                ].map((step, idx) => (
-                  <div key={idx} className="flex gap-4">
-                    <div className="flex-shrink-0 w-8 h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-sm">
-                      {idx + 1}
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-gray-900 mb-1">
-                        {step.title}
-                      </h4>
-                      <p className="text-sm text-gray-600">{step.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Right: FAQ */}
-            <div className="lg:col-span-5">
-              <div className="bg-blue-50/50 rounded-2xl p-8 border border-blue-100">
-                <h3 className="text-lg font-bold text-blue-900 mb-6">
-                  Frequently Asked Questions
-                </h3>
-                <div className="space-y-6">
-                  <div>
-                    <h4 className="text-sm font-bold text-gray-900 mb-2">
-                      Is this accepted for claims?
-                    </h4>
-                    <p className="text-xs text-gray-600 leading-relaxed">
-                      Yes. This format includes all standard accounting details
-                      required for Fuel Reimbursement and Driver Allowance
-                      claims.
-                    </p>
-                  </div>
-                  <div className="w-full h-px bg-blue-200/50"></div>
-                  <div>
-                    <h4 className="text-sm font-bold text-gray-900 mb-2">
-                      Do you store my vehicle number?
-                    </h4>
-                    <p className="text-xs text-gray-600 leading-relaxed">
-                      No. This tool runs 100% in your browser (Client-Side).
-                      Your data never leaves your device.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
+
     </>
   );
 }

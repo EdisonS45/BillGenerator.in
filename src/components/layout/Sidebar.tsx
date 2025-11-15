@@ -70,7 +70,6 @@ function FeedbackWidget() {
             We are building new tools every week. Tell us what you need next!
          </p>
          
-         {/* Text Area */}
          <textarea
            value={suggestion}
            onChange={(e) => setSuggestion(e.target.value)}

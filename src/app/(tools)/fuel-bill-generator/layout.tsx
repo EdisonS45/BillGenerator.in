@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   // 1. TITLE: Hits the two biggest keywords (Fuel & Petrol) + "Free" modifier
-  title: "Free Fuel Bill Generator | Online Petrol & Diesel Receipt Maker",
+  title: "Fuel Bill Generator | Online Petrol & Diesel Receipt Generator Free",
   
   // 2. DESCRIPTION: Includes "Reimbursement" (Intent) and secondary keywords
-  description: "Generate valid fuel bills for reimbursement claims. Create instant receipts for Petrol, Diesel, and CNG with current city rates. Download as PDF or Image.",
+  description: "Generate petrol and diesel receipts online within seconds. Free Fuel Bill Generator for reimbursement claims — supports IOCL, BPCL, HPCL and Shell. Download print-ready PDF or JPG thermal fuel bills instantly.",
   
   // 3. KEYWORDS: Copied directly from your Excel analysis
   keywords: [
