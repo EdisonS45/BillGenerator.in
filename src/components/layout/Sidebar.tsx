@@ -3,9 +3,105 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { TOOLS_CATEGORIES } from '@/config/tools';
-import { ChevronRight, Sparkles, ArrowRight, MessageSquarePlus, Lightbulb } from 'lucide-react';
 import clsx from 'clsx';
+import { ChevronRight, Sparkles, ArrowRight, MessageSquarePlus, Lightbulb, Send, CheckCircle, Loader2 } from 'lucide-react'; // Added new iconsimport clsx from 'clsx';
+import { useState } from 'react'; // Import useState
+function FeedbackWidget() {
+  const [suggestion, setSuggestion] = useState('');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus('loading');
+    
+    // --- PASTE YOUR FORM SPREE URL HERE ---
+    const FORM_ENDPOINT = 'https://formspree.io/f/myzlekwo'; 
+    // ----------------------------------------
+
+    try {
+      const response = await fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ suggestion: suggestion }),
+      });
+
+      if (response.ok) {
+        setStatus('success');
+        setSuggestion('');
+      } else {
+        setStatus('error');
+      }
+    } catch (error) {
+      setStatus('error');
+    }
+  };
+  
+  // Success Message
+  if (status === 'success') {
+    return (
+      <div className="relative overflow-hidden rounded-2xl border border-green-200 bg-gradient-to-br from-green-50 to-teal-50 p-5 mx-1 shadow-sm text-center">
+         <CheckCircle className="w-12 h-12 text-green-500 mx-auto mb-3" />
+         <h3 className="text-sm font-bold text-gray-900 mb-1">
+            Thank you!
+         </h3>
+         <p className="text-xs text-gray-600 leading-relaxed">
+            Your feedback has been sent.
+         </p>
+      </div>
+    )
+  }
+
+  // Main Form
+  return (
+    <form 
+      onSubmit={handleSubmit}
+      className="relative overflow-hidden rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 to-orange-50 p-5 mx-1 shadow-sm"
+    >
+      <div className="absolute -right-2 -bottom-2 opacity-10">
+         <Lightbulb className="w-24 h-24 text-amber-500" />
+      </div>
+      
+      <div className="relative z-10">
+         <h3 className="text-sm font-bold text-gray-900 flex items-center gap-2 mb-2">
+            <MessageSquarePlus className="w-4 h-4 text-amber-600" />
+            <span>Have an idea?</span>
+         </h3>
+         <p className="text-xs text-gray-600 leading-relaxed mb-4">
+            We are building new tools every week. Tell us what you need next!
+         </p>
+         
+         {/* Text Area */}
+         <textarea
+           value={suggestion}
+           onChange={(e) => setSuggestion(e.target.value)}
+           placeholder="I wish you had a tool for..."
+           required
+           rows={3}
+           className="block w-full text-xs p-2 rounded-lg border-amber-200 shadow-sm focus:ring-amber-500 focus:border-amber-500 transition-colors"
+         />
+         
+         {/* Send Button */}
+         <button 
+           type="submit"
+           disabled={status === 'loading'}
+           className="mt-3 inline-flex items-center justify-center w-full px-4 py-2 bg-white border border-amber-200 rounded-lg text-xs font-bold text-amber-700 shadow-sm hover:bg-amber-50 transition-colors disabled:opacity-50"
+         >
+           {status === 'loading' ? (
+             <Loader2 className="w-4 h-4 animate-spin" />
+           ) : (
+             <>
+               Send Suggestion <Send className="w-3 h-3 ml-2" />
+             </>
+           )}
+         </button>
+         
+         {status === 'error' && (
+           <p className="text-[10px] text-red-600 mt-2 text-center">Oops! Something went wrong. Please try again.</p>
+         )}
+      </div>
+    </form>
+  )
+}
 export function Sidebar() {
   const pathname = usePathname();
 
@@ -69,31 +165,10 @@ export function Sidebar() {
           </ul>
         </div>
       ))}
-      <div className="relative overflow-hidden rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 to-orange-50 p-5 mx-1 shadow-sm">
-         
-         {/* Decorative Icon Background */}
-         <div className="absolute -right-2 -bottom-2 opacity-10">
-            <Lightbulb className="w-24 h-24 text-amber-500" />
-         </div>
 
-         <div className="relative z-10">
-            <h3 className="text-sm font-bold text-gray-900 flex items-center gap-2 mb-2">
-               <MessageSquarePlus className="w-4 h-4 text-amber-600" />
-               <span>Have an idea?</span>
-            </h3>
-            <p className="text-xs text-gray-600 leading-relaxed mb-4">
-               We are building new tools every week. Tell us what you need next!
-            </p>
-            
-            {/* Action: Mailto Link (Simplest Way) */}
-            <a 
-               href="mailto:support@billgenerator.in?subject=Feature Request for BillGenerator"
-               className="inline-flex items-center justify-center w-full px-4 py-2 bg-white border border-amber-200 rounded-lg text-xs font-bold text-amber-700 shadow-sm hover:bg-amber-50 transition-colors"
-            >
-               Send Suggestion
-            </a>
-         </div>
-      </div>
+
+      {/* --- WIDGET 2: FEEDBACK BOX (NEW) --- */}
+      <FeedbackWidget />
     </aside>
   );
 }

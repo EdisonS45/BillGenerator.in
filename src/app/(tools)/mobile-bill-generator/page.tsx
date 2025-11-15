@@ -202,6 +202,7 @@ export default function MobileBillPage() {
             <DownloadButton
               billRef={billRef}
               fileName={`Mobile_Bill_${formData.mobileNo}.pdf`}
+              outputMode="invoice"
             />
           </div>
         </div>

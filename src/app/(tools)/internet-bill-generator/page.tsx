@@ -219,6 +219,7 @@ export default function InternetBillPage() {
             <DownloadButton
               billRef={billRef}
               fileName={`Internet_${formData.billNo}.pdf`}
+              outputMode="invoice"
             />
           </div>
         </div>

@@ -277,6 +277,7 @@ export default function LTAPage() {
             <DownloadButton
               billRef={billRef}
               fileName={`LTA_Invoice_${formData.customerName}.pdf`}
+              outputMode="invoice"
             />
           </div>
         </div>

@@ -170,7 +170,7 @@ export default function HotelBillPage() {
             <p className="text-[10px] font-bold text-gray-400 uppercase mb-3 hidden lg:block">
               Export Options
             </p>
-            <DownloadButton billRef={billRef} fileName={`Hotel_Bill_${formData.bookingId}.pdf`} />
+            <DownloadButton billRef={billRef} fileName={`Hotel_Bill_${formData.bookingId}.pdf`} outputMode="invoice" />
           </div>
 
         </div>

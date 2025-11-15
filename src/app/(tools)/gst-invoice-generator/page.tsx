@@ -1,217 +1,266 @@
-'use client';
+"use client";
 
-import { useState, useRef, useEffect } from 'react';
-import { GSTPreview } from '@/components/tools/gst/GSTPreview';
-import { BillInput } from '@/components/shared/BillInput';
-import { DownloadButton } from '@/components/shared/DownloadButton';
-import { Plus, Trash2, Upload, Briefcase, User, CreditCard, Wallet, Landmark } from 'lucide-react';
+import { useState, useRef, useEffect } from "react";
+import { GSTPreview } from "@/components/tools/gst/GSTPreview";
+import { BillInput } from "@/components/shared/BillInput";
+import { DownloadButton } from "@/components/shared/DownloadButton";
+import {
+  Plus,
+  Trash2,
+  Upload,
+  Briefcase,
+  User,
+  Wallet,
+  Landmark,
+  ZoomIn,
+  ZoomOut,
+  RotateCcw,
+  Hand,
+} from "lucide-react";
 
 export default function GSTInvoicePage() {
   const billRef = useRef<HTMLDivElement>(null);
-  
-  // --- STATE ---
+
+  // 🔵 Preview Zoom / Drag
+  const [zoom, setZoom] = useState(0.65);
+  const [handMode, setHandMode] = useState(true);
+  const [isDragging, setIsDragging] = useState(false);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const dragStart = useRef({ x: 0, y: 0 });
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!handMode) return;
+    setIsDragging(true);
+    dragStart.current = {
+      x: e.clientX - position.x,
+      y: e.clientY - position.y,
+    };
+  };
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!handMode || !isDragging) return;
+    setPosition({
+      x: e.clientX - dragStart.current.x,
+      y: e.clientY - dragStart.current.y,
+    });
+  };
+  const handleMouseUp = () => setIsDragging(false);
+
+  // 🟢 ITEMS + FORM DATA
   const [items, setItems] = useState([
-    { id: '1', desc: 'Consulting Services', hsn: '9983', qty: 1, rate: 15000, tax: 18 },
+    { id: "1", desc: "Consulting Services", hsn: "9983", qty: 1, rate: 15000, tax: 18 },
   ]);
 
   const [formData, setFormData] = useState({
     logoUrl: null as string | null,
-    companyName: 'WebWonderWorks',
-    companyAddress: 'Kalapatti, Coimbatore - 641048',
-    companyGstin: '29AAACH1234K1Z5',
-    clientName: 'Beta Retail Pvt Ltd',
-    clientAddress: 'Connaught Place, New Delhi',
-    clientGstin: '',
-    invoiceNo: 'INV-001',
+    companyName: "WebWonderWorks",
+    companyAddress: "Kalapatti, Coimbatore - 641048",
+    companyGstin: "29AAACH1234K1Z5",
+    clientName: "Beta Retail Pvt Ltd",
+    clientAddress: "Connaught Place, New Delhi",
+    clientGstin: "",
+    invoiceNo: "INV-001",
     date: new Date().toISOString().slice(0, 10),
-    supplyType: 'intra' as 'intra' | 'inter',
-    signatory: 'Alpha Designs',
-    
-    // NEW: Payment State
-    paymentMode: 'upi' as 'upi' | 'bank',
-    upiId: 'business@okhdfcbank',
-    bankName: 'HDFC Bank',
-    accountNo: '50100234567890',
-    ifsc: 'HDFC0000123',
+    supplyType: "intra" as "intra" | "inter",
+    signatory: "Alpha Designs",
+
+    paymentMode: "upi" as "upi" | "bank",
+    upiId: "business@okhdfcbank",
+    bankName: "HDFC Bank",
+    accountNo: "50100234567890",
+    ifsc: "HDFC0000123",
   });
 
-  // ... (Keep handleLogoUpload, handleChange, item management functions exactly as before) ...
-  const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const reader = new FileReader();
-      reader.onload = (ev) => {
-        setFormData(p => ({ ...p, logoUrl: ev.target?.result as string }));
-      };
-      reader.readAsDataURL(e.target.files[0]);
-    }
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const addItem = () => {
-    setItems([...items, { id: Date.now().toString(), desc: '', hsn: '', qty: 1, rate: 0, tax: 18 }]);
-  };
-
-  const updateItem = (id: string, field: string, value: string | number) => {
-    setItems(items.map(item => item.id === id ? { ...item, [field]: value } : item));
-  };
-
-  const removeItem = (id: string) => {
-    if (items.length > 1) setItems(items.filter(item => item.id !== id));
-  };
-
+  // Logic
   useEffect(() => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       invoiceNo: `INV-${new Date().getFullYear()}/${Math.floor(100 + Math.random() * 900)}`,
     }));
   }, []);
 
+  const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.[0]) {
+      const reader = new FileReader();
+      reader.onload = (ev) =>
+        setFormData((prev) => ({ ...prev, logoUrl: ev.target?.result as string }));
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const addItem = () =>
+    setItems((prev) => [
+      ...prev,
+      { id: Date.now().toString(), desc: "", hsn: "", qty: 1, rate: 0, tax: 18 },
+    ]);
+
+  const updateItem = (id: string, field: string, value: any) =>
+    setItems((prev) => prev.map((i) => (i.id === id ? { ...i, [field]: value } : i)));
+
+  const removeItem = (id: string) =>
+    items.length > 1 && setItems(items.filter((i) => i.id !== id));
+
   return (
     <div className="space-y-8">
-      <script
-  type="application/ld+json"
-  dangerouslySetInnerHTML={{
-    __html: JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      name: "GST Invoice Generator",
-      applicationCategory: "FinanceApplication",
-      operatingSystem: "Web",
-      offers: {
-        "@type": "Offer",
-        price: "0",
-        priceCurrency: "INR",
-      },
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: "4.9",
-        ratingCount: "1820",
-      },
-      description:
-        "Create GST-compliant invoices with auto tax breakup and QR code. Download PDF instantly.",
-    }),
-  }}
-/>
-
+      {/* HEADER */}
       <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-        <h1 className="text-3xl font-bold text-gray-900 flex flex-wrap items-center gap-3">Free GST Invoice Generator
-         <span className="hidden md:inline-flex items-center rounded-md bg-green-50 px-2.5 py-1 text-xs font-bold text-green-700 ring-1 ring-inset ring-green-600/20 uppercase tracking-wide">
+        <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-3">
+          Free GST Invoice Generator
+          <span className="hidden md:inline-flex items-center rounded-md bg-green-50 px-2.5 py-1 text-xs font-bold text-green-700 ring-1 ring-green-600/20 uppercase tracking-wide">
             Free
           </span>
         </h1>
-        <p className="text-gray-600 mt-2">Create professional invoices with dynamic QR codes for instant payment.
+        <p className="text-gray-600 mt-2">
+          Create professional invoices with dynamic QR code for instant payment.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-        
-        {/* LEFT COLUMN: EDITOR */}
-        <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm space-y-6">
-           
-           {/* 1. Company & Client Section (Same as before) */}
-           <div className="bg-blue-50 p-4 rounded-lg border border-blue-100 flex items-center justify-between">
-              <div className="text-sm text-blue-900 font-medium">Business Logo</div>
-              <label className="cursor-pointer bg-white border border-blue-200 text-blue-600 px-3 py-1.5 rounded text-xs font-bold flex items-center hover:bg-blue-50">
-                 <Upload className="w-3 h-3 mr-2" /> Upload
-                 <input type="file" className="hidden" accept="image/*" onChange={handleLogoUpload} />
+      {/* FULL INTERNET-STYLE WORKSPACE */}
+<div className="flex flex-col lg:flex-row bg-[#F3F4F6] font-sans lg:h-[calc(100vh-64px)]">        {/* LEFT — EDITOR PANEL */}
+<div className="w-full lg:w-[420px] bg-white border-r border-gray-200 flex flex-col shadow-sm h-full">          <div className="lg:flex-1  overflow-y-auto p-5 space-y-6 custom-scrollbar">
+            {/* Logo */}
+            <div className="bg-blue-50 p-4 rounded-lg border border-blue-100 flex items-center justify-between">
+              <span className="text-sm font-medium text-blue-900">Business Logo</span>
+              <label className="cursor-pointer bg-white border border-blue-200 text-blue-600 px-3 py-1.5 rounded text-xs font-bold flex items-center">
+                <Upload className="w-3 h-3 mr-2" /> Upload
+                <input type="file" className="hidden" accept="image/*" onChange={handleLogoUpload} />
               </label>
-           </div>
+            </div>
 
-           <h2 className="text-sm font-bold text-gray-900 uppercase border-b pb-1">Business Info</h2>
-           <BillInput label="Company Name" name="companyName" value={formData.companyName} onChange={handleChange} Icon={Briefcase} />
-           <BillInput label="Company GSTIN" name="companyGstin" value={formData.companyGstin} onChange={handleChange} />
-           <BillInput label="Address" name="companyAddress" value={formData.companyAddress} onChange={handleChange} />
+            {/* Business */}
+            <BillInput label="Company Name" name="companyName" value={formData.companyName} onChange={handleChange} Icon={Briefcase} />
+            <BillInput label="Company GSTIN" name="companyGstin" value={formData.companyGstin} onChange={handleChange} />
+            <BillInput label="Address" name="companyAddress" value={formData.companyAddress} onChange={handleChange} />
 
-           <h2 className="text-sm font-bold text-gray-900 uppercase border-b pb-1 pt-4">Client Info</h2>
-           <BillInput label="Client Name" name="clientName" value={formData.clientName} onChange={handleChange} Icon={User} />
-           <div className="grid grid-cols-2 gap-4">
+            {/* Client */}
+            <BillInput label="Client Name" name="clientName" value={formData.clientName} onChange={handleChange} Icon={User} />
+            <BillInput label="Client Address" name="clientAddress" value={formData.clientAddress} onChange={handleChange} />
+            <BillInput label="Client GSTIN" name="clientGstin" value={formData.clientGstin} onChange={handleChange} />
+            <div className="grid grid-cols-2 gap-4">
               <BillInput label="Invoice No" name="invoiceNo" value={formData.invoiceNo} onChange={handleChange} />
               <BillInput label="Date" name="date" type="date" value={formData.date} onChange={handleChange} />
-           </div>
+            </div>
 
-           {/* 2. Items Section (Same as before) */}
-           <div className="border-t border-gray-200 pt-4">
-              <div className="flex justify-between items-center mb-2">
-                 <h2 className="text-sm font-bold text-gray-900 uppercase">Items</h2>
-                 <button onClick={addItem} className="text-xs flex items-center bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700">
-                    <Plus className="w-3 h-3 mr-1" /> Add Row
-                 </button>
+            {/* Items */}
+            <div className="space-y-2 mt-4">
+              <div className="flex justify-between items-center">
+                <h2 className="text-sm font-bold text-gray-900 uppercase">Items</h2>
+                <button onClick={addItem} className="text-xs flex items-center bg-blue-600 text-white px-2 py-1 rounded">
+                  <Plus className="w-3 h-3 mr-1" /> Add Row
+                </button>
               </div>
-              <div className="space-y-2">
-                 {items.map((item) => (
-                    <div key={item.id} className="grid grid-cols-12 gap-2 bg-gray-50 p-2 rounded border border-gray-200 items-end">
-                       <div className="col-span-4"><input className="w-full text-xs border-gray-300 rounded px-2 py-1" placeholder="Item" value={item.desc} onChange={(e) => updateItem(item.id, 'desc', e.target.value)} /></div>
-                       <div className="col-span-2"><input className="w-full text-xs border-gray-300 rounded px-2 py-1" placeholder="HSN" value={item.hsn} onChange={(e) => updateItem(item.id, 'hsn', e.target.value)} /></div>
-                       <div className="col-span-1"><input type="number" className="w-full text-xs border-gray-300 rounded px-1 py-1" value={item.qty} onChange={(e) => updateItem(item.id, 'qty', Number(e.target.value))} /></div>
-                       <div className="col-span-2"><input type="number" className="w-full text-xs border-gray-300 rounded px-2 py-1" value={item.rate} onChange={(e) => updateItem(item.id, 'rate', Number(e.target.value))} /></div>
-                       <div className="col-span-2">
-                          <select className="w-full text-xs border-gray-300 rounded px-1 py-1" value={item.tax} onChange={(e) => updateItem(item.id, 'tax', Number(e.target.value))}>
-                             <option value="0">0%</option><option value="5">5%</option><option value="12">12%</option><option value="18">18%</option>
-                          </select>
-                       </div>
-                       <div className="col-span-1"><button onClick={() => removeItem(item.id)} className="text-red-400"><Trash2 className="w-4 h-4" /></button></div>
-                    </div>
-                 ))}
-              </div>
-           </div>
+              {items.map((item) => (
+                <div key={item.id} className="grid grid-cols-12 gap-2 bg-gray-50 p-2 rounded border border-gray-200 items-end">
+                  <input className="col-span-4 text-xs border-gray-300 rounded px-2 py-1" placeholder="Item" value={item.desc} onChange={(e) => updateItem(item.id, "desc", e.target.value)} />
+                  <input className="col-span-2 text-xs border-gray-300 rounded px-2 py-1" placeholder="HSN" value={item.hsn} onChange={(e) => updateItem(item.id, "hsn", e.target.value)} />
+                  <input type="number" className="col-span-1 text-xs border-gray-300 rounded px-1 py-1" value={item.qty} onChange={(e) => updateItem(item.id, "qty", Number(e.target.value))} />
+                  <input type="number" className="col-span-2 text-xs border-gray-300 rounded px-2 py-1" value={item.rate} onChange={(e) => updateItem(item.id, "rate", Number(e.target.value))} />
+                  <select className="col-span-2 text-xs border-gray-300 rounded px-1 py-1" value={item.tax} onChange={(e) => updateItem(item.id, "tax", Number(e.target.value))}>
+                    <option value="0">0%</option><option value="5">5%</option><option value="12">12%</option><option value="18">18%</option>
+                  </select>
+                  <button onClick={() => removeItem(item.id)} className="text-red-400 col-span-1"><Trash2 className="w-4 h-4" /></button>
+                </div>
+              ))}
+            </div>
 
-           {/* 3. PAYMENT CONFIGURATION (NEW) */}
-           <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
-              <label className="block text-sm font-bold text-gray-900 mb-3">Payment Method (QR Generation)</label>
-              
-              <div className="flex gap-2 mb-4">
-                 <button 
-                   onClick={() => setFormData({...formData, paymentMode: 'upi'})}
-                   className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-medium transition-all ${formData.paymentMode === 'upi' ? 'bg-blue-600 text-white shadow-md' : 'bg-white border border-gray-300 text-gray-600'}`}
-                 >
-                   <Wallet className="w-4 h-4" /> UPI ID
-                 </button>
-                 <button 
-                   onClick={() => setFormData({...formData, paymentMode: 'bank'})}
-                   className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-medium transition-all ${formData.paymentMode === 'bank' ? 'bg-blue-600 text-white shadow-md' : 'bg-white border border-gray-300 text-gray-600'}`}
-                 >
-                   <Landmark className="w-4 h-4" /> Bank Account
-                 </button>
+            {/* Payment */}
+            <div className="bg-gray-50 p-4 rounded-xl border border-gray-200 space-y-4 mt-6">
+              <span className="text-sm font-bold text-gray-900">Payment Method (QR)</span>
+              <div className="flex gap-2">
+                <button onClick={() => setFormData({ ...formData, paymentMode: "upi" })} className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-medium ${formData.paymentMode === "upi" ? "bg-blue-600 text-white" : "bg-white border border-gray-300 text-gray-600"}`}>
+                  <Wallet className="w-4 h-4" /> UPI
+                </button>
+                <button onClick={() => setFormData({ ...formData, paymentMode: "bank" })} className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-medium ${formData.paymentMode === "bank" ? "bg-blue-600 text-white" : "bg-white border border-gray-300 text-gray-600"}`}>
+                  <Landmark className="w-4 h-4" /> Bank
+                </button>
               </div>
-
-              {formData.paymentMode === 'upi' ? (
-                 <BillInput label="Your UPI ID" name="upiId" value={formData.upiId} onChange={handleChange} placeholder="e.g. yourname@oksbi" />
-              ) : (
-                 <div className="space-y-3">
+              {formData.paymentMode === "upi"
+                ? <BillInput label="UPI ID" name="upiId" value={formData.upiId} onChange={handleChange} />
+                : <>
                     <BillInput label="Bank Name" name="bankName" value={formData.bankName} onChange={handleChange} />
                     <div className="grid grid-cols-2 gap-3">
-                       <BillInput label="Account No" name="accountNo" value={formData.accountNo} onChange={handleChange} />
-                       <BillInput label="IFSC Code" name="ifsc" value={formData.ifsc} onChange={handleChange} />
+                      <BillInput label="Account No" name="accountNo" value={formData.accountNo} onChange={handleChange} />
+                      <BillInput label="IFSC" name="ifsc" value={formData.ifsc} onChange={handleChange} />
                     </div>
-                    <p className="text-[10px] text-gray-500 mt-1">* This will generate a QR code that links to this specific bank account.</p>
-                 </div>
-              )}
-           </div>
+                  </>
+              }
+            </div>
+          </div>
 
+          {/* Sticky Export */}
+          <div className="p-4 border-t border-gray-200 bg-gray-50 sticky bottom-0">
+            <p className="text-[10px] font-bold text-gray-400 uppercase mb-3 hidden lg:block">Export Options</p>
+            <DownloadButton billRef={billRef} fileName={`Invoice_${formData.invoiceNo}.pdf`}
+            outputMode="invoice"
+            />
+          </div>
         </div>
 
-        {/* RIGHT COLUMN */}
-        <div className="space-y-6 flex flex-col">
-           <div className="bg-gray-800 p-4 rounded-t-xl flex items-center justify-between">
-              <span className="text-white font-medium">Live Preview</span>
-              <span className="text-xs text-gray-400 bg-gray-700 px-2 py-1 rounded">GST Invoice</span>
-           </div>
-           
-           <div className="border-x border-b border-gray-200 bg-gray-50 p-4 rounded-b-xl flex justify-center flex-grow overflow-hidden">
-              <div className="scale-[0.55] origin-top">
-                 <GSTPreview ref={billRef} data={{...formData, items}} />
-              </div>
-           </div>
+        {/* RIGHT — DRAGGABLE PREVIEW */}
+        <div className="flex-1 relative bg-[#E5E7EB] flex flex-col overflow-hidden border-t lg:border-t-0 border-gray-300">
+          {/* dotted bg */}
+          <div className="absolute inset-0 opacity-[0.35]" style={{ backgroundImage: "radial-gradient(#9CA3AF 1px, transparent 1px)", backgroundSize: "24px 24px" }}></div>
 
-           <DownloadButton billRef={billRef} fileName={`Invoice_${formData.invoiceNo}.pdf`} />
+          {/* live badge */}
+          <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20 bg-white/80 backdrop-blur shadow-sm border border-gray-200 rounded-full px-3 py-1 flex items-center gap-2">
+            <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
+            <span className="text-[10px] font-bold text-gray-700">Live Preview</span>
+          </div>
+
+          {/* main draggable preview */}
+          <div
+            className="flex-1 overflow-auto flex items-start lg:items-center justify-center p-8 relative z-10 custom-scrollbar"
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseUp}
+            style={{ cursor: handMode ? (isDragging ? "grabbing" : "grab") : "default" }}
+          >
+            <div
+              onMouseDown={handleMouseDown}
+              className="transition-transform duration-200 ease-out origin-top lg:origin-center shadow-2xl select-none"
+              style={{
+                transform: `translate(${position.x}px, ${position.y}px) scale(${zoom})`,
+              }}
+            >
+              <GSTPreview ref={billRef} data={{ ...formData, items }} />
+            </div>
+          </div>
+
+          {/* zoom + hand toolbar */}
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30">
+            <div className="flex items-center gap-2 bg-gray-900 text-white px-3 py-2 rounded-full shadow-xl border border-white/10">
+
+              {/* zoom out */}
+              <button onClick={() => setZoom((z) => Math.max(0.3, z - 0.1))} className="p-1.5 hover:bg-white/20 rounded-full">
+                <ZoomOut className="w-4 h-4" />
+              </button>
+
+              <span className="text-xs font-mono min-w-[3rem] text-center">{Math.round(zoom * 100)}%</span>
+
+              {/* zoom in */}
+              <button onClick={() => setZoom((z) => Math.min(1.5, z + 0.1))} className="p-1.5 hover:bg-white/20 rounded-full">
+                <ZoomIn className="w-4 h-4" />
+              </button>
+
+              <div className="w-px h-4 bg-white/20 mx-1"></div>
+
+              {/* reset */}
+              <button onClick={() => { setZoom(0.65); setPosition({ x: 0, y: 0 }); }} className="p-1.5 hover:bg-white/20 rounded-full">
+                <RotateCcw className="w-3 h-3" />
+              </button>
+
+              {/* hand toggle */}
+              <button onClick={() => setHandMode(!handMode)} className={`p-1.5 rounded-full transition ${handMode ? "bg-white/30" : "opacity-40"}`}>
+                <Hand className="w-4 h-4" />
+              </button>
+
+            </div>
+          </div>
         </div>
-      
       </div>
-      {/* --- GST SEO CONTENT (same layout as Fuel) --- */}
-<div className="max-w-6xl mx-auto px-4 lg:px-8 py-12 space-y-12">
+      <div className="max-w-6xl mx-auto px-4 lg:px-8 py-12 space-y-12">
 
   {/* 1. INTRO BLOCK */}
   <div className="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
@@ -328,7 +377,6 @@ export default function GSTInvoicePage() {
     </div>
   </div>
 </div>
-
     </div>
   );
 }
