@@ -118,7 +118,6 @@ export const FuelPreview = forwardRef<HTMLDivElement, FuelPreviewProps>(
             opacity: 0.96,
             boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
             position: "relative",
-            transform: "rotate(-0.2deg)",
             borderRadius: "2px",
           }}
         >
@@ -133,7 +132,7 @@ export const FuelPreview = forwardRef<HTMLDivElement, FuelPreviewProps>(
               display: "flex",
               flexDirection: "column",
               justifyContent: "space-around",
-              gap: "150px",
+              gap: "160px",
               padding: "6px 0",
               alignItems: "center",
               overflow: "hidden",
@@ -147,7 +146,7 @@ export const FuelPreview = forwardRef<HTMLDivElement, FuelPreviewProps>(
                   transformOrigin: "center",
                   display: "flex",
                   alignItems: "center",
-                  gap: 28,
+                  gap: 38,
                   fontSize: 8,
                   fontWeight: 600,
                   whiteSpace: "nowrap",
@@ -156,28 +155,30 @@ export const FuelPreview = forwardRef<HTMLDivElement, FuelPreviewProps>(
                 <span
                   style={{
                     fontWeight: 500,
-                    opacity: 0.55,
-                    color: "black",
+                    opacity: 0.65,
+                    color: "#507190",
                     letterSpacing: "0.4px",
                   }}
                 >
                   G-5001
                 </span>
                 <img
-                  src="/logos/hdfc-logo1.svg"
+                  src="/logos/hdfc-logo3.svg"
                   alt="HDFC Bank"
-                  style={{ height: 11 }}
+                  
+                  style={{ height: 12,opacity:0.95 }}
                 />
                 <span
                   style={{
                     fontWeight: 500,
-                    opacity: 0.55,
-                    color: "black",
+                    opacity: 0.65,
+                    color: "#507190",
                     letterSpacing: "0.4px",
                   }}
                 >
                   A0312020
                 </span>
+                 
               </div>
             ))}
           </div>

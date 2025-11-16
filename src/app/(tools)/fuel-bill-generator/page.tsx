@@ -30,7 +30,7 @@ export default function FuelBillPage() {
     fuelType: "Petrol",
     amount: 2000,
     rate: 106.31,
-    volume: "",
+    volume: 18.82,
     date: new Date().toISOString().slice(0, 10),
     time: "10:30",
     vehicleNumber: "KA 05 MN 1234",
@@ -51,7 +51,7 @@ export default function FuelBillPage() {
     if (formData.volume && formData.rate) {
       setFormData((f) => ({
         ...f,
-        amount: Number(f.volume) * Number(f.rate),
+        amount: Number((Number(f.volume) * Number(f.rate)).toFixed(2)),
       }));
     }
   }, [formData.volume, formData.rate]);
@@ -61,7 +61,7 @@ export default function FuelBillPage() {
     if (formData.amount && formData.rate) {
       setFormData((f) => ({
         ...f,
-        volume: (Number(f.amount) / Number(f.rate)).toFixed(2),
+        volume: Number((Number(f.amount) / Number(f.rate)).toFixed(2)),
       }));
     }
   }, [formData.amount, formData.rate]);
@@ -282,8 +282,7 @@ export default function FuelBillPage() {
                     const [int, dec] = value.split(".");
                     value = int + "." + dec.substring(0, 2);
                   }
-                  setFormData(prev => ({ ...prev, amount: Number(value) }));
-
+                  setFormData((prev) => ({ ...prev, amount: Number(value) }));
                 }}
                 Icon={IndianRupee}
               />
