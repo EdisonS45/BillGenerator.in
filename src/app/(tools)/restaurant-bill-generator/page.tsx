@@ -5,6 +5,8 @@ import { RestaurantPreview } from '@/components/tools/restaurant/RestaurantPrevi
 import { BillInput } from '@/components/shared/BillInput';
 import { DownloadButton } from '@/components/shared/DownloadButton';
 import { Plus, Trash2, Utensils } from 'lucide-react';
+import RestaurantBillSEOSection from "@/components/seo/RestaurantBillSEOSection";
+
 
 export default function RestaurantBillPage() {
   const billRef = useRef<HTMLDivElement>(null);
@@ -189,106 +191,7 @@ export default function RestaurantBillPage() {
       </div>
 
 {/* --- RESTAURANT SEO CONTENT (Fuel layout style) --- */}
-<div className="max-w-6xl mx-auto px-4 lg:px-8 py-12 space-y-12">
-
-  {/* INTRO */}
-  <div className="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
-    <h2 className="text-2xl font-bold text-gray-900 mb-4">
-      Restaurant Bill Generator for Food & Hotel Dining Reimbursement
-    </h2>
-    <p className="text-gray-600 leading-relaxed mb-6">
-      Dining bills are frequently required for corporate travel reimbursement and business
-      expense approval. If the original food receipt is unavailable or lacks clear details,
-      this tool instantly generates a professional restaurant invoice with itemized food
-      charges, GST, service charge, subtotal and payment information in an authentic format.
-    </p>
-
-    <div className="flex flex-wrap gap-3">
-      <span className="px-3 py-1 bg-red-50 text-red-700 text-xs font-bold rounded-full border border-red-100">Restaurant</span>
-      <span className="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-full border border-blue-100">Hotel Dining</span>
-      <span className="px-3 py-1 bg-green-50 text-green-700 text-xs font-bold rounded-full border border-green-100">Café / Food Court</span>
-      <span className="px-3 py-1 bg-yellow-50 text-yellow-700 text-xs font-bold rounded-full border border-yellow-100">Office Reimbursement</span>
-    </div>
-  </div>
-
-  {/* FEATURES */}
-  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-    <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-      <h3 className="font-bold text-gray-900 mb-2">Itemized Food Entries</h3>
-      <p className="text-sm text-gray-500">
-        Add multiple dishes with quantity and rate — taxes and totals calculated automatically.
-      </p>
-    </div>
-    <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-      <h3 className="font-bold text-gray-900 mb-2">GST + Service Charge Included</h3>
-      <p className="text-sm text-gray-500">
-        Auto-adds GST and optional 10% service charge based on total food value.
-      </p>
-    </div>
-    <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-      <h3 className="font-bold text-gray-900 mb-2">Reimbursement-Ready PDF</h3>
-      <p className="text-sm text-gray-500">
-        Download printable invoices accepted by HR & finance departments for claims.
-      </p>
-    </div>
-  </div>
-
-  {/* STEPS + FAQ */}
-  <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 pt-8 border-t border-gray-100">
-
-    {/* STEPS */}
-    <div className="lg:col-span-7 space-y-8">
-      <h3 className="text-2xl font-bold text-gray-900">How to generate a restaurant invoice?</h3>
-      <div className="space-y-6">
-        {[
-          "Enter restaurant name and address",
-          "Add diner name / customer name (optional)",
-          "Enter date, table number and waiter name (optional)",
-          "Add food items with quantity and price",
-          "Apply GST and optional service charge",
-          "Download the bill as a PDF for reimbursement"
-        ].map((step, i) => (
-          <div key={i} className="flex gap-4">
-            <div className="flex-shrink-0 w-8 h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-sm">
-              {i + 1}
-            </div>
-            <p className="text-sm text-gray-600">{step}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-
-    {/* FAQ */}
-    <div className="lg:col-span-5">
-      <div className="bg-blue-50/50 rounded-2xl p-8 border border-blue-100 space-y-6">
-
-        <div>
-          <h4 className="text-sm font-bold text-gray-900 mb-2">Is this accepted for corporate reimbursement?</h4>
-          <p className="text-xs text-gray-600">
-            Yes. Finance teams accept bills with GST, total amount, invoice number and restaurant details.
-          </p>
-        </div>
-        <div className="w-full h-px bg-blue-200/50"></div>
-
-        <div>
-          <h4 className="text-sm font-bold text-gray-900 mb-2">Do you store food order or customer details?</h4>
-          <p className="text-xs text-gray-600">
-            No — all bill information stays in your browser. Nothing is uploaded or saved on our servers.
-          </p>
-        </div>
-        <div className="w-full h-px bg-blue-200/50"></div>
-
-        <div>
-          <h4 className="text-sm font-bold text-gray-900 mb-2">Can I add delivery / takeaway orders?</h4>
-          <p className="text-xs text-gray-600">
-            Yes. You can update the bill title and fields to match dine-in, takeaway or delivery orders.
-          </p>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</div>
+<RestaurantBillSEOSection />
 
     </div>
   );
