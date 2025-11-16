@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import FuelBillSEOSection from "@/components/seo/FuelBillSEOSection";
 
 import { FuelPreview } from "@/components/tools/fuel/FuelPreview";
@@ -24,19 +24,47 @@ export default function FuelBillPage() {
 
   // State
   const [formData, setFormData] = useState({
-    mode: "real" as "basic" | "real",
     provider: "iocl" as "iocl" | "bpcl" | "hp" | "shell" | "generic",
-    stationName: "Kannan Agencies",
-    address: "Railway gate west Pudukkottai - 622001",
+    stationName: "City Fuel Station",
+    address: "Outer Ring Road, Bengaluru – 560037",
     fuelType: "Petrol",
     amount: 2000,
     rate: 106.31,
+    volume: "",
     date: new Date().toISOString().slice(0, 10),
     time: "10:30",
-    vehicleNumber: "MH 02 AB 1234",
-    invoiceNo: "TXN" + Math.floor(100000 + Math.random() * 900000),
+    vehicleNumber: "KA 05 MN 1234",
+    invoiceNo: "",
     wrinkle: "light" as "none" | "light" | "medium",
   });
+
+  useEffect(() => {
+    if (!formData.invoiceNo) {
+      setFormData((prev) => ({
+        ...prev,
+        invoiceNo: "TXN" + Math.floor(100000 + Math.random() * 900000),
+      }));
+    }
+  }, []);
+  // Auto-calc Amount when Volume changes
+  useEffect(() => {
+    if (formData.volume && formData.rate) {
+      setFormData((f) => ({
+        ...f,
+        amount: Number(f.volume) * Number(f.rate),
+      }));
+    }
+  }, [formData.volume, formData.rate]);
+
+  // Auto-calc Volume when Amount changes
+  useEffect(() => {
+    if (formData.amount && formData.rate) {
+      setFormData((f) => ({
+        ...f,
+        volume: (Number(f.amount) / Number(f.rate)).toFixed(2),
+      }));
+    }
+  }, [formData.amount, formData.rate]);
 
   // --- REMOVED: Download Type State ---
 
@@ -93,7 +121,12 @@ export default function FuelBillPage() {
             </span>
           </h1>
           <p className="text-gray-600 mt-2">
-            The Online Fuel Bill Generator helps you create petrol and diesel receipts for reimbursement instantly. Whether you’re looking for a petrol bill generator online, a diesel bill generator for office claims, or a fuel receipt generator for DA and travel allowance, this tool produces highly realistic thermal bill formats similar to petrol pump receipts.
+            The Online Fuel Bill Generator helps you create petrol and diesel
+            receipts for reimbursement instantly. Whether you’re looking for a
+            petrol bill generator online, a diesel bill generator for office
+            claims, or a fuel receipt generator for DA and travel allowance,
+            this tool produces highly realistic thermal bill formats similar to
+            petrol pump receipts.
           </p>
         </div>
 
@@ -105,72 +138,69 @@ export default function FuelBillPage() {
               <label className="block text-sm font-bold text-blue-900 mb-3">
                 1. Select Receipt Style
               </label>
-              {formData.mode === "real" && (
-                <div className="mt-4 mb-4 bg-blue-50 p-3 rounded-lg border border-blue-100">
-                  <label className="block text-xs font-bold text-blue-900 mb-2">
-                    Paper Condition (Texture)
-                  </label>
+              <div className="mt-4 mb-4 bg-blue-50 p-3 rounded-lg border border-blue-100">
+                <label className="block text-xs font-bold text-blue-900 mb-2">
+                  Paper Condition (Texture)
+                </label>
 
-                  <div className="grid grid-cols-3 gap-2">
-                    {[
-                      { id: "light", label: "Light" },
-                      { id: "medium", label: "Medium" },
-                      { id: "none", label: "Clean" },
-                    ].map((opt) => (
-                      <button
-                        key={opt.id}
-                        onClick={() =>
-                          setFormData((p) => ({ ...p, wrinkle: opt.id as any }))
-                        }
-                        className={`py-2 px-1 rounded-md text-xs font-bold border transition-all ${
-                          formData.wrinkle === opt.id
-                            ? "bg-blue-600 text-white border-blue-700 shadow-sm"
-                            : "bg-white text-gray-600 border border-blue-200 hover:bg-blue-100"
-                        }`}
-                      >
-                        {opt.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Provider Logos (Only show if Real mode is on) */}
-              {formData.mode === "real" && (
-                <div className="grid grid-cols-4 gap-2">
+                <div className="grid grid-cols-3 gap-2">
                   {[
-                    {
-                      id: "iocl",
-                      label: "Indian Oil",
-                      color: "border-orange-500",
-                    },
-                    {
-                      id: "bpcl",
-                      label: "Bharat Pet",
-                      color: "border-yellow-500",
-                    },
-                    { id: "hp", label: "HP", color: "border-blue-500" },
-                    { id: "shell", label: "Shell", color: "border-red-500" },
-                  ].map((brand) => (
+                    { id: "light", label: "Light" },
+                    { id: "medium", label: "Medium" },
+                    { id: "none", label: "Clean" },
+                  ].map((opt) => (
                     <button
-                      key={brand.id}
+                      key={opt.id}
                       onClick={() =>
-                        setFormData((p) => ({
-                          ...p,
-                          provider: brand.id as any,
-                        }))
+                        setFormData((p) => ({ ...p, wrinkle: opt.id as any }))
                       }
-                      className={`py-2 px-1 border-2 rounded-lg text-xs font-bold transition-all ${
-                        formData.provider === brand.id
-                          ? `${brand.color} bg-white shadow-md transform scale-105`
-                          : "border-transparent bg-blue-100/50 text-gray-600 hover:bg-white"
+                      className={`py-2 px-1 rounded-md text-xs font-bold border transition-all ${
+                        formData.wrinkle === opt.id
+                          ? "bg-blue-600 text-white border-blue-700 shadow-sm"
+                          : "bg-white text-gray-600 border border-blue-200 hover:bg-blue-100"
                       }`}
                     >
-                      {brand.label}
+                      {opt.label}
                     </button>
                   ))}
                 </div>
-              )}
+              </div>
+
+              {/* Provider Logos (Only show if Real mode is on) */}
+
+              <div className="grid grid-cols-4 gap-2">
+                {[
+                  {
+                    id: "iocl",
+                    label: "Indian Oil",
+                    color: "border-orange-500",
+                  },
+                  {
+                    id: "bpcl",
+                    label: "Bharat Pet",
+                    color: "border-yellow-500",
+                  },
+                  { id: "hp", label: "HP", color: "border-blue-500" },
+                  { id: "shell", label: "Shell", color: "border-red-500" },
+                ].map((brand) => (
+                  <button
+                    key={brand.id}
+                    onClick={() =>
+                      setFormData((p) => ({
+                        ...p,
+                        provider: brand.id as any,
+                      }))
+                    }
+                    className={`py-2 px-1 border-2 rounded-lg text-xs font-bold transition-all ${
+                      formData.provider === brand.id
+                        ? `${brand.color} bg-white shadow-md transform scale-105`
+                        : "border-transparent bg-blue-100/50 text-gray-600 hover:bg-white"
+                    }`}
+                  >
+                    {brand.label}
+                  </button>
+                ))}
+              </div>
             </div>
             <h2 className="text-lg font-semibold text-gray-800 border-b pb-2">
               Bill Details
@@ -245,9 +275,27 @@ export default function FuelBillPage() {
                 name="amount"
                 type="number"
                 value={formData.amount}
-                onChange={handleChange}
+                onChange={(e) => {
+                  let value = e.target.value;
+                  // Restrict to 2 decimals max
+                  if (value.includes(".")) {
+                    const [int, dec] = value.split(".");
+                    value = int + "." + dec.substring(0, 2);
+                  }
+                  setFormData(prev => ({ ...prev, amount: Number(value) }));
+
+                }}
                 Icon={IndianRupee}
               />
+              <BillInput
+                label="Volume (Litres)"
+                name="volume"
+                type="number"
+                step="0.01"
+                value={formData.volume}
+                onChange={handleChange}
+              />
+
               <BillInput
                 label="Date"
                 name="date"
@@ -279,12 +327,11 @@ export default function FuelBillPage() {
             {/* The Wrapper that gets screenshotted */}
             <div className="border-x border-b border-gray-200 bg-gray-50 p-4 rounded-b-xl flex justify-center overflow-x-auto">
               {/* --- MODIFIED: Adjusted width from 224px to 256px --- */}
-              <div className="max-w-xs sm:max-w-[286px] w-full">
+              <div className="max-w-xs sm:max-w-[291px] w-full">
                 <FuelPreview ref={billRef} data={formData} />
               </div>
             </div>
 
- 
             <DownloadButton
               billRef={billRef}
               fileName={`Fuel_Bill_${formData.date}.pdf`}
@@ -293,12 +340,9 @@ export default function FuelBillPage() {
         </div>
 
         {/* --- SEO GUIDE SECTION (No changes) --- */}
-        
 
-    <FuelBillSEOSection />
-
+        <FuelBillSEOSection />
       </div>
-
     </>
   );
 }
