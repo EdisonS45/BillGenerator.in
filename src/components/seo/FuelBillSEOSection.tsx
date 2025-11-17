@@ -1,6 +1,8 @@
 "use client";
 import React from "react";
 import { CheckCircle2, ChevronRight } from "lucide-react";
+import Link from "next/link";
+
 
 export default function FuelBillSEOSection() {
   const faqs = [
@@ -226,6 +228,58 @@ export default function FuelBillSEOSection() {
               ))}
             </div>
           </div>
+          {/* PHASE-3 — Alternative Tools Table */}
+<div className="bg-white rounded-2xl p-8 shadow-sm space-y-5 mt-14">
+  <h3 className="text-xl font-bold text-gray-900 mb-4">Alternative Generators</h3>
+
+  <table className="w-full text-sm border-collapse overflow-hidden rounded-lg">
+    <thead className="bg-gray-50 text-gray-700">
+      <tr>
+        <th className="py-3 px-4 text-left">Tool Name</th>
+        <th className="py-3 px-4 text-center">Best For</th>
+        <th className="py-3 px-4 text-right">Open</th>
+      </tr>
+    </thead>
+    <tbody className="text-gray-700">
+      {[
+        { name: "Restaurant Bill Generator", use: "Food & hotel claim receipts", href: "/restaurant-bill-generator" },
+        { name: "Taxi Receipt Generator", use: "Ride, cab & travel claims", href: "/taxi-receipt-generator" },
+        { name: "Internet Bill Generator", use: "Broadband / WiFi reimbursement", href: "/internet-bill-generator" },
+        { name: "LTA Flight Ticket Invoice Generator", use: "LTA / LTC corporate claims", href: "/lta-bill-generator" },
+      ].map((t, i) => (
+        <tr key={i} className="border-b border-gray-100">
+          <td className="py-3 px-4">{t.name}</td>
+          <td className="py-3 px-4 text-center">{t.use}</td>
+          <td className="py-3 px-4 text-right">
+            <Link href={t.href} className="text-blue-600 hover:underline">Open</Link>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+{/* PHASE-3 — More FAQ (People Also Ask style) */}
+<div className="mt-12 space-y-4">
+  {[
+    "Can this fuel bill be submitted for company reimbursements?",
+    "Is the petrol bill generated here accepted by HR departments?",
+    "Do I need to create an account to generate fuel receipts?",
+    "Can I enter a custom petrol pump name and invoice number?",
+    "Does this tool support PDF download on mobile?",
+  ].map((question, index) => (
+    <details key={index} className="group bg-white/90 rounded-lg p-4 border cursor-pointer">
+      <summary className="font-semibold text-gray-900 flex justify-between items-center list-none">
+        {question}
+        <span className="transition-transform group-open:rotate-90 text-blue-600">›</span>
+      </summary>
+      <p className="text-sm text-gray-700 leading-relaxed mt-3">
+        Yes — {question.replace("?", "")}. All receipts are client-side generated and formatted for claim submission.
+      </p>
+    </details>
+  ))}
+</div>
+
+
         </div>
 
 

@@ -71,9 +71,9 @@ export function LogoFooter({
           Bill
           <span className="text-blue-500">Generator</span>
         </span>
-        <span className="text-[10px] font-semibold text-gray-400 tracking-widest uppercase">
-          India
-        </span>
+<span className="text-xs font-medium text-white-500 tracking-wider uppercase">
+          INDIA
+        </span>    
       </div>
     </div>
   );

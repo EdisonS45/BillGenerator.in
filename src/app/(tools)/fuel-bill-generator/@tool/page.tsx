@@ -338,9 +338,11 @@ export default function FuelBillPage() {
           </div>
         </div>
 
-        {/* --- SEO GUIDE SECTION (No changes) --- */}
-
-        <FuelBillSEOSection />
+      {/* <section className="w-full bg-white mt-24">
+        <div className="max-w-6xl mx-auto px-4">
+          <FuelBillSEOSection />
+        </div>
+      </section> */}
       </div>
     </>
   );
